@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@hope-ui/solid': ^0.6.7
+  '@solidjs/router': ^0.4.3
   '@stitches/core': ^1.2.8
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.36.2
@@ -26,6 +27,7 @@ specifiers:
 
 dependencies:
   '@hope-ui/solid': 0.6.7_4ddgkz4q67bb2nzibxa5sjagay
+  '@solidjs/router': 0.4.3_solid-js@1.5.4
   '@stitches/core': 1.2.8
   dexie: 3.2.2
   nanoid: 4.0.0
@@ -1471,6 +1473,14 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
     dev: true
+
+  /@solidjs/router/0.4.3_solid-js@1.5.4:
+    resolution: {integrity: sha512-mYpd4HxpH/3UZjHGTr2dhvPGXu034Ktxd05CJGA6nRjRGYCgUfhCQHRdEivyqJyb4LhHyDht4ny5xmwEOkUTaQ==}
+    peerDependencies:
+      solid-js: ^1.3.5
+    dependencies:
+      solid-js: 1.5.4
+    dev: false
 
   /@stitches/core/1.2.8:
     resolution: {integrity: sha512-Gfkvwk9o9kE9r9XNBmJRfV8zONvXThnm1tcuojL04Uy5uRyqg93DC83lDebl0rocZCfKSjUv+fWYtMQmEDJldg==}
