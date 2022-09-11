@@ -13,6 +13,7 @@ specifiers:
   eslint-plugin-n: ^15.0.0
   eslint-plugin-promise: ^6.0.0
   eslint-plugin-solid: ^0.7.1
+  ky: ^0.31.3
   nanoid: ^4.0.0
   solid-dexie: ^0.0.5
   solid-js: ^1.5.4
@@ -30,6 +31,7 @@ dependencies:
   '@solidjs/router': 0.4.3_solid-js@1.5.4
   '@stitches/core': 1.2.8
   dexie: 3.2.2
+  ky: 0.31.3
   nanoid: 4.0.0
   solid-dexie: 0.0.5_dexie@3.2.2+solid-js@1.5.4
   solid-js: 1.5.4
@@ -3140,6 +3142,11 @@ packages:
   /known-css-properties/0.24.0:
     resolution: {integrity: sha512-RTSoaUAfLvpR357vWzAz/50Q/BmHfmE6ETSWfutT0AJiw10e6CmcdYRQJlLRd95B53D0Y2aD1jSxD3V3ySF+PA==}
     dev: true
+
+  /ky/0.31.3:
+    resolution: {integrity: sha512-YDDQKG0Lt4PFSPZGJI8WKAm5y+1ebbeA306am+4nT7riX13wjNVD5sR/QOKtgsaQaARwrdUHlv0M9kJ1qv+Jug==}
+    engines: {node: '>=14.16'}
+    dev: false
 
   /leven/3.1.0:
     resolution: {integrity: sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==}

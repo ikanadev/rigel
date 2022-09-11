@@ -28,6 +28,7 @@
     "@solidjs/router": "^0.4.3",
     "@stitches/core": "^1.2.8",
     "dexie": "^3.2.2",
+    "ky": "^0.31.3",
     "nanoid": "^4.0.0",
     "solid-dexie": "^0.0.5",
     "solid-js": "^1.5.4",
