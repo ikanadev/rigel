@@ -20,6 +20,14 @@ export interface School {
   lon: string
 }
 
+export interface Teacher {
+  id: string
+  name: string
+  last_name: string
+  email: string
+  password: string
+}
+
 // App
 export interface InputState {
   value: string

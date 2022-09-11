@@ -10,12 +10,13 @@ import {
   Heading,
   Input,
   Button,
+  Anchor,
 } from '@hope-ui/solid';
 import { Logo } from '@app/icons';
 import { ColorModeButton } from '@app/components';
 
 import { createStore } from 'solid-js/store';
-import { useNavigate } from '@solidjs/router';
+import { useNavigate, Link } from '@solidjs/router';
 import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from '@app/utils/functions';
 import { signUp } from '@app/api';
 
@@ -162,6 +163,12 @@ const SignUp: Component = () => {
           <Button disabled={isDisabled()} mt="$8" type="submit">
             Darme de Alta
           </Button>
+          <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
+            ¿Ya tienes una cuenta?{' '}
+            <Anchor as={Link} href="/signin" fontWeight="$bold" color="$primary11">
+              Iniciar sesión
+            </Anchor>
+          </Text>
         </Flex>
       </form>
     </Container>
