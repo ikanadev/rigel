@@ -18,7 +18,10 @@ import { ColorModeButton } from '@app/components';
 import { createStore } from 'solid-js/store';
 import { useNavigate, Link } from '@solidjs/router';
 import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from '@app/utils/functions';
+import { JWT_KEY } from '@app/utils/constants';
 import { signIn } from '@app/api';
+import { saveTeacher } from '@app/db/teacher';
+import saveStaticData from './saveStaticData';
 
 interface FormData {
   email: InputState
@@ -33,6 +36,7 @@ const emptyField: () => InputState = () => ({ value: '', errorMsg: '', isTouched
 const SignIn: Component = () => {
   const navigate = useNavigate();
   const [serverErr, setServerErr] = createSignal('');
+  const [isLoading, setIsLoading] = createSignal(false);
   const [formData, setFormData] = createStore<FormData>({
     email: emptyField(),
     password: emptyField(),
@@ -68,20 +72,26 @@ const SignIn: Component = () => {
 
   const handleSubmit: JSX.EventHandlerUnion<HTMLFormElement, Event> = (ev) => {
     ev.preventDefault();
-    signIn({
-      email: formData.email.value,
-      password: formData.password.value,
-    }).then((resp) => {
-      // TODO: save to indexedDb and redirect
-      console.log(navigate);
-      console.log(resp);
-    }).catch((err) => {
+    setIsLoading(true);
+    const handleSave = async (): Promise<void> => {
+      const resp = await signIn({
+        email: formData.email.value,
+        password: formData.password.value,
+      });
+      await saveTeacher(resp.teacher);
+      await saveStaticData();
+      localStorage.setItem(JWT_KEY, resp.jwt);
+      navigate('/');
+    };
+    handleSave().catch((err) => {
       getErrorMsg(err).then((msg) => {
         setServerErr(msg);
       }).catch((err) => {
         // TODO: handle 500 errors
         console.log(err);
       });
+    }).finally(() => {
+      setIsLoading(false);
     });
   };
 
@@ -133,7 +143,7 @@ const SignIn: Component = () => {
             <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
             </Show>
-            <Button disabled={isDisabled()} mt="$8" type="submit">
+            <Button disabled={isDisabled()} loading={isLoading()} mt="$8" type="submit">
               Iniciar
             </Button>
             <Text color="$neutral11" textAlign="right" size="sm" mt="$2">

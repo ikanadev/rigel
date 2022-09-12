@@ -16,8 +16,12 @@ export const minLenValidator = (len: number) => (val: string) => {
 
 // Verify http error
 export const getErrorMsg = async (error: unknown): Promise<string> => {
-  // @ts-expect-error
-  let resp = error.response;
-  resp = await resp.json();
-  return resp.message;
+  try {
+    // @ts-expect-error
+    let resp = error.response;
+    resp = await resp.json();
+    return resp.message;
+  } catch (err) {
+    throw error;
+  }
 };

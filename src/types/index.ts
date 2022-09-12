@@ -28,6 +28,33 @@ export interface Teacher {
   password: string
 }
 
+export interface Subject {
+  id: string
+  name: string
+}
+export interface Grade {
+  id: string
+  name: string
+}
+
+export interface Period {
+  id: string
+  name: string
+}
+export interface Area {
+  id: string
+  name: string
+  points: number
+}
+export interface Year {
+  id: string
+  value: number
+  edges: {
+    periods: Period[]
+    areas: Area[]
+  }
+}
+
 // App
 export interface InputState {
   value: string
