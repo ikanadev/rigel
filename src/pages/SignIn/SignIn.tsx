@@ -104,43 +104,45 @@ const SignIn: Component = () => {
       </Flex>
 
       <form onSubmit={handleSubmit}>
-        <Flex flexDirection="column" mt="$8">
-          <Heading level="3" size="xl" color="$primary9" mb="$4">
-            Iniciar sesión:
-          </Heading>
-          <Text color="$danger10" size="sm" textAlign="center">{serverErr()}</Text>
-          <Input
-            onInput={onChange}
-            value={formData.email.value}
-            name="email"
-            placeholder="Correo"
-            invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
-            mt="$4"
-          />
-          <Show when={formData.email.isTouched && formData.email.errorMsg !== ''}>
-            <Text color="$danger10" size="sm">{formData.email.errorMsg}</Text>
-          </Show>
-          <Input
-            onInput={onChange}
-            value={formData.password.value}
-            name="password"
-            placeholder="Contraseña"
-            invalid={formData.password.isTouched && formData.password.errorMsg !== ''}
-            mt="$4"
-            type="password"
-          />
-          <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
-            <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
-          </Show>
-          <Button disabled={isDisabled()} mt="$8" type="submit">
-            Iniciar
-          </Button>
-          <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
-            ¿Aún no tienes una cuenta?{' '}
-            <Anchor as={Link} href="/signup" fontWeight="$bold" color="$primary11">
-              Registrarme
-            </Anchor>
-          </Text>
+        <Flex justifyContent="center">
+          <Flex flexDirection="column" mt="$8" w="$full" maxW="$96">
+            <Heading level="3" size="xl" color="$primary9" mb="$4">
+              Iniciar sesión:
+            </Heading>
+            <Text color="$danger10" size="sm" textAlign="center">{serverErr()}</Text>
+            <Input
+              onInput={onChange}
+              value={formData.email.value}
+              name="email"
+              placeholder="Correo"
+              invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
+              mt="$4"
+            />
+            <Show when={formData.email.isTouched && formData.email.errorMsg !== ''}>
+              <Text color="$danger10" size="sm">{formData.email.errorMsg}</Text>
+            </Show>
+            <Input
+              onInput={onChange}
+              value={formData.password.value}
+              name="password"
+              placeholder="Contraseña"
+              invalid={formData.password.isTouched && formData.password.errorMsg !== ''}
+              mt="$4"
+              type="password"
+            />
+            <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
+              <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
+            </Show>
+            <Button disabled={isDisabled()} mt="$8" type="submit">
+              Iniciar
+            </Button>
+            <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
+              ¿Aún no tienes una cuenta?{' '}
+              <Anchor as={Link} href="/signup" fontWeight="$bold" color="$primary11">
+                Registrarme
+              </Anchor>
+            </Text>
+          </Flex>
         </Flex>
       </form>
     </Container>

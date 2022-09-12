@@ -110,65 +110,67 @@ const SignUp: Component = () => {
       </Flex>
 
       <form onSubmit={handleSubmit}>
-        <Flex flexDirection="column" mt="$8">
-          <Heading level="3" size="xl" color="$primary9" mb="$4">
-            Registrate para iniciar:
-          </Heading>
-          <Text color="$danger10" size="sm" textAlign="center">{serverErr()}</Text>
-          <Input
-            onInput={onChange}
-            value={formData.name.value}
-            name="name"
-            placeholder="Nombre(s)"
-            invalid={formData.name.isTouched && formData.name.errorMsg !== ''}
-            mt="$4"
-          />
-          <Show when={formData.name.isTouched && formData.name.errorMsg !== ''}>
-            <Text color="$danger10" size="sm">{formData.name.errorMsg}</Text>
-          </Show>
-          <Input
-            onInput={onChange}
-            value={formData.lastName.value}
-            name="lastName"
-            placeholder="Apellidos"
-            invalid={formData.lastName.isTouched && formData.lastName.errorMsg !== ''}
-            mt="$4"
-          />
-          <Show when={formData.lastName.isTouched && formData.lastName.errorMsg !== ''}>
-            <Text color="$danger10" size="sm">{formData.lastName.errorMsg}</Text>
-          </Show>
-          <Input
-            onInput={onChange}
-            value={formData.email.value}
-            name="email"
-            placeholder="Correo"
-            invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
-            mt="$4"
-          />
-          <Show when={formData.email.isTouched && formData.email.errorMsg !== ''}>
-            <Text color="$danger10" size="sm">{formData.email.errorMsg}</Text>
-          </Show>
-          <Input
-            onInput={onChange}
-            value={formData.password.value}
-            name="password"
-            placeholder="Contraseña"
-            invalid={formData.password.isTouched && formData.password.errorMsg !== ''}
-            mt="$4"
-            type="password"
-          />
-          <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
-            <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
-          </Show>
-          <Button disabled={isDisabled()} mt="$8" type="submit">
-            Darme de Alta
-          </Button>
-          <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
-            ¿Ya tienes una cuenta?{' '}
-            <Anchor as={Link} href="/signin" fontWeight="$bold" color="$primary11">
-              Iniciar sesión
-            </Anchor>
-          </Text>
+        <Flex justifyContent="center">
+          <Flex flexDirection="column" mt="$8" w="$full" maxW="$96">
+            <Heading level="3" size="xl" color="$primary9" mb="$4">
+              Registrate para iniciar:
+            </Heading>
+            <Text color="$danger10" size="sm" textAlign="center">{serverErr()}</Text>
+            <Input
+              onInput={onChange}
+              value={formData.name.value}
+              name="name"
+              placeholder="Nombre(s)"
+              invalid={formData.name.isTouched && formData.name.errorMsg !== ''}
+              mt="$4"
+            />
+            <Show when={formData.name.isTouched && formData.name.errorMsg !== ''}>
+              <Text color="$danger10" size="sm">{formData.name.errorMsg}</Text>
+            </Show>
+            <Input
+              onInput={onChange}
+              value={formData.lastName.value}
+              name="lastName"
+              placeholder="Apellidos"
+              invalid={formData.lastName.isTouched && formData.lastName.errorMsg !== ''}
+              mt="$4"
+            />
+            <Show when={formData.lastName.isTouched && formData.lastName.errorMsg !== ''}>
+              <Text color="$danger10" size="sm">{formData.lastName.errorMsg}</Text>
+            </Show>
+            <Input
+              onInput={onChange}
+              value={formData.email.value}
+              name="email"
+              placeholder="Correo"
+              invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
+              mt="$4"
+            />
+            <Show when={formData.email.isTouched && formData.email.errorMsg !== ''}>
+              <Text color="$danger10" size="sm">{formData.email.errorMsg}</Text>
+            </Show>
+            <Input
+              onInput={onChange}
+              value={formData.password.value}
+              name="password"
+              placeholder="Contraseña"
+              invalid={formData.password.isTouched && formData.password.errorMsg !== ''}
+              mt="$4"
+              type="password"
+            />
+            <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
+              <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
+            </Show>
+            <Button disabled={isDisabled()} mt="$8" type="submit">
+              Darme de Alta
+            </Button>
+            <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
+              ¿Ya tienes una cuenta?{' '}
+              <Anchor as={Link} href="/signin" fontWeight="$bold" color="$primary11">
+                Iniciar sesión
+              </Anchor>
+            </Text>
+          </Flex>
         </Flex>
       </form>
     </Container>
