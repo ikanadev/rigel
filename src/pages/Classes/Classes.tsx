@@ -1,13 +1,16 @@
 import type { Component } from 'solid-js';
 
-import { Heading, Anchor } from '@hope-ui/solid';
+import { Anchor } from '@hope-ui/solid';
 import { Link } from '@solidjs/router';
+import { Title } from '@app/components';
 
 const Classes: Component = () => {
   return (
     <>
-      <Heading color="$primary10">My Classes</Heading>
-      <Anchor as={Link} href="/class/new">Volver</Anchor>
+      <Title text="Mis cursos" />
+      <Anchor as={Link} href="/class/new">
+        Nueva clase
+      </Anchor>
     </>
   );
 };

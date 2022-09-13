@@ -1,13 +1,18 @@
 import type { Component } from 'solid-js';
 
-import { Heading, Anchor } from '@hope-ui/solid';
-import { Link } from '@solidjs/router';
+import { Show } from 'solid-js';
+import { Text } from '@hope-ui/solid';
+import { OfflineMessage, Title } from '@app/components';
+
+import { isOnline } from '@app/hooks';
 
 const NewClass: Component = () => {
   return (
     <>
-      <Heading color="$primary10">Create new Class</Heading>
-      <Anchor as={Link} href="/">Volver</Anchor>
+      <Title text="Nuevo curso" backTo="/" />
+      <Show when={isOnline()} fallback={<OfflineMessage />}>
+        <Text>Formulario de nuevo curso</Text>
+      </Show>
     </>
   );
 };

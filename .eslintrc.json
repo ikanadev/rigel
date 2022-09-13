@@ -19,6 +19,7 @@
     "rules": {
       "@typescript-eslint/semi": ["error", "always"],
       "@typescript-eslint/promise-function-async": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
       "comma-dangle": ["error", "always-multiline"]
     }
 }
