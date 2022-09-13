@@ -1,6 +1,6 @@
-import { EMAIL_REGEX } from './constants';
+import { EMAIL_REGEX, JWT_KEY } from './constants';
 
-export const getToken = (): string | null => localStorage.getItem('token');
+export const getToken = (): string | null => localStorage.getItem(JWT_KEY);
 
 // Form validators
 export const nonEmptyValidator = (val: string): string => {

@@ -55,6 +55,16 @@ export interface Year {
   }
 }
 
+export interface Class {
+  id: string
+  parallel: string
+  edges: {
+    subject: Subject
+    grade: Grade
+    year: Omit<Year, 'edges'>
+  }
+}
+
 // App
 export interface InputState {
   value: string

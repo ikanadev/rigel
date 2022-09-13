@@ -1,6 +1,6 @@
 import { api } from './api';
 
-import type { Teacher, Year, Grade, Subject } from '@app/types';
+import type { Teacher, Year, Grade, Subject, Class } from '@app/types';
 
 interface SignUpReq {
   name: string
@@ -36,5 +36,10 @@ interface GetGradesAndSubjectsRes {
 }
 export const getGradesAndSubjects = async (): Promise<GetGradesAndSubjectsRes> => {
   const resp = await api.get('static');
+  return await resp.json();
+};
+
+export const getClasses = async (): Promise<Class[]> => {
+  const resp = await api.get('auth/classes');
   return await resp.json();
 };

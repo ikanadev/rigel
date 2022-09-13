@@ -21,7 +21,6 @@ import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from 
 import { JWT_KEY } from '@app/utils/constants';
 import { signIn } from '@app/api';
 import { saveTeacher } from '@app/db/teacher';
-import saveStaticData from './saveStaticData';
 
 interface FormData {
   email: InputState
@@ -79,7 +78,6 @@ const SignIn: Component = () => {
         password: formData.password.value,
       });
       await saveTeacher(resp.teacher);
-      await saveStaticData();
       localStorage.setItem(JWT_KEY, resp.jwt);
       navigate('/');
     };

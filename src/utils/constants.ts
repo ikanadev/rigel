@@ -1,6 +1,6 @@
 // Indexed DB
 export const DB_NAME = 'RIGEL_LOCAL';
-export const DB_VERSION = 3;
+export const DB_VERSION = 4;
 
 export const JWT_KEY = 'jwt';
 export const API_URL = 'http://localhost:4000/';
