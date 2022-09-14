@@ -3,6 +3,7 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "resolveJsonModule": true,
+    "baseUrl": "src",
 
     "strict": true,
     "target": "ESNext",
@@ -22,7 +23,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "paths": {
-      "@app/*": ["./src/*"]
+      "@app/*": ["./*"]
     }
   },
   "include": ["vite.config.ts", "**/*.ts", "**/*.tsx"],

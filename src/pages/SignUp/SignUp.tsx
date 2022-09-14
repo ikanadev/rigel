@@ -1,5 +1,5 @@
 import type { Component, JSX } from 'solid-js';
-import type { InputState } from '@app/types';
+import type { InputState, FormSubmitHandler } from '@app/types';
 
 import { Show, createSignal } from 'solid-js';
 import {
@@ -72,7 +72,7 @@ const SignUp: Component = () => {
     setFormData(field, 'errorMsg', errorStr);
   };
 
-  const handleSubmit: JSX.EventHandlerUnion<HTMLFormElement, Event> = (ev) => {
+  const handleSubmit: FormSubmitHandler = (ev) => {
     ev.preventDefault();
     signUp({
       name: formData.name.value,

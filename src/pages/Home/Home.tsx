@@ -3,6 +3,7 @@ import type { Component } from 'solid-js';
 import { Show, onMount } from 'solid-js';
 import { Container } from '@hope-ui/solid';
 import { Header } from '@app/components';
+import { AppProvider } from '@app/context';
 
 import { useNavigate, Outlet } from '@solidjs/router';
 import { syncClasses } from '@app/db/class';
@@ -24,10 +25,12 @@ const Home: Component = () => {
 
   return (
     <Show when={jwt !== null}>
-      <Header />
-      <Container p="$4">
-        <Outlet />
-      </Container>
+      <AppProvider>
+        <Header />
+        <Container p="$4">
+          <Outlet />
+        </Container>
+      </AppProvider>
     </Show>
   );
 };

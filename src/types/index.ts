@@ -1,3 +1,5 @@
+import type { JSX } from 'solid-js';
+
 export interface Municipio {
   id: number
   name: string
@@ -71,3 +73,4 @@ export interface InputState {
   errorMsg: string
   isTouched: boolean
 }
+export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;

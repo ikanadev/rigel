@@ -14,7 +14,7 @@ const Title: Component<Props> = (props) => {
     document.title = `Rigel | ${props.text}`;
   });
   return (
-    <Flex alignItems="center">
+    <Flex alignItems="center" mb="$6">
       <Show when={props.backTo !== undefined}>
         <Anchor as={Link} href={props.backTo ?? '/'}>
           <IconButton
