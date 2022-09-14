@@ -20,7 +20,7 @@ import { useNavigate } from '@solidjs/router';
 import { db } from '@app/db/dexie';
 import { JWT_KEY } from '@app/utils/constants';
 
-const Home: Component = () => {
+const Home: Component<{ openDrawer: () => void }> = (props) => {
   const navigate = useNavigate();
   const teacher = createDexieSignalQuery(() => db.teachers.toCollection().first());
 
@@ -43,6 +43,7 @@ const Home: Component = () => {
             icon={<Bars3 />}
             variant="subtle"
             size="sm"
+            onClick={() => props.openDrawer()}
           />
           <Heading color="$primary9" size="lg" ml="$2">
             Rigel
