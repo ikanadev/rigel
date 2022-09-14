@@ -22,11 +22,12 @@ const Title: Component<Props> = (props) => {
             variant="subtle"
             size="sm"
             mr="$2"
+            colorScheme="neutral"
             icon={<ChevronLeft />}
           />
         </Anchor>
       </Show>
-      <Heading color="$primary10" size="xl">{props.text}</Heading>
+      <Heading size="2xl">{props.text}</Heading>
     </Flex>
   );
 };

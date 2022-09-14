@@ -49,8 +49,8 @@ export const getGradesAndSubjects = async (): Promise<GetGradesAndSubjectsRes> =
   return await resp.json();
 };
 
-export const getClasses = async (): Promise<Class[]> => {
-  const resp = await api.get('auth/classes');
+export const getClasses = async (yearId: string): Promise<Class[]> => {
+  const resp = await api.get(`auth/classes/year/${yearId}`);
   return await resp.json();
 };
 

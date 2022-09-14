@@ -6,7 +6,6 @@ import { Header } from '@app/components';
 import { AppProvider } from '@app/context';
 
 import { useNavigate, Outlet } from '@solidjs/router';
-import { syncClasses } from '@app/db/class';
 import { syncStaticData } from '@app/db/static';
 import { JWT_KEY } from '@app/utils/constants';
 
@@ -19,7 +18,6 @@ const Home: Component = () => {
       navigate('/signin');
       return;
     }
-    void syncClasses();
     void syncStaticData();
   });
 

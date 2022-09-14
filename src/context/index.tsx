@@ -3,6 +3,7 @@ import type { Year, Period, Area } from '@app/types';
 import { createContext, useContext, createEffect, Show, ParentComponent } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { createDexieArrayQuery } from 'solid-dexie';
+import { fetchAndSyncClasses } from '@app/db/class';
 import { db } from '@app/db/dexie';
 
 export interface AppContextValues {
@@ -50,6 +51,7 @@ export const AppProvider: ParentComponent = (props) => {
       periods: year.edges.periods,
       areas: year.edges.areas,
     });
+    void fetchAndSyncClasses(year.id);
   };
   return (
     <Show
