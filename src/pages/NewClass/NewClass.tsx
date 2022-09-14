@@ -16,7 +16,9 @@ import {
 
 import { createDexieArrayQuery } from 'solid-dexie';
 import { createStore } from 'solid-js/store';
-import { getDepartamentos, getProvincias, getMunicipios, getSchools } from '@app/api';
+import { useNavigate } from '@solidjs/router';
+import { getDepartamentos, getProvincias, getMunicipios, getSchools, newClass } from '@app/api';
+import { syncClasses } from '@app/db/class';
 import { useAppData } from '@app/context';
 import { isOnline } from '@app/hooks';
 import { db } from '@app/db/dexie';
@@ -32,6 +34,7 @@ interface FormData {
 }
 
 const NewClass: Component = () => {
+  const navigate = useNavigate();
   const { year } = useAppData();
   const [serverErr, setServerErr] = createSignal('');
   const [formData, setFormData] = createStore<FormData>({
@@ -77,16 +80,29 @@ const NewClass: Component = () => {
 
   const handleSubmit: FormSubmitHandler = (ev) => {
     ev.preventDefault();
+    if (formData.grade === null || formData.school === null || formData.subject === null) return;
+    newClass({
+      schoolId: formData.school,
+      subjectId: formData.subject,
+      gradeId: formData.grade,
+      yearId: year.id,
+      parallel: formData.parallel,
+    }).then((resp) => {
+      void syncClasses(resp);
+      navigate('/');
+    }).catch(() => {
+      setServerErr('Error guardando clase en el servidor, por favor cierre la WebApp e intente nuevamente.');
+    });
   };
 
   return (
     <>
-      <Title text={`Nuevo curso ${year.value}`} backTo="/" />
+      <Title text={`Nueva clase (${year.value})`} backTo="/" />
       <Show when={isOnline()} fallback={<Alert status="warning" text="Lo sentimos, pero esta sección requiere conexión a Internet." />}>
         <SimpleGrid columns={{ '@initial': 1, '@md': 2 }}>
           <form onSubmit={handleSubmit}>
             <Stack direction="column" gap="$4">
-              <Text>Luego de crear un curso podrá registrar estudiantes, controlar asistencia, actividades y notas.</Text>
+              <Text>Luego de crear una clase podrá registrar estudiantes, controlar asistencia, actividades y notas.</Text>
               <Alert status="danger" title="Error inesperado!" text={serverErr()} setText={setServerErr} />
 
               <Box>
