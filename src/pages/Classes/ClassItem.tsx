@@ -6,7 +6,7 @@ import { Link } from '@solidjs/router';
 
 const ClassItem: Component<{item: Class}> = (props) => {
   return (
-    <Link href="#">
+    <Link href={`/class/${props.item.id}`}>
       <Flex
         borderRadius="$sm"
         py="$3"

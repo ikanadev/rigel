@@ -1,9 +1,10 @@
 import type { Component } from 'solid-js';
 
 import { For } from 'solid-js';
-import { Anchor, SimpleGrid } from '@hope-ui/solid';
+import { SimpleGrid, Button } from '@hope-ui/solid';
 import { Link } from '@solidjs/router';
 import { Title } from '@app/components';
+import { Plus } from '@app/icons';
 import ClassItem from './ClassItem';
 
 import { createDexieArrayQuery } from 'solid-dexie';
@@ -21,9 +22,10 @@ const Classes: Component = () => {
           )}
         </For>
       </SimpleGrid>
-      <Anchor as={Link} href="/class/new">
-        Nueva clase
-      </Anchor>
+
+      <Button as={Link} href="/class/new" mt="$6" colorScheme="success" leftIcon={<Plus />}>
+        Nuevo curso
+      </Button>
     </>
   );
 };
