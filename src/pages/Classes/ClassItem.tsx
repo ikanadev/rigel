@@ -4,9 +4,14 @@ import type { Class } from '@app/types';
 import { Flex, Heading, Text, Badge, Box } from '@hope-ui/solid';
 import { Link } from '@solidjs/router';
 
+import { DEFAULT_CLASS_KEY } from '@app/utils/constants';
+
 const ClassItem: Component<{item: Class}> = (props) => {
   return (
-    <Link href={`/class/${props.item.id}`}>
+    <Link
+      href={`/class/${props.item.id}/attendance`}
+      onClick={() => localStorage.setItem(DEFAULT_CLASS_KEY, props.item.id)}
+    >
       <Flex
         borderRadius="$sm"
         py="$3"

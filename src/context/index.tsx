@@ -1,37 +1,45 @@
-import type { Year, Period, Area } from '@app/types';
+import type { Year, Period, Area, Class } from '@app/types';
 
-import { createContext, useContext, createEffect, Show, ParentComponent } from 'solid-js';
+import { createContext, useContext, createEffect, ParentComponent } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { fetchAndSyncClasses } from '@app/db/class';
 import { db } from '@app/db/dexie';
+import { DEFAULT_CLASS_KEY } from '@app/utils/constants';
 
-export interface AppContextValues {
+export interface AppContextData {
   year: Omit<Year, 'edges'>
   periods: Period[]
   areas: Area[]
+  selectedClass: Class | null
+}
+export interface AppContextActions {
   setYear: (year: Year) => void
+  setSelectedClass: (cl: Class | null) => void
+}
+export interface AppContextState {
+  appState: AppContextData
+  actions: AppContextActions
 }
 
-const AppContext = createContext<AppContextValues>({
+const defaultState: AppContextData = {
   year: { id: '', value: 0 },
   periods: [],
   areas: [],
-  setYear: () => undefined,
+  selectedClass: null,
+};
+const AppContext = createContext<AppContextState>({
+  appState: defaultState,
+  actions: {
+    setYear: () => undefined,
+    setSelectedClass: () => undefined,
+  },
 });
 
-interface AppProviderStore {
-  year: Omit<Year, 'edges'> | null
-  periods: Period[]
-  areas: Area[]
-}
 export const AppProvider: ParentComponent = (props) => {
   const localYears = createDexieArrayQuery(() => db.years.toArray());
-  const [data, setData] = createStore<AppProviderStore>({
-    year: null,
-    periods: [],
-    areas: [],
-  });
+  const classes = createDexieArrayQuery(() => db.classes.toArray());
+  const [data, setData] = createStore<AppContextData>(defaultState);
 
   createEffect(() => {
     if (localYears.length > 0) {
@@ -45,6 +53,19 @@ export const AppProvider: ParentComponent = (props) => {
     }
   });
 
+  createEffect(() => {
+    const classId = localStorage.getItem(DEFAULT_CLASS_KEY);
+    if (classId !== null) {
+      const classFound = classes.find((c) => c.id === classId);
+      if (classFound !== undefined) {
+        setSelectedClass(classFound);
+      }
+    }
+  });
+  createEffect(() => {
+    console.log('Changing Sel: ', data.selectedClass);
+  });
+
   const setYearData = (year: Year) => {
     setData({
       year: { id: year.id, value: year.value },
@@ -53,16 +74,21 @@ export const AppProvider: ParentComponent = (props) => {
     });
     void fetchAndSyncClasses(year.id);
   };
+
+  const setSelectedClass = (cl: Class | null) => {
+    if (cl === null) {
+      localStorage.removeItem(DEFAULT_CLASS_KEY);
+    } else {
+      localStorage.setItem(DEFAULT_CLASS_KEY, cl.id);
+    }
+    setData({ selectedClass: cl });
+    console.log('setting class: ', data.selectedClass);
+  };
+
   return (
-    <Show
-      when={data.year !== null && data.periods.length > 0 && data.areas.length > 0}
-      fallback={<p>Loading local data</p>}
-    >
-      {/* eslint-disable-next-line @typescript-eslint/no-non-null-assertion */}
-      <AppContext.Provider value={{ year: data.year!, periods: data.periods, areas: data.areas, setYear: setYearData }}>
-        {props.children}
-      </AppContext.Provider>
-    </Show>
+    <AppContext.Provider value={{ appState: data, actions: { setSelectedClass, setYear: setYearData } }}>
+      {props.children}
+    </AppContext.Provider>
   );
 };
 

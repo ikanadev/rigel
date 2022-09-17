@@ -122,6 +122,7 @@ const SignIn: Component = () => {
               onInput={onChange}
               value={formData.email.value}
               name="email"
+              type="email"
               placeholder="Correo"
               invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
               mt="$4"

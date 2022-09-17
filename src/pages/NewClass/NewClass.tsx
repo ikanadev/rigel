@@ -35,7 +35,7 @@ interface FormData {
 
 const NewClass: Component = () => {
   const navigate = useNavigate();
-  const { year } = useAppData();
+  const { appState } = useAppData();
   const [serverErr, setServerErr] = createSignal('');
   const [formData, setFormData] = createStore<FormData>({
     dpto: null,
@@ -85,7 +85,7 @@ const NewClass: Component = () => {
       schoolId: formData.school,
       subjectId: formData.subject,
       gradeId: formData.grade,
-      yearId: year.id,
+      yearId: appState.year.id,
       parallel: formData.parallel,
     }).then((resp) => {
       void syncClasses(resp);
@@ -97,7 +97,7 @@ const NewClass: Component = () => {
 
   return (
     <>
-      <Title text={`Nueva clase (${year.value})`} backTo="/" />
+      <Title text={`Nueva clase (${appState.year.value})`} backTo="/" />
       <Show when={isOnline()} fallback={<Alert status="warning" text="Lo sentimos, pero esta sección requiere conexión a Internet." />}>
         <SimpleGrid columns={{ '@initial': 1, '@md': 2 }}>
           <form onSubmit={handleSubmit}>

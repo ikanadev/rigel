@@ -6,6 +6,8 @@ import SignUp from '@app/pages/SignUp';
 import Classes from '@app/pages/Classes';
 import NewClass from '@app/pages/NewClass';
 import Class from '@app/pages/Class';
+import Attendance from '@app/pages/Attendance';
+import Students from '@app/pages/Students';
 
 const routes: RouteDefinition[] = [
   {
@@ -14,7 +16,14 @@ const routes: RouteDefinition[] = [
     children: [
       { path: '/', component: Classes },
       { path: '/class/new', component: NewClass },
-      { path: '/class/:classid', component: Class },
+      {
+        path: '/class/:classid',
+        component: Class,
+        children: [
+          { path: '/attendance', component: Attendance },
+          { path: '/students', component: Students },
+        ],
+      },
     ],
   },
   {
