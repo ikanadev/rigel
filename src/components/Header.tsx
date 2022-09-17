@@ -25,10 +25,11 @@ const Home: Component<{ openDrawer: () => void }> = (props) => {
           <Heading color="$primary9" size="lg" ml="$2">
             Rigel
           </Heading>
-          <Box flex="1" />
-          <Box maxW="$96" flex="4">
-            <ClassSelector />
-          </Box>
+          <Flex flex="1" justifyContent="end">
+            <Box maxW="$96" flex="1">
+              <ClassSelector />
+            </Box>
+          </Flex>
         </Flex>
       </Container>
     </Box>

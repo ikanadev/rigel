@@ -1,6 +1,6 @@
 // Indexed DB
 export const DB_NAME = 'RIGEL_LOCAL';
-export const DB_VERSION = 4;
+export const DB_VERSION = 6;
 
 export const JWT_KEY = 'jwt';
 export const DEFAULT_CLASS_KEY = 'default_class';

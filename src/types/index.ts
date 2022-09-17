@@ -67,10 +67,32 @@ export interface Class {
   }
 }
 
+export interface Student {
+  id: string
+  name: string
+  last_name: string
+  ci: string
+  class_id: string
+}
+export type StudentUpdate = Omit<Student, 'class_id'>;
+export interface StudentTransaction {
+  id: string
+  type: DbOperation
+  data: Student | StudentUpdate | string
+  date_time: string
+}
+
 // App
 export interface InputState {
   value: string
   errorMsg: string
   isTouched: boolean
 }
+
+export enum DbOperation {
+  Insert = 'INSERT',
+  Update = 'UPDATE',
+  Delete = 'DELETE',
+}
+
 export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;

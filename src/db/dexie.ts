@@ -1,4 +1,12 @@
-import type { Teacher, Year, Subject, Grade, Class } from '@app/types';
+import type {
+  Teacher,
+  Year,
+  Subject,
+  Grade,
+  Class,
+  Student,
+  StudentTransaction,
+} from '@app/types';
 
 import Dexie from 'dexie';
 import { DB_NAME, DB_VERSION } from '@app/utils/constants';
@@ -14,6 +22,11 @@ class RigelStore extends Dexie {
   years: Dexie.Table<Year, string>;
   // @ts-expect-error
   classes: Dexie.Table<Class, string>;
+  // @ts-expect-error
+  students: Dexie.Table<Student, string>;
+  // @ts-expect-error
+  studentTransactions: Dexie.Table<StudentTransaction, string>;
+
   constructor () {
     super(DB_NAME);
     this.version(DB_VERSION).stores({
@@ -22,6 +35,8 @@ class RigelStore extends Dexie {
       grades: 'id, name',
       years: 'id, value',
       classes: 'id, parallel',
+      students: 'id, name, last_name, class_id',
+      studentTransactions: 'id, type, date_time',
     });
   }
 }

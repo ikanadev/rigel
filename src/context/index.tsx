@@ -62,9 +62,6 @@ export const AppProvider: ParentComponent = (props) => {
       }
     }
   });
-  createEffect(() => {
-    console.log('Changing Sel: ', data.selectedClass);
-  });
 
   const setYearData = (year: Year) => {
     setData({
@@ -82,7 +79,6 @@ export const AppProvider: ParentComponent = (props) => {
       localStorage.setItem(DEFAULT_CLASS_KEY, cl.id);
     }
     setData({ selectedClass: cl });
-    console.log('setting class: ', data.selectedClass);
   };
 
   return (
