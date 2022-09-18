@@ -53,7 +53,15 @@ const Students: Component = () => {
                   <Td>{student.name}</Td>
                   <Td>{student.ci === '' ? '-' : student.ci}</Td>
                   <Td numeric>
-                    <IconButton size="xs" colorScheme="info" aria-label="Editar" icon={<Pencil width="$4" height="$4" />} mr="$2" />
+                    <IconButton
+                      as={Link}
+                      href={`/class/${appState.selectedClass!.id}/student/${student.id}/edit`}
+                      size="xs"
+                      colorScheme="info"
+                      aria-label="Editar"
+                      icon={<Pencil width="$4" height="$4" />}
+                      mr="$2"
+                    />
                     <IconButton size="xs" colorScheme="danger" aria-label="Eliminar" icon={<Trash width="$4" height="$4" />} />
                   </Td>
                 </Tr>

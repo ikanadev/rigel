@@ -80,6 +80,7 @@ const NewStudentForm: Component<Props> = (props) => {
             value={formData.name.value}
             onInput={onChange}
             invalid={formData.name.isTouched && formData.name.errorMsg !== ''}
+            autocomplete="off"
           />
           <Show when={formData.name.isTouched && formData.name.errorMsg !== ''}>
             <Text color="$danger10" size="sm">{formData.name.errorMsg}</Text>
@@ -94,6 +95,7 @@ const NewStudentForm: Component<Props> = (props) => {
             value={formData.last_name.value}
             onInput={onChange}
             invalid={formData.last_name.isTouched && formData.last_name.errorMsg !== ''}
+            autocomplete="off"
           />
           <Show when={formData.last_name.isTouched && formData.last_name.errorMsg !== ''}>
             <Text color="$danger10" size="sm">{formData.last_name.errorMsg}</Text>
@@ -108,6 +110,7 @@ const NewStudentForm: Component<Props> = (props) => {
             placeholder="Ej. 111111"
             value={formData.ci.value}
             onInput={onChange}
+            autocomplete="off"
           />
         </Flex>
       </SimpleGrid>
