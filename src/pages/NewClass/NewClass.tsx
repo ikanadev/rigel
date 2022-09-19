@@ -7,7 +7,6 @@ import {
   Text,
   SimpleGrid,
   Box,
-  Stack,
   Button,
   SimpleSelect,
   SimpleOption,
@@ -97,111 +96,112 @@ const NewClass: Component = () => {
 
   return (
     <>
-      <Title text={`Nueva clase (${appState.year.value})`} backTo="/" />
+      <Title text={`Nueva materia (${appState.year.value})`} backTo="/" />
       <Show when={isOnline()} fallback={<Alert status="warning" text="Lo sentimos, pero esta sección requiere conexión a Internet." />}>
-        <SimpleGrid columns={{ '@initial': 1, '@md': 2 }}>
-          <form onSubmit={handleSubmit}>
-            <Stack direction="column" gap="$4">
-              <Text>Luego de crear una clase podrá registrar estudiantes, controlar asistencia, actividades y notas.</Text>
-              <Alert status="danger" title="Error inesperado!" text={serverErr()} setText={setServerErr} />
+        <Text mb="$6">
+          Luego de crear una materia podrá registrar estudiantes, controlar asistencia, actividades y notas.
+        </Text>
+        <Alert status="danger" title="Error inesperado!" text={serverErr()} setText={setServerErr} />
+        <form onSubmit={handleSubmit}>
+          <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@lg': 3 }} rowGap="$4" columnGap="$4">
 
-              <Box>
-                <Text size="sm" mb="$1">Departamento:</Text>
-                <SimpleSelect
-                  disabled={deps.loading}
-                  placeholder="Seleccione departamento"
-                  value={formData.dpto}
-                  onChange={(val) => setFormData('dpto', val)}
-                >
-                  <For each={deps()}>
-                    {(dep) => <SimpleOption value={dep.id}>{dep.name}</SimpleOption>}
-                  </For>
-                </SimpleSelect>
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Departamento:</Text>
+              <SimpleSelect
+                disabled={deps.loading}
+                placeholder="Seleccione departamento"
+                value={formData.dpto}
+                onChange={(val) => setFormData('dpto', val)}
+              >
+                <For each={deps()}>
+                  {(dep) => <SimpleOption value={dep.id}>{dep.name}</SimpleOption>}
+                </For>
+              </SimpleSelect>
+            </Box>
 
-              <Box>
-                <Text size="sm" mb="$1">Provincia:</Text>
-                <SimpleSelect
-                  disabled={provs.loading}
-                  placeholder="Seleccione provincia"
-                  value={formData.prov}
-                  onChange={(val) => setFormData('prov', val)}
-                >
-                  <For each={provs()}>
-                    {(prov) => <SimpleOption value={prov.id}>{prov.name}</SimpleOption>}
-                  </For>
-                </SimpleSelect>
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Provincia:</Text>
+              <SimpleSelect
+                disabled={provs.loading || formData.dpto === null}
+                placeholder="Seleccione provincia"
+                value={formData.prov}
+                onChange={(val) => setFormData('prov', val)}
+              >
+                <For each={provs()}>
+                  {(prov) => <SimpleOption value={prov.id}>{prov.name}</SimpleOption>}
+                </For>
+              </SimpleSelect>
+            </Box>
 
-              <Box>
-                <Text size="sm" mb="$1">Municipio:</Text>
-                <SimpleSelect
-                  disabled={muns.loading}
-                  placeholder="Seleccione municipio"
-                  value={formData.mun}
-                  onChange={(val) => setFormData('mun', val)}
-                >
-                  <For each={muns()}>
-                    {(mun) => <SimpleOption value={mun.id}>{mun.name}</SimpleOption>}
-                  </For>
-                </SimpleSelect>
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Municipio:</Text>
+              <SimpleSelect
+                disabled={muns.loading || formData.prov === null}
+                placeholder="Seleccione municipio"
+                value={formData.mun}
+                onChange={(val) => setFormData('mun', val)}
+              >
+                <For each={muns()}>
+                  {(mun) => <SimpleOption value={mun.id}>{mun.name}</SimpleOption>}
+                </For>
+              </SimpleSelect>
+            </Box>
 
-              <Box>
-                <Text size="sm" mb="$1">Establecimiento educativo:</Text>
-                <SimpleSelect
-                  disabled={schools.loading}
-                  placeholder="Seleccione colegio"
-                  value={formData.school}
-                  onChange={(val) => setFormData('school', val)}
-                >
-                  <For each={schools()}>
-                    {(school) => <SimpleOption value={school.id}>{school.name}</SimpleOption>}
-                  </For>
-                </SimpleSelect>
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Establecimiento educativo:</Text>
+              <SimpleSelect
+                disabled={schools.loading || formData.mun === null}
+                placeholder="Seleccione colegio"
+                value={formData.school}
+                onChange={(val) => setFormData('school', val)}
+              >
+                <For each={schools()}>
+                  {(school) => <SimpleOption value={school.id}>{school.name}</SimpleOption>}
+                </For>
+              </SimpleSelect>
+            </Box>
 
-              <Box>
-                <Text size="sm" mb="$1">Materia:</Text>
-                <SimpleSelect
-                  placeholder="Seleccione materia"
-                  value={formData.subject}
-                  onChange={(val) => setFormData('subject', val)}
-                >
-                  <For each={subjects}>
-                    {(subject) => <SimpleOption value={subject.id}>{subject.name}</SimpleOption>}
-                  </For>
-                </SimpleSelect>
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Materia:</Text>
+              <SimpleSelect
+                placeholder="Seleccione materia"
+                value={formData.subject}
+                onChange={(val) => setFormData('subject', val)}
+              >
+                <For each={subjects}>
+                  {(subject) => <SimpleOption value={subject.id}>{subject.name}</SimpleOption>}
+                </For>
+              </SimpleSelect>
+            </Box>
 
-              <Box>
-                <Text size="sm" mb="$1">Curso:</Text>
-                <SimpleSelect
-                  placeholder="Seleccione curso"
-                  value={formData.grade}
-                  onChange={(val) => setFormData('grade', val)}
-                >
-                  <For each={grades}>
-                    {(grade) => <SimpleOption value={grade.id}>{grade.name}</SimpleOption>}
-                  </For>
-                </SimpleSelect>
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Curso:</Text>
+              <SimpleSelect
+                placeholder="Seleccione curso"
+                value={formData.grade}
+                onChange={(val) => setFormData('grade', val)}
+              >
+                <For each={grades}>
+                  {(grade) => <SimpleOption value={grade.id}>{grade.name}</SimpleOption>}
+                </For>
+              </SimpleSelect>
+            </Box>
 
-              <Box>
-                <Text size="sm" mb="$1">Paralelo:</Text>
-                <Input
-                  value={formData.parallel}
-                  onInput={(ev) => setFormData('parallel', ev.currentTarget.value)}
-                />
-              </Box>
+            <Box>
+              <Text size="sm" mb="$1">Paralelo:</Text>
+              <Input
+                value={formData.parallel}
+                onInput={(ev) => setFormData('parallel', ev.currentTarget.value)}
+              />
+            </Box>
+          </SimpleGrid>
 
-              <Button disabled={isFormInvalid()} type="submit" mt="$4">
-                Registrar
-              </Button>
-            </Stack>
-          </form>
-          <Box />
-        </SimpleGrid>
+          <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@lg': 3 }} rowGap="$4" columnGap="$4" mt="$4">
+            <Button disabled={isFormInvalid()} type="submit" mt="$4">
+              Registrar
+            </Button>
+          </SimpleGrid>
+        </form>
       </Show>
     </>
   );
