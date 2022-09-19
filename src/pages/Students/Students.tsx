@@ -23,7 +23,9 @@ import { createDexieArrayQuery } from 'solid-dexie';
 
 const Students: Component = () => {
   const { appState } = useAppData();
-  const students = createDexieArrayQuery(() => db.students.orderBy('last_name').toArray());
+  const students = createDexieArrayQuery(
+    () => db.students.where('class_id').equals(appState.selectedClass!.id).sortBy('last_name'),
+  );
 
   return (
     <>
