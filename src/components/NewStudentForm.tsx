@@ -81,6 +81,7 @@ const NewStudentForm: Component<Props> = (props) => {
             onInput={onChange}
             invalid={formData.name.isTouched && formData.name.errorMsg !== ''}
             autocomplete="off"
+            autofocus
           />
           <Show when={formData.name.isTouched && formData.name.errorMsg !== ''}>
             <Text color="$danger10" size="sm">{formData.name.errorMsg}</Text>
