@@ -126,6 +126,7 @@ const SignIn: Component = () => {
               placeholder="Correo"
               invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
               mt="$4"
+              autocomplete="off"
             />
             <Show when={formData.email.isTouched && formData.email.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.email.errorMsg}</Text>

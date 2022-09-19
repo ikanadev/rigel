@@ -123,6 +123,7 @@ const SignUp: Component = () => {
               placeholder="Nombre(s)"
               invalid={formData.name.isTouched && formData.name.errorMsg !== ''}
               mt="$4"
+              autocomplete="off"
             />
             <Show when={formData.name.isTouched && formData.name.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.name.errorMsg}</Text>
@@ -134,6 +135,7 @@ const SignUp: Component = () => {
               placeholder="Apellidos"
               invalid={formData.lastName.isTouched && formData.lastName.errorMsg !== ''}
               mt="$4"
+              autocomplete="off"
             />
             <Show when={formData.lastName.isTouched && formData.lastName.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.lastName.errorMsg}</Text>
@@ -145,6 +147,7 @@ const SignUp: Component = () => {
               placeholder="Correo"
               invalid={formData.email.isTouched && formData.email.errorMsg !== ''}
               mt="$4"
+              autocomplete="off"
             />
             <Show when={formData.email.isTouched && formData.email.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.email.errorMsg}</Text>
