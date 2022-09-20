@@ -13,11 +13,10 @@ import {
   Button,
   Badge,
   Text,
-//  Box,
 } from '@hope-ui/solid';
 import { Link, useNavigate } from '@solidjs/router';
 import { Show } from 'solid-js';
-import { StartPeriodModal } from '@app/components';
+import { StartPeriodModal, FinishPeriodModal } from '@app/components';
 
 import { JWT_KEY, DEFAULT_CLASS_KEY } from '@app/utils/constants';
 import { useAppData } from '@app/context';
@@ -32,6 +31,7 @@ interface Props {
 const Drawer: Component<Props> = (props) => {
   const navigate = useNavigate();
   const newPeriodModal = booleanSignal();
+  const finishPeriodModal = booleanSignal();
   const { appState, actions: { setSelectedClass } } = useAppData();
 
   const handleLogout = () => {
@@ -55,6 +55,7 @@ const Drawer: Component<Props> = (props) => {
   return (
     <>
       <StartPeriodModal isOpen={newPeriodModal.active()} onClose={newPeriodModal.disable} />
+      <FinishPeriodModal isOpen={finishPeriodModal.active()} onClose={finishPeriodModal.disable} />
       <HopeDrawer
         size="md"
         opened={props.isOpen}
@@ -120,17 +121,36 @@ const Drawer: Component<Props> = (props) => {
                 >
                   Administrar Estudiantes
                 </Button>
-                <Button
-                  mt="$4"
-                  size="sm"
-                  colorScheme="accent"
-                  onClick={() => {
-                    newPeriodModal.enable();
-                    props.onClose();
-                  }}
+
+                <Show
+                  when={appState.activePeriod === null}
+                  fallback={
+                    <Button
+                      mt="$4"
+                      size="sm"
+                      colorScheme="danger"
+                      onClick={() => {
+                        finishPeriodModal.enable();
+                        props.onClose();
+                      }}
+                    >
+                      Finalizar periodo
+                    </Button>
+                  }
                 >
-                  Iniciar nuevo periodo
-                </Button>
+                  <Button
+                    mt="$4"
+                    size="sm"
+                    colorScheme="accent"
+                    onClick={() => {
+                      newPeriodModal.enable();
+                      props.onClose();
+                    }}
+                  >
+                    Iniciar nuevo periodo
+                  </Button>
+                </Show>
+
               </Flex>
               <Divider mb="$4" mt="$4" />
             </Show>

@@ -7,3 +7,4 @@ export { default as ClassSelector } from './ClassSelector';
 export { default as OfflineMessage } from './OfflineMessage';
 export { default as NewStudentForm } from './NewStudentForm';
 export { default as StartPeriodModal } from './StartPeriodModal';
+export { default as FinishPeriodModal } from './FinishPeriodModal';
