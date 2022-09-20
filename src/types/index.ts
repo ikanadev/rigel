@@ -113,4 +113,11 @@ export enum DbOperation {
   Delete = 'DELETE',
 }
 
+export enum AttendanceStatus {
+  P = 'Presente',
+  F = 'Falta',
+  A = 'Atraso',
+  L = 'Licencia',
+}
+
 export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;
