@@ -79,15 +79,18 @@ const Drawer: Component<Props> = (props) => {
               }
             >
               <Text size="lg" fontWeight="$semibold" color="$primary10">{appState.selectedClass!.edges.subject.name}</Text>
-              <Text>{appState.selectedClass!.edges.grade.name}</Text>
-              <Text size="lg">Paralelo: <Badge colorScheme="primary" fontSize="$lg">{appState.selectedClass!.parallel}</Badge></Text>
-              <Text size="lg">
+              <Text>
+                {appState.selectedClass!.edges.grade.name}
+                {' '}
+                <Badge colorScheme="primary" fontSize="$lg">{appState.selectedClass!.parallel}</Badge>
+              </Text>
+              <Text mt="$2">
                 Periodo:{' '}
-                <Text as="span" fontWeight="$semibold" color={appState.activePeriod !== null ? undefined : '$warning10'}>
+                <Text as="span" fontWeight="$semibold" color={appState.activePeriod !== null ? undefined : '$neutral10'}>
                   {appState.activePeriod !== null ? appState.activePeriod.period.name : 'No iniciado'}
                 </Text>
               </Text>
-              <Text size="lg">Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.edges.year.value}</Text></Text>
+              <Text>Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.edges.year.value}</Text></Text>
               <Flex direction="column" mt="$6">
                 <Show
                   when={appState.activePeriod !== null}
