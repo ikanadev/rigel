@@ -1,4 +1,4 @@
-import type { Year, Period, Area, Class } from '@app/types';
+import type { Year, Period, Area, Class, ClassPeriod } from '@app/types';
 
 import { createContext, useContext, createEffect, ParentComponent } from 'solid-js';
 import { createStore } from 'solid-js/store';
@@ -12,6 +12,7 @@ export interface AppContextData {
   periods: Period[]
   areas: Area[]
   selectedClass: Class | null
+  activePeriod: ClassPeriod | null
 }
 export interface AppContextActions {
   setYear: (year: Year) => void
@@ -27,6 +28,7 @@ const defaultState: AppContextData = {
   periods: [],
   areas: [],
   selectedClass: null,
+  activePeriod: null,
 };
 const AppContext = createContext<AppContextState>({
   appState: defaultState,
@@ -39,8 +41,10 @@ const AppContext = createContext<AppContextState>({
 export const AppProvider: ParentComponent = (props) => {
   const localYears = createDexieArrayQuery(() => db.years.toArray());
   const classes = createDexieArrayQuery(() => db.classes.toArray());
+  const classPeriods = createDexieArrayQuery(() => db.classPeriods.toArray());
   const [data, setData] = createStore<AppContextData>(defaultState);
 
+  // set year periods and areas
   createEffect(() => {
     if (localYears.length > 0) {
       const currentYear = new Date().getFullYear();
@@ -53,6 +57,7 @@ export const AppProvider: ParentComponent = (props) => {
     }
   });
 
+  // set selected class
   createEffect(() => {
     const classId = localStorage.getItem(DEFAULT_CLASS_KEY);
     if (classId !== null) {
@@ -62,6 +67,25 @@ export const AppProvider: ParentComponent = (props) => {
       }
     }
   });
+
+  // set selected classPeriod
+  createEffect(() => {
+    checkAndSetClassPeriod();
+  });
+
+  const checkAndSetClassPeriod = () => {
+    const classId = localStorage.getItem(DEFAULT_CLASS_KEY);
+    if (classId === null) {
+      setData('activePeriod', null);
+      return;
+    }
+    const found = classPeriods.find((cp) => cp.class_id === classId && !cp.finished);
+    if (found !== undefined) {
+      setData('activePeriod', found);
+    } else {
+      setData('activePeriod', null);
+    }
+  };
 
   const setYearData = (year: Year) => {
     setData({
@@ -78,6 +102,7 @@ export const AppProvider: ParentComponent = (props) => {
     } else {
       localStorage.setItem(DEFAULT_CLASS_KEY, cl.id);
     }
+    checkAndSetClassPeriod();
     setData({ selectedClass: cl });
   };
 

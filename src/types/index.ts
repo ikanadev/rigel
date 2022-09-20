@@ -67,6 +67,24 @@ export interface Class {
   }
 }
 
+export interface ClassPeriod {
+  id: string
+  class_id: string
+  start: string
+  end: string
+  finished: boolean
+  period: Period
+}
+// there is no edit, just "finish" where we update the end and finished property
+export type ClassPeriodUpdate = Pick<ClassPeriod, 'id' | 'end' | 'finished'>;
+export interface ClassPeriodTransaction {
+  id: string
+  type: DbOperation
+  // only create and update
+  data: ClassPeriod | ClassPeriodUpdate
+  date_time: string
+}
+
 export interface Student {
   id: string
   name: string
