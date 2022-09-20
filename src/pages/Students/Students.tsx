@@ -18,14 +18,12 @@ import { Link } from '@solidjs/router';
 import { Plus, Pencil, Trash } from '@app/icons';
 
 import { useAppData } from '@app/context';
-import { db } from '@app/db/dexie';
-import { createDexieArrayQuery } from 'solid-dexie';
+import { studentsStore } from '@app/hooks';
 
 const Students: Component = () => {
   const { appState } = useAppData();
-  const students = createDexieArrayQuery(
-    () => db.students.where('class_id').equals(appState.selectedClass!.id).sortBy('last_name'),
-  );
+
+  const students = studentsStore();
 
   return (
     <>
