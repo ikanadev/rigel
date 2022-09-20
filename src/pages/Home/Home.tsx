@@ -10,7 +10,7 @@ import { syncStaticData } from '@app/db/static';
 import { JWT_KEY } from '@app/utils/constants';
 
 const Home: Component = () => {
-  const [isDrawerOpen, setDrawerOpen] = createSignal(false);
+  const [isDrawerOpen, setDrawerOpen] = createSignal(true);
   const jwt = localStorage.getItem(JWT_KEY);
   const navigate = useNavigate();
 

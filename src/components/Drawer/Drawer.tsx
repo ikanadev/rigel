@@ -11,12 +11,12 @@ import {
   Divider,
   Flex,
   Button,
+  Badge,
   Text,
 //  Box,
 } from '@hope-ui/solid';
 import { Link, useNavigate } from '@solidjs/router';
 import { Show } from 'solid-js';
-import { ClassSelector } from '@app/components';
 
 import { JWT_KEY, DEFAULT_CLASS_KEY } from '@app/utils/constants';
 import { useAppData } from '@app/context';
@@ -60,13 +60,15 @@ const Drawer: Component<Props> = (props) => {
       <DrawerContent>
         <DrawerCloseButton />
         <DrawerHeader>
-          <Text color="$primary10" fontWeight="$semibold">Rigel</Text>
+          <Text>{' '}</Text>
         </DrawerHeader>
 
         <DrawerBody>
-          <ClassSelector />
           <Show when={appState.selectedClass !== null}>
-            <Flex direction="column" mt="$4">
+            <Text size="lg" fontWeight="$semibold" color="$primary10">{appState.selectedClass?.edges.subject.name}</Text>
+            <Text>{appState.selectedClass?.edges.grade.name}</Text>
+            <Text size="lg">Paralelo: <Badge colorScheme="primary" fontSize="$lg">{appState.selectedClass?.parallel}</Badge></Text>
+            <Flex direction="column" mt="$6">
               <Button
                 as={Link}
                 onClick={() => props.onClose()}
@@ -77,6 +79,9 @@ const Drawer: Component<Props> = (props) => {
               >
                 Asistencia
               </Button>
+              <Button as={Link} href="/" variant="ghost" colorScheme="neutral" justifyContent="start">
+                Tareas / Actividades
+              </Button>
               <Button
                 as={Link}
                 onClick={() => props.onClose()}
@@ -86,9 +91,6 @@ const Drawer: Component<Props> = (props) => {
                 justifyContent="start"
               >
                 Estudiantes
-              </Button>
-              <Button as={Link} href="/" variant="ghost" colorScheme="neutral" justifyContent="start">
-                Tareas / Actividades
               </Button>
             </Flex>
           </Show>

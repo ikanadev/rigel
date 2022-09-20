@@ -14,7 +14,7 @@ import {
 } from '@hope-ui/solid';
 
 import { For, Show } from 'solid-js';
-import { useParams, useNavigate, useLocation } from '@solidjs/router';
+import { useNavigate, useLocation } from '@solidjs/router';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { useAppData } from '@app/context';
 import { db } from '@app/db/dexie';
@@ -23,12 +23,12 @@ import { db } from '@app/db/dexie';
 const ClassSelector: Component = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const params = useParams<{classid: string}>();
   const classes = createDexieArrayQuery(() => db.classes.toArray());
   const { actions, appState } = useAppData();
 
   const handleChange = (classId: string) => {
-    const path = location.pathname.replace(params.classid, classId);
+    if (appState.selectedClass === null) return;
+    const path = location.pathname.replace(appState.selectedClass.id, classId);
     const newClass = classes.find((c) => c.id === classId);
     actions.setSelectedClass(newClass ?? null);
     navigate(path);
