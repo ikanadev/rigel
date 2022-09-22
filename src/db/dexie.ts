@@ -8,6 +8,10 @@ import type {
   StudentTransaction,
   ClassPeriod,
   ClassPeriodTransaction,
+  AttendanceDay,
+  AttendanceDayTransaction,
+  Attendance,
+  AttendanceTransaction,
 } from '@app/types';
 
 import Dexie from 'dexie';
@@ -23,6 +27,10 @@ class RigelStore extends Dexie {
   studentTransactions!: Dexie.Table<StudentTransaction, string>;
   classPeriods!: Dexie.Table<ClassPeriod, string>;
   classPeriodTransactions!: Dexie.Table<ClassPeriodTransaction, string>;
+  attendanceDays!: Dexie.Table<AttendanceDay, string>;
+  attendanceDayTransactions!: Dexie.Table<AttendanceDayTransaction, string>;
+  attendances!: Dexie.Table<Attendance, string>;
+  attendanceTransactions!: Dexie.Table<AttendanceTransaction, string>;
 
   constructor () {
     super(DB_NAME);
@@ -36,6 +44,10 @@ class RigelStore extends Dexie {
       studentTransactions: 'id, type, date_time',
       classPeriods: 'id, start, end, finished, class_id, period_id',
       classPeriodTransactions: 'id, type, date_time',
+      attendanceDays: 'id, day, class_period_id',
+      attendanceDayTransactions: 'id, type, date_time',
+      attendances: 'id, value, attendance_day_id, student_id',
+      attendanceTransactions: 'id, type, date_time',
     });
   }
 }

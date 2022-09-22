@@ -16,7 +16,7 @@ import {
 } from '@hope-ui/solid';
 import { Link, useNavigate } from '@solidjs/router';
 import { Show } from 'solid-js';
-import { StartPeriodModal, FinishPeriodModal } from '@app/components';
+import { StartPeriodModal, FinishPeriodModal, ColorModeButton } from '@app/components';
 
 import { JWT_KEY, DEFAULT_CLASS_KEY } from '@app/utils/constants';
 import { useAppData } from '@app/context';
@@ -168,7 +168,7 @@ const Drawer: Component<Props> = (props) => {
           </DrawerBody>
 
           <DrawerFooter>
-            <Text>Some body text</Text>
+            <ColorModeButton />
           </DrawerFooter>
         </DrawerContent>
       </HopeDrawer>

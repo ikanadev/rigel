@@ -2,9 +2,13 @@ import type { Component } from 'solid-js';
 
 import { HopeProvider } from '@hope-ui/solid';
 import { Router, useRoutes } from '@solidjs/router';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es-mx';
 
 import routes from './routes';
 import theme from './theme';
+
+dayjs.locale('es-mx');
 
 const App: Component = () => {
   const Routes = useRoutes(routes);

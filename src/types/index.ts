@@ -67,6 +67,12 @@ export interface Class {
   }
 }
 
+export interface Transaction {
+  id: string
+  type: DbOperation
+  date_time: string
+}
+
 export interface ClassPeriod {
   id: string
   class_id: string
@@ -77,12 +83,9 @@ export interface ClassPeriod {
 }
 // there is no edit, just "finish" where we update the end and finished property
 export type ClassPeriodUpdate = Pick<ClassPeriod, 'id' | 'end' | 'finished'>;
-export interface ClassPeriodTransaction {
-  id: string
-  type: DbOperation
+export interface ClassPeriodTransaction extends Transaction {
   // only create and update
   data: ClassPeriod | ClassPeriodUpdate
-  date_time: string
 }
 
 export interface Student {
@@ -93,11 +96,29 @@ export interface Student {
   class_id: string
 }
 export type StudentUpdate = Omit<Student, 'class_id'>;
-export interface StudentTransaction {
-  id: string
-  type: DbOperation
+export interface StudentTransaction extends Transaction {
   data: Student | StudentUpdate | string
-  date_time: string
+}
+
+export interface AttendanceDay {
+  id: string
+  day: string
+  class_period_id: string
+}
+export interface AttendanceDayTransaction extends Transaction {
+  // only create
+  data: AttendanceDay
+}
+
+export interface Attendance {
+  id: string
+  value: AttendanceStatus
+  attendance_day_id: string
+  student_id: string
+}
+export type AttendanceUpdate = Pick<Attendance, 'id' | 'value'>;
+export interface AttendanceTransaction extends Transaction {
+  data: Attendance | AttendanceUpdate
 }
 
 // App

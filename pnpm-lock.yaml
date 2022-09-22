@@ -6,6 +6,7 @@ specifiers:
   '@stitches/core': ^1.2.8
   '@typescript-eslint/eslint-plugin': ^5.0.0
   '@typescript-eslint/parser': ^5.36.2
+  dayjs: ^1.11.5
   dexie: ^3.2.2
   eslint: ^8.0.1
   eslint-config-standard-with-typescript: ^22.0.0
@@ -30,6 +31,7 @@ dependencies:
   '@hope-ui/solid': 0.6.7_4ddgkz4q67bb2nzibxa5sjagay
   '@solidjs/router': 0.4.3_solid-js@1.5.4
   '@stitches/core': 1.2.8
+  dayjs: 1.11.5
   dexie: 3.2.2
   ky: 0.31.3
   nanoid: 4.0.0
@@ -1958,6 +1960,10 @@ packages:
 
   /csstype/3.1.0:
     resolution: {integrity: sha512-uX1KG+x9h5hIJsaKR9xHUeUraxf8IODOwq9JLNPq6BwB04a/xgpq3rcx47l5BZu5zBPlgD342tdke3Hom/nJRA==}
+
+  /dayjs/1.11.5:
+    resolution: {integrity: sha512-CAdX5Q3YW3Gclyo5Vpqkgpj8fSdLQcRuzfX6mC6Phy0nfJ0eGYOeS7m4mt2plDWLAtA4TqTakvbboHvUxfe4iA==}
+    dev: false
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
