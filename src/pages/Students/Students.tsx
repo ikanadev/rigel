@@ -36,39 +36,41 @@ const Students: Component = () => {
           </Text>
         }
       >
-        <Table striped="even" dense>
-          <Thead>
-            <Tr>
-              <Th>Apellido(s):</Th>
-              <Th>Nombre(s):</Th>
-              <Th>Cédula de Identidad:</Th>
-              <Th numeric>Acciones</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <For each={students}>
-              {(student) => (
-                <Tr>
-                  <Td>{student.last_name}</Td>
-                  <Td>{student.name}</Td>
-                  <Td>{student.ci === '' ? '-' : student.ci}</Td>
-                  <Td numeric>
-                    <IconButton
-                      as={Link}
-                      href={`/class/${appState.selectedClass!.id}/student/${student.id}/edit`}
-                      size="xs"
-                      colorScheme="info"
-                      aria-label="Editar"
-                      icon={<Pencil width="$4" height="$4" />}
-                      mr="$2"
-                    />
-                    <IconButton size="xs" colorScheme="danger" aria-label="Eliminar" icon={<Trash width="$4" height="$4" />} />
-                  </Td>
-                </Tr>
-              )}
-            </For>
-          </Tbody>
-        </Table>
+        <Box overflowX="auto" maxW="$full">
+          <Table striped="even" dense>
+            <Thead>
+              <Tr>
+                <Th>Apellido(s):</Th>
+                <Th>Nombre(s):</Th>
+                <Th>Cédula de Identidad:</Th>
+                <Th numeric>Acciones</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <For each={students}>
+                {(student) => (
+                  <Tr>
+                    <Td>{student.last_name}</Td>
+                    <Td>{student.name}</Td>
+                    <Td>{student.ci === '' ? '-' : student.ci}</Td>
+                    <Td numeric>
+                      <IconButton
+                        as={Link}
+                        href={`/class/${appState.selectedClass!.id}/student/${student.id}/edit`}
+                        size="xs"
+                        colorScheme="info"
+                        aria-label="Editar"
+                        icon={<Pencil width="$4" height="$4" />}
+                        mr="$2"
+                      />
+                      <IconButton size="xs" colorScheme="danger" aria-label="Eliminar" icon={<Trash width="$4" height="$4" />} />
+                    </Td>
+                  </Tr>
+                )}
+              </For>
+            </Tbody>
+          </Table>
+        </Box>
       </Show>
       <Box mt="$6">
         <Button
