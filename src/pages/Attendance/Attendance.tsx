@@ -1,4 +1,4 @@
-import { Component, Show, For, createMemo, createEffect } from 'solid-js';
+import { Component, Show, For } from 'solid-js';
 import { Title } from '@app/components';
 import {
   Button,
@@ -11,7 +11,7 @@ import {
   Td,
   Tr,
 } from '@hope-ui/solid';
-import { AttendanceStatus, Student, AttendanceDay, Attendance as AttendanceT } from '@app/types';
+import { AttendanceStatus, Student } from '@app/types';
 import AttendanceLabels from './AttendanceLabels';
 import AttendanceButtons from './AttendanceButtons';
 import NonActivePeriodMessage from './NonActivePeriodMessage';
@@ -19,53 +19,15 @@ import NonActivePeriodMessage from './NonActivePeriodMessage';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { useAppData } from '@app/context';
-import { studentsStore, attendanceDaysStore } from '@app/hooks';
+import { studentsStore, periodAttendanceStore } from '@app/hooks';
 import { addAttendanceDay } from '@app/db/attendanceDay';
 import { addAttendance, updateAttendance } from '@app/db/attendance';
-import { db } from '@app/db/dexie';
-import { createDexieArrayQuery } from 'solid-dexie';
 import attendanceColors from './attendanceColors';
 
-interface AttMapByStudentKey {[key: string]: AttendanceT}
-interface AttDayWithAtts extends AttendanceDay {
-  attendances: AttMapByStudentKey
-}
 const Attendance: Component = () => {
   const { appState } = useAppData();
   const students = studentsStore();
-  const attendanceDays = attendanceDaysStore();
-  const attendances = createDexieArrayQuery(() => db.attendances.where('attendance_day_id').anyOf(attendanceDays.map(a => a.id)).toArray());
-
-  createEffect(() => {
-    console.log(pastAttendancesDay());
-  });
-
-  const getDayAttds = (attDayId: string): AttMapByStudentKey => {
-    const attds: AttMapByStudentKey = {};
-    attendances
-      .filter((att) => att.attendance_day_id === attDayId)
-      .forEach((att) => {
-        attds[att.student_id] = att;
-      });
-    return attds;
-  };
-  const todayAttendanceDay = createMemo((): AttDayWithAtts | null => {
-    const found = attendanceDays.find((ad) => dayjs().isSame(dayjs(ad.day), 'day'));
-    if (found === undefined) return null;
-    return {
-      ...found,
-      attendances: getDayAttds(found.id),
-    };
-  });
-  const pastAttendancesDay = createMemo((): AttDayWithAtts[] => {
-    const today = dayjs();
-    return attendanceDays
-      .filter((ad) => today.isAfter(dayjs(ad.day), 'day'))
-      .map((ad) => ({
-        ...ad,
-        attendances: getDayAttds(ad.id),
-      }));
-  });
+  const { todayAttendanceDay, pastAttendancesDay } = periodAttendanceStore();
 
   const startTodaysAttendance = () => {
     if (appState.activePeriod === null) return;
@@ -102,7 +64,7 @@ const Attendance: Component = () => {
 
   return (
     <>
-      <Flex justifyContent="space-between" alignItems="start">
+      <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap">
         <Title text="Asistencias" />
         <AttendanceLabels />
       </Flex>
