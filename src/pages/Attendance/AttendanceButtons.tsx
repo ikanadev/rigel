@@ -13,10 +13,18 @@ const AttendanceButtons: Component<Props> = (props) => {
     <Flex alignItems="center">
       <For each={Object.values(AttendanceStatus)}>
         {(value) => (
-          <Button size="xs" variant="ghost" onClick={[props.onSelect, value]} _hover={{ background: '$neutral2' }} px="$1_5">
+          <Button
+            size="xs"
+            variant="ghost"
+            onClick={[props.onSelect, value]}
+            _hover={{ background: '$neutral2' }}
+            _focus={{ boxShadow: 'none' }}
+            px="$1"
+          >
             <Box
-              w="$4"
-              h="$4"
+              w={props.status === value ? '$5' : '$4'}
+              h={props.status === value ? '$5' : '$4'}
+              transition="all 0.5s"
               borderRadius="$sm"
               bg={props.status === value ? attendanceColor[value].on : attendanceColor[value].off}
             />

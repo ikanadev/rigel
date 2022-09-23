@@ -85,7 +85,12 @@ const Attendance: Component = () => {
                 </Td>
                 <For each={pastAttendancesDay()}>
                   {(att) => (
-                    <Td>{dayjs(att.day).format('ddd DD [de] MMM')}</Td>
+                    <Td>
+                      <Flex flexDirection="column" alignItems="center">
+                        <Text>{dayjs(att.day).format('dddd')}</Text>
+                        <Text>{dayjs(att.day).format('DD [de] MMM')}</Text>
+                      </Flex>
+                    </Td>
                   )}
                 </For>
               </Tr>
@@ -137,18 +142,20 @@ const Attendance: Component = () => {
                     </Show>
                     <For each={pastAttendancesDay()}>{(att) => (
                       <Td>
-                        <Show
-                          when={att.attendances[student.id] !== undefined}
-                          fallback={'-'}
-                        >
-                          <Box
-                            w="$4"
-                            h="$4"
-                            borderRadius="$sm"
-                            mr="$1"
-                            bg={attendanceColors[att.attendances[student.id].value].on}
-                          />
-                        </Show>
+                        <Flex justifyContent="center">
+                          <Show
+                            when={att.attendances[student.id] !== undefined}
+                            fallback={'-'}
+                          >
+                            <Box
+                              w="$4"
+                              h="$4"
+                              borderRadius="$sm"
+                              mr="$1"
+                              bg={attendanceColors[att.attendances[student.id].value].on}
+                            />
+                          </Show>
+                        </Flex>
                       </Td>
                     )}</For>
                   </Tr>
