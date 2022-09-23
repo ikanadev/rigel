@@ -5,12 +5,14 @@ import { createDexieArrayQuery } from 'solid-dexie';
 import { useAppData } from '@app/context';
 import dayjs from 'dayjs';
 import { db } from '@app/db/dexie';
+import attendanceColumnsSignal from './attendanceColumnsSignal';
 
 interface AttMapByStudentKey {[key: string]: Attendance}
 interface AttDayWithAtts extends AttendanceDay {
   attendances: AttMapByStudentKey
 }
 const periodAttendanceStore = () => {
+  const columns = attendanceColumnsSignal();
   const { appState } = useAppData();
   // get attendanceDays from current period
   const attendanceDays = createDexieArrayQuery(
@@ -43,6 +45,7 @@ const periodAttendanceStore = () => {
     const today = dayjs();
     return attendanceDays
       .filter((ad) => today.isAfter(dayjs(ad.day), 'day'))
+      .slice(0, columns())
       .map((ad) => ({
         ...ad,
         attendances: getDayAttds(ad.id),
