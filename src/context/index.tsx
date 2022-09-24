@@ -17,24 +17,26 @@ export interface AppContextData {
 export interface AppContextActions {
   setYear: (year: Year) => void
   setSelectedClass: (cl: Class | null) => void
+  clearAll: () => void
 }
 export interface AppContextState {
   appState: AppContextData
   actions: AppContextActions
 }
 
-const defaultState: AppContextData = {
+const getDefaultState = (): AppContextData => ({
   year: { id: '', value: 0 },
   periods: [],
   areas: [],
   selectedClass: null,
   activePeriod: null,
-};
+});
 const AppContext = createContext<AppContextState>({
-  appState: defaultState,
+  appState: getDefaultState(),
   actions: {
     setYear: () => undefined,
     setSelectedClass: () => undefined,
+    clearAll: () => undefined,
   },
 });
 
@@ -42,7 +44,12 @@ export const AppProvider: ParentComponent = (props) => {
   const localYears = createDexieArrayQuery(() => db.years.toArray());
   const classes = createDexieArrayQuery(() => db.classes.toArray());
   const classPeriods = createDexieArrayQuery(() => db.classPeriods.toArray());
-  const [data, setData] = createStore<AppContextData>(defaultState);
+  const [data, setData] = createStore<AppContextData>(getDefaultState());
+
+  createEffect(() => {
+    console.info('%c NEW STATE:', 'font-weight:700; color:cyan; border:1px solid cyan;');
+    console.log(JSON.parse(JSON.stringify(data)));
+  });
 
   // set year periods and areas
   createEffect(() => {
@@ -70,7 +77,9 @@ export const AppProvider: ParentComponent = (props) => {
 
   // set selected classPeriod
   createEffect(() => {
-    checkAndSetClassPeriod();
+    if (classPeriods.length > 0) {
+      checkAndSetClassPeriod();
+    }
   });
 
   const checkAndSetClassPeriod = () => {
@@ -106,8 +115,12 @@ export const AppProvider: ParentComponent = (props) => {
     setData({ selectedClass: cl });
   };
 
+  const clearAll = () => {
+    setData(getDefaultState());
+  };
+
   return (
-    <AppContext.Provider value={{ appState: data, actions: { setSelectedClass, setYear: setYearData } }}>
+    <AppContext.Provider value={{ appState: data, actions: { setSelectedClass, setYear: setYearData, clearAll } }}>
       {props.children}
     </AppContext.Provider>
   );

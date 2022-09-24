@@ -32,21 +32,21 @@ const Drawer: Component<Props> = (props) => {
   const navigate = useNavigate();
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
-  const { appState, actions: { setSelectedClass } } = useAppData();
+  const { appState, actions: { setSelectedClass, clearAll } } = useAppData();
 
   const handleLogout = () => {
-    const clearAll = async (): Promise<void> => {
+    const clearDb = async (): Promise<void> => {
       await Promise.all(db.tables.map((table) => table.clear()));
       localStorage.removeItem(JWT_KEY);
       localStorage.removeItem(DEFAULT_CLASS_KEY);
     };
-    clearAll().finally(() => {
+    clearDb().finally(() => {
+      clearAll();
       props.onClose();
       navigate('/signin');
     });
   };
   const handleGoToClasses = () => {
-    localStorage.removeItem(DEFAULT_CLASS_KEY);
     setSelectedClass(null);
     props.onClose();
     navigate('/');

@@ -53,3 +53,5 @@ class RigelStore extends Dexie {
 }
 
 export const db = new RigelStore();
+// @ts-expect-error
+window.db = db;
