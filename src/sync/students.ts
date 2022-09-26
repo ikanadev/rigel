@@ -1,9 +1,10 @@
 import { StudentTransaction } from '@app/types';
 
 import { db } from '@app/db/dexie';
-import { studentSync, saveStudents } from './ky';
+import { studentSync, saveStudents, getStudents } from './ky';
+import useStore from './store';
 
-const syncStudents = async () => {
+export const syncStudents = async () => {
   let resp = await studentSync();
   const studentTxs = await db.studentTransactions.orderBy('date_time').reverse().toArray();
   const found = studentTxs.find((st) => st.id === resp.last_sync_id);
@@ -24,4 +25,13 @@ const syncStudents = async () => {
   await db.studentTransactions.bulkDelete(toDeleteIds);
 };
 
-export default syncStudents;
+export const downloadAndSyncStudents = async () => {
+  const { store } = useStore;
+  const serverStudents = await getStudents(store.yearId);
+  const localStudents = await db.students.toArray();
+  const notSavedServerStudents = serverStudents.filter((ss) => {
+    return !localStudents.some((ls) => ls.id === ss.id);
+  });
+  console.info(`Saving ${notSavedServerStudents.length} students from server!`);
+  await db.students.bulkAdd(notSavedServerStudents);
+};

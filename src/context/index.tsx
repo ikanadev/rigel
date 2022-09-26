@@ -5,7 +5,7 @@ import { createStore } from 'solid-js/store';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { fetchAndSyncClasses } from '@app/db/class';
 import { db } from '@app/db/dexie';
-import { DEFAULT_CLASS_KEY } from '@app/utils/constants';
+import { DEFAULT_CLASS_KEY, DOWNLOAD_AND_SYNC_MSG, JWT_KEY, SET_DATA_MSG } from '@app/utils/constants';
 
 export interface AppContextData {
   year: Omit<Year, 'edges'>
@@ -47,8 +47,24 @@ export const AppProvider: ParentComponent = (props) => {
   const [data, setData] = createStore<AppContextData>(getDefaultState());
 
   createEffect(() => {
-    console.info('%c NEW STATE:', 'font-weight:700; color:cyan; border:1px solid cyan;');
+    console.info('%c NEW STATE:', 'font-weight:700; background:blue; color:white; border-radius:3px;');
     console.log(JSON.parse(JSON.stringify(data)));
+  });
+  createEffect(() => {
+    if (data.year.value > 0) {
+      console.info('Working with year: ', data.year.value);
+      navigator.serviceWorker.controller?.postMessage({
+        type: SET_DATA_MSG,
+        jwtStr: localStorage.getItem(JWT_KEY),
+        yearId: data.year.id,
+      });
+      navigator.serviceWorker.controller?.postMessage({
+        type: JWT_KEY,
+      });
+      navigator.serviceWorker.controller?.postMessage({
+        type: DOWNLOAD_AND_SYNC_MSG,
+      });
+    }
   });
 
   // set year periods and areas
