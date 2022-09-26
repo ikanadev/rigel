@@ -18,7 +18,7 @@ import { Link, useNavigate } from '@solidjs/router';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal, ColorModeButton } from '@app/components';
 
-import { JWT_KEY, DEFAULT_CLASS_KEY } from '@app/utils/constants';
+import { JWT_KEY, DEFAULT_CLASS_KEY, EXIT_MESSAGE } from '@app/utils/constants';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
 import { db } from '@app/db/dexie';
@@ -35,6 +35,9 @@ const Drawer: Component<Props> = (props) => {
   const { appState, actions: { setSelectedClass, clearAll } } = useAppData();
 
   const handleLogout = () => {
+    navigator.serviceWorker.controller?.postMessage({
+      type: EXIT_MESSAGE,
+    });
     const clearDb = async (): Promise<void> => {
       await Promise.all(db.tables.map((table) => table.clear()));
       localStorage.removeItem(JWT_KEY);

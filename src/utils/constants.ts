@@ -2,6 +2,7 @@
 export const DB_NAME = 'RIGEL_LOCAL';
 export const DB_VERSION = 11;
 
+export const EXIT_MESSAGE = 'EXIT_MESSAGE';
 export const JWT_KEY = 'jwt';
 export const DEFAULT_CLASS_KEY = 'default_class';
 export const API_URL = 'http://192.168.0.7:4000/';

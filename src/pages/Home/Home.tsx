@@ -21,6 +21,10 @@ const Home: Component = () => {
       navigate('/signin');
       return;
     }
+    navigator.serviceWorker.controller?.postMessage({
+      type: JWT_KEY,
+      jwtStr: jwt,
+    });
     void syncStaticData();
   });
 
