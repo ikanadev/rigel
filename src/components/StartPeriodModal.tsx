@@ -35,7 +35,7 @@ const StartPeriodModal: Component<Props> = (props) => {
   const onCreate = () => {
     const period = appState.periods.find(p => p.id === periodId());
     if (period === undefined || appState.selectedClass === null) return;
-    const date = new Date().toISOString();
+    const date = Date.now();
     startClassPeriod({
       id: nanoid(),
       finished: false,

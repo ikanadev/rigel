@@ -24,11 +24,10 @@ const FinishPeriodModal: Component<Props> = (props) => {
   const onFinish = () => {
     const activePeriod = appState.activePeriod;
     if (activePeriod === null) return;
-    const date = new Date().toISOString();
     finishClassPeriod({
       id: activePeriod.id,
       finished: true,
-      end: date,
+      end: Date.now(),
     }).then(() => {
       props.onClose();
     }).catch((err) => {

@@ -9,7 +9,7 @@ export const addAttendanceDay = (attDay: AttendanceDay) => {
       id: nanoid(),
       type: DbOperation.Insert,
       data: attDay,
-      date_time: new Date().toISOString(),
+      date_time: Date.now(),
     };
     await db.attendanceDays.add(attDay);
     await db.attendanceDayTransactions.add(transaction);

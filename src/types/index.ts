@@ -70,14 +70,14 @@ export interface Class {
 export interface Transaction {
   id: string
   type: DbOperation
-  date_time: string
+  date_time: number
 }
 
 export interface ClassPeriod {
   id: string
   class_id: string
-  start: string
-  end: string
+  start: number
+  end: number
   finished: boolean
   period: Period
 }

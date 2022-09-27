@@ -9,7 +9,7 @@ export const startClassPeriod = (classPeriod: ClassPeriod) => {
       id: nanoid(),
       type: DbOperation.Insert,
       data: classPeriod,
-      date_time: new Date().toISOString(),
+      date_time: Date.now(),
     };
     await db.classPeriods.add(classPeriod);
     await db.classPeriodTransactions.add(transaction);
@@ -22,7 +22,7 @@ export const finishClassPeriod = (data: ClassPeriodUpdate) => {
       id: nanoid(),
       type: DbOperation.Update,
       data,
-      date_time: new Date().toISOString(),
+      date_time: Date.now(),
     };
     const { id, ...changes } = data;
     await db.classPeriods.update(id, changes);

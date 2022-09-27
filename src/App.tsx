@@ -7,6 +7,10 @@ import 'dayjs/locale/es-mx';
 
 import routes from './routes';
 import theme from './theme';
+import { db } from '@app/db/dexie';
+
+// @ts-expect-error
+window.db = db;
 
 dayjs.locale('es-mx');
 

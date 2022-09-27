@@ -9,7 +9,7 @@ export const addStudent = (student: Student) => {
       id: nanoid(),
       type: DbOperation.Insert,
       data: student,
-      date_time: new Date().toISOString(),
+      date_time: Date.now(),
     };
     await db.students.add(student);
     await db.studentTransactions.add(transaction);
@@ -22,7 +22,7 @@ export const updateStudent = (studentUpdate: StudentUpdate) => {
       id: nanoid(),
       type: DbOperation.Update,
       data: studentUpdate,
-      date_time: new Date().toISOString(),
+      date_time: Date.now(),
     };
     const { id, ...changes } = studentUpdate;
     await db.students.update(id, changes);

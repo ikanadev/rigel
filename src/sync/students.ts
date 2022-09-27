@@ -6,7 +6,7 @@ import useStore from './store';
 
 export const syncStudents = async () => {
   let resp = await studentSync();
-  const studentTxs = await db.studentTransactions.orderBy('date_time').reverse().toArray();
+  const studentTxs = await db.studentTransactions.orderBy('date_time').toArray();
   const found = studentTxs.find((st) => st.id === resp.last_sync_id);
 
   let pendingTxs: StudentTransaction[] = [];
