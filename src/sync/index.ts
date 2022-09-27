@@ -1,4 +1,5 @@
 import { syncStudents, downloadAndSyncStudents } from './students';
+import { syncClassPeriods, downloadAndSyncClassPeriods } from './classPeriods';
 import useStore from './store';
 
 const syncInterval = 1000 * 20; // 20 seconds
@@ -11,12 +12,14 @@ export const setData = (jwt: string, yearId: string) => {
 
 export const downloadAndSync = () => {
   void downloadAndSyncStudents();
+  void downloadAndSyncClassPeriods();
 };
 
 export const syncApp = () => {
   const { addInterval } = useStore;
   const studentIntevalId = setInterval(() => {
     void syncStudents();
+    void syncClassPeriods();
   }, syncInterval);
   addInterval(studentIntevalId);
 };
