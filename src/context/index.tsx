@@ -101,14 +101,14 @@ export const AppProvider: ParentComponent = (props) => {
   const checkAndSetClassPeriod = () => {
     const classId = localStorage.getItem(DEFAULT_CLASS_KEY);
     if (classId === null) {
-      setData('activePeriod', null);
+      setData({ activePeriod: null });
       return;
     }
     const found = classPeriods.find((cp) => cp.class_id === classId && !cp.finished);
     if (found !== undefined) {
-      setData('activePeriod', found);
+      setData({ activePeriod: found });
     } else {
-      setData('activePeriod', null);
+      setData({ activePeriod: null });
     }
   };
 
