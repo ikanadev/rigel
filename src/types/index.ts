@@ -102,7 +102,7 @@ export interface StudentTransaction extends Transaction {
 
 export interface AttendanceDay {
   id: string
-  day: string
+  day: number
   class_period_id: string
 }
 export interface AttendanceDayTransaction extends Transaction {

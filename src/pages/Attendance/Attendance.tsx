@@ -35,7 +35,7 @@ const Attendance: Component = () => {
     if (appState.activePeriod === null) return;
     addAttendanceDay({
       id: nanoid(),
-      day: new Date().toISOString(),
+      day: Date.now(),
       class_period_id: appState.activePeriod.id,
     }).catch((err) => {
       // TODO: handle err
