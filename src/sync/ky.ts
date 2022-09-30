@@ -5,6 +5,8 @@ import {
   ClassPeriodTransaction,
   AttendanceDay,
   AttendanceDayTransaction,
+  Attendance,
+  AttendanceTransaction,
 } from '@app/types';
 
 import ky from 'ky';
@@ -47,5 +49,13 @@ export const saveAttendanceDays = async (attDays: AttendanceDayTransaction[]): P
 };
 export const getAttendanceDays = async (yearId: string): Promise<AttendanceDay[]> => {
   const resp = await api.get(`auth/attendancedays/year/${yearId}`);
+  return await resp.json();
+};
+
+export const saveAttendances = async (atts: AttendanceTransaction[]): Promise<void> => {
+  await api.post('auth/attendances', { json: atts });
+};
+export const getAttendances = async (yearId: string): Promise<Attendance[]> => {
+  const resp = await api.get(`auth/attendances/year/${yearId}`);
   return await resp.json();
 };

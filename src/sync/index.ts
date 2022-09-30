@@ -1,6 +1,7 @@
 import { syncStudents, downloadAndSyncStudents } from './students';
 import { syncClassPeriods, downloadAndSyncClassPeriods } from './classPeriods';
 import { syncAttendanceDays, donwloadAndSyncAttendanceDays } from './attendanceDays';
+import { syncAttendances, downloadAndSyncAttendances } from './attendances';
 import useStore from './store';
 
 const syncInterval = 1000 * 30; // 30 seconds
@@ -15,6 +16,7 @@ export const downloadAndSync = () => {
   void downloadAndSyncStudents();
   void downloadAndSyncClassPeriods();
   void donwloadAndSyncAttendanceDays();
+  void downloadAndSyncAttendances();
 };
 
 export const syncApp = () => {
@@ -23,6 +25,7 @@ export const syncApp = () => {
     void syncStudents();
     void syncClassPeriods();
     void syncAttendanceDays();
+    void syncAttendances();
   }, syncInterval);
   addInterval(studentIntevalId);
 };
