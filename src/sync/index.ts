@@ -3,7 +3,7 @@ import { syncClassPeriods, downloadAndSyncClassPeriods } from './classPeriods';
 import { syncAttendanceDays, donwloadAndSyncAttendanceDays } from './attendanceDays';
 import useStore from './store';
 
-const syncInterval = 1000 * 20; // 20 seconds
+const syncInterval = 1000 * 30; // 30 seconds
 
 export const setData = (jwt: string, yearId: string) => {
   const { setToken, setYear } = useStore;
