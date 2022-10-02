@@ -121,6 +121,14 @@ export interface AttendanceTransaction extends Transaction {
   data: Attendance | AttendanceUpdate
 }
 
+export interface Activity {
+  id: string
+  name: string
+  class_period_id: string
+  area_id: string
+  date: number
+}
+
 // App
 export interface InputState {
   value: string
