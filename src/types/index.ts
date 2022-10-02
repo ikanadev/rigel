@@ -128,6 +128,21 @@ export interface Activity {
   area_id: string
   date: number
 }
+export type ActivityUpdate = Pick<Activity, 'id' | 'name'>;
+export interface ActivityTransaction extends Transaction {
+  data: Activity | ActivityUpdate
+}
+
+export interface Score {
+  id: string
+  student_id: string
+  activity_id: string
+  points: number
+}
+export type ScoreUpdate = Pick<Score, 'id' | 'points'>;
+export interface ScoreTransaction extends Transaction {
+  data: Score | ScoreUpdate
+}
 
 // App
 export interface InputState {
