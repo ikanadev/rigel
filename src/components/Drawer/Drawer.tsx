@@ -113,7 +113,14 @@ const Drawer: Component<Props> = (props) => {
                   >
                     Asistencia
                   </Button>
-                  <Button as={Link} href="/" variant="ghost" colorScheme="neutral" justifyContent="start">
+                  <Button
+                    as={Link}
+                    onClick={() => props.onClose()}
+                    href={`/class/${appState.selectedClass!.id}/activities`}
+                    variant="ghost"
+                    colorScheme="neutral"
+                    justifyContent="start"
+                  >
                     Tareas / Actividades
                   </Button>
                 </Show>

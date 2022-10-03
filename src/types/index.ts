@@ -128,7 +128,7 @@ export interface Activity {
   area_id: string
   date: number
 }
-export type ActivityUpdate = Pick<Activity, 'id' | 'name'>;
+export type ActivityUpdate = Pick<Activity, 'id' | 'name' | 'area_id'>;
 export interface ActivityTransaction extends Transaction {
   data: Activity | ActivityUpdate
 }

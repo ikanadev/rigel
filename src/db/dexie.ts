@@ -56,7 +56,7 @@ class RigelStore extends Dexie {
       attendanceDayTransactions: 'id, type, date_time',
       attendances: 'id, value, attendance_day_id, student_id',
       attendanceTransactions: 'id, type, date_time',
-      activities: 'id, name, class_period_id, area_id, date',
+      activities: 'id, name, [area_id+class_period_id], date',
       activityTransactions: 'id, type, date_time',
       scores: 'id, student_id, activity_id, points',
       scoreTransactions: 'id, type, date_time',
