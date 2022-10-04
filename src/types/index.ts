@@ -151,6 +151,14 @@ export interface InputState {
   isTouched: boolean
 }
 
+export interface AppError {
+  id: string
+  user_id: string
+  cause: string
+  error_msg: string
+  error_stack: string
+}
+
 export enum DbOperation {
   Insert = 'INSERT',
   Update = 'UPDATE',

@@ -5,6 +5,7 @@ export { default as Alert } from './Alert';
 export { default as Drawer } from './Drawer';
 export { default as ColoredScore } from './ColoredScore';
 export { default as ClassSelector } from './ClassSelector';
+export { default as AppErrorModal } from './AppErrorModal';
 export { default as OfflineMessage } from './OfflineMessage';
 export { default as NewStudentForm } from './NewStudentForm';
 export { default as StartPeriodModal } from './StartPeriodModal';

@@ -16,6 +16,7 @@ import type {
   ActivityTransaction,
   Score,
   ScoreTransaction,
+  AppError,
 } from '@app/types';
 
 import Dexie from 'dexie';
@@ -39,6 +40,7 @@ class RigelStore extends Dexie {
   activityTransactions!: Dexie.Table<ActivityTransaction, string>;
   scores!: Dexie.Table<Score, string>;
   scoreTransactions!: Dexie.Table<ScoreTransaction, string>;
+  errors!: Dexie.Table<AppError, string>;
 
   constructor () {
     super(DB_NAME);
@@ -60,6 +62,7 @@ class RigelStore extends Dexie {
       activityTransactions: 'id, type, date_time',
       scores: 'id, student_id, activity_id, points',
       scoreTransactions: 'id, type, date_time',
+      errors: 'id, user_id',
     });
   }
 }
