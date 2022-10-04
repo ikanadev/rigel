@@ -21,12 +21,13 @@ import NonActivePeriodMessage from './NonActivePeriodMessage';
 import dayjs from 'dayjs';
 import { nanoid } from 'nanoid';
 import { useAppData } from '@app/context';
-import { studentsStore, periodAttendanceStore } from '@app/hooks';
+import { studentsStore, periodAttendanceStore, errorSignal } from '@app/hooks';
 import { addAttendanceDay } from '@app/db/attendanceDay';
 import { addAttendance, updateAttendance } from '@app/db/attendance';
 import attendanceColors from './attendanceColors';
 
 const Attendance: Component = () => {
+  const { reportError } = errorSignal;
   const { appState } = useAppData();
   const students = studentsStore();
   const { todayAttendanceDay, pastAttendancesDay } = periodAttendanceStore();
@@ -38,8 +39,7 @@ const Attendance: Component = () => {
       day: Date.now(),
       class_period_id: appState.activePeriod.id,
     }).catch((err) => {
-      // TODO: handle err
-      console.log('Err starting att day: ', err);
+      void reportError('Starting attendance (new attendance day)', err);
     });
   };
 
@@ -50,8 +50,7 @@ const Attendance: Component = () => {
       student_id: student.id,
       attendance_day_id: todayAttendanceDay()!.id,
     }).catch((err) => {
-      // TODO: handle err
-      console.log('Err adding att: ', err);
+      void reportError('Taking attendance', err);
     });
   };
   const setNewAttendance = (attId: string, status: AttendanceStatus) => {
@@ -59,8 +58,7 @@ const Attendance: Component = () => {
       id: attId,
       value: status,
     }).catch((err) => {
-      // TODO: handle err
-      console.log('Err editing att: ', err);
+      void reportError('Updating attendance', err);
     });
   };
 

@@ -17,6 +17,7 @@ import {
 import { Activity } from '@app/types';
 
 import { nanoid } from 'nanoid';
+import { errorSignal } from '@app/hooks';
 import { useAppData } from '@app/context';
 import { addActivity, updateActivity } from '@app/db/activities';
 
@@ -26,6 +27,7 @@ interface Props {
   activity: Activity | null
 }
 const NewActivityModal: Component<Props> = (props) => {
+  const { reportError } = errorSignal;
   const [areaId, setAreaId] = createSignal('');
   const [activityName, setActivityName] = createSignal('');
   const { appState } = useAppData();
@@ -56,8 +58,7 @@ const NewActivityModal: Component<Props> = (props) => {
         props.onClose();
       })
       .catch((err) => {
-        // TODO: handle error
-        console.log('error: ', err);
+        void reportError('Updating activity', err);
       });
   };
 
@@ -76,8 +77,7 @@ const NewActivityModal: Component<Props> = (props) => {
         props.onClose();
       })
       .catch((err) => {
-        // TODO: handle error
-        console.log('error: ', err);
+        void reportError('Creating new activity', err);
       });
   };
 

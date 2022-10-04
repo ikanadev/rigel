@@ -11,6 +11,7 @@ import {
 } from '@hope-ui/solid';
 import { Alert } from '@app/components';
 
+import { errorSignal } from '@app/hooks';
 import { useAppData } from '@app/context';
 import { finishClassPeriod } from '@app/db/classPeriod';
 
@@ -19,6 +20,7 @@ interface Props {
   onClose: () => void
 }
 const FinishPeriodModal: Component<Props> = (props) => {
+  const { reportError } = errorSignal;
   const { appState } = useAppData();
 
   const onFinish = () => {
@@ -31,8 +33,7 @@ const FinishPeriodModal: Component<Props> = (props) => {
     }).then(() => {
       props.onClose();
     }).catch((err) => {
-      // TODO: handle fatal error
-      console.log('Error: ', err);
+      void reportError('Finishing period', err);
     });
   };
 

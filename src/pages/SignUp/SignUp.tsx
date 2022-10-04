@@ -15,6 +15,7 @@ import {
 import { Logo } from '@app/icons';
 import { ColorModeButton } from '@app/components';
 
+import { errorSignal } from '@app/hooks';
 import { createStore } from 'solid-js/store';
 import { useNavigate, Link } from '@solidjs/router';
 import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from '@app/utils/functions';
@@ -35,6 +36,7 @@ const validators: {[key in keyof FormData]: Array<(val: string) => string> } = {
 const emptyField: () => InputState = () => ({ value: '', errorMsg: '', isTouched: false });
 
 const SignUp: Component = () => {
+  const { reportError } = errorSignal;
   const navigate = useNavigate();
   const [serverErr, setServerErr] = createSignal('');
   const [formData, setFormData] = createStore<FormData>({
@@ -85,8 +87,7 @@ const SignUp: Component = () => {
       getErrorMsg(err).then((msg) => {
         setServerErr(msg);
       }).catch((err) => {
-        // TODO: handle 500 errors
-        console.log(err);
+        void reportError('SignUp into app', err);
       });
     });
   };

@@ -16,6 +16,7 @@ import {
 
 import { nanoid } from 'nanoid';
 import { useAppData } from '@app/context';
+import { errorSignal } from '@app/hooks';
 import { startClassPeriod } from '@app/db/classPeriod';
 
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
   onClose: () => void
 }
 const StartPeriodModal: Component<Props> = (props) => {
+  const { reportError } = errorSignal;
   const [periodId, setPeriodId] = createSignal<string | null>(null);
   const { appState } = useAppData();
 
@@ -46,8 +48,7 @@ const StartPeriodModal: Component<Props> = (props) => {
     }).then(() => {
       props.onClose();
     }).catch((err) => {
-      // TODO: handle fatal error
-      console.log('Error: ', err);
+      void reportError('Starting period', err);
     });
   };
 

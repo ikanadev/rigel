@@ -5,7 +5,7 @@ import { ColoredScore } from '@app/components';
 import { Score } from '@app/types';
 
 import { useParams } from '@solidjs/router';
-import { booleanSignal } from '@app/hooks';
+import { booleanSignal, errorSignal } from '@app/hooks';
 import { addScore, updateScore } from '@app/db/scores';
 import { nanoid } from 'nanoid';
 
@@ -15,6 +15,7 @@ interface Props {
 }
 const ScoreCell: Component<Props> = (props) => {
   let inputRef: HTMLInputElement | undefined;
+  const { reportError } = errorSignal;
   const params = useParams<{ activityid: string }>();
   const edit = booleanSignal();
   const [score, setScore] = createSignal('');
@@ -43,8 +44,7 @@ const ScoreCell: Component<Props> = (props) => {
         edit.disable();
       })
       .catch((err) => {
-        // TODO: handle error
-        console.error('Err: ', err);
+        void reportError('New Score', err);
       });
   };
 
@@ -55,8 +55,7 @@ const ScoreCell: Component<Props> = (props) => {
         edit.disable();
       })
       .catch((err) => {
-        // TODO: handle error
-        console.error('Err: ', err);
+        void reportError('Updating Score', err);
       });
   };
 

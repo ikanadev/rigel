@@ -2,6 +2,7 @@ import type { Component } from 'solid-js';
 
 import { HopeProvider } from '@hope-ui/solid';
 import { Router, useRoutes } from '@solidjs/router';
+import { AppErrorModal } from '@app/components';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es-mx';
 
@@ -18,6 +19,7 @@ const App: Component = () => {
   const Routes = useRoutes(routes);
   return (
     <HopeProvider config={theme}>
+      <AppErrorModal />
       <Router>
         <Routes />
       </Router>
