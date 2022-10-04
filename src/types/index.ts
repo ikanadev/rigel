@@ -165,3 +165,5 @@ export enum AttendanceStatus {
 }
 
 export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;
+export type OnInputEvent = JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
+export type OnChangeEvent = JSX.EventHandlerUnion<HTMLInputElement, Event>;

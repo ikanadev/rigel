@@ -11,6 +11,7 @@ import Students from '@app/pages/Students';
 import NewStudent from '@app/pages/NewStudent';
 import EditStudent from '@app/pages/EditStudent';
 import Activities from '@app/pages/Activities';
+import Activity from '@app/pages/Activity';
 
 const routes: RouteDefinition[] = [
   {
@@ -28,6 +29,7 @@ const routes: RouteDefinition[] = [
           { path: '/students/new', component: NewStudent },
           { path: '/student/:studentid/edit', component: EditStudent },
           { path: '/activities', component: Activities },
+          { path: '/activity/:activityid', component: Activity },
         ],
       },
     ],

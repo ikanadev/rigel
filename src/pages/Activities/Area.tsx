@@ -29,7 +29,7 @@ const Area: Component<Props> = (props) => {
       >
         <For each={activities}>{(activity) => (
           <Flex alignItems="center" p="$1" mt="$1" rounded="$sm" _hover={{ background: '$neutral2' }}>
-            <Anchor href="">
+            <Anchor href={`activity/${activity.id}`}>
               <Flex alignItems="center" color="$primary10">
                 <ArrowLongRight mr="$2" />
                 <Text as="span">{activity.name}</Text>
