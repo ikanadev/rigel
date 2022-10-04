@@ -15,12 +15,13 @@ import ScoreCell from './ScoreCell';
 import { useParams } from '@solidjs/router';
 import { studentsStore } from '@app/hooks';
 import { db } from '@app/db/dexie';
-import { createDexieArrayQuery } from 'solid-dexie';
+import { createDexieArrayQuery, createDexieSignalQuery } from 'solid-dexie';
 
 interface ScoresMap {[key: string]: Score}
 
 const Activity: Component = () => {
   const params = useParams<{ activityid: string, classid: string }>();
+  const activity = createDexieSignalQuery(() => db.activities.get(params.activityid));
   const students = studentsStore();
   const scores = createDexieArrayQuery(() => db.scores.where({ activity_id: params.activityid }).toArray());
 
@@ -31,7 +32,7 @@ const Activity: Component = () => {
 
   return (
     <Box maxW="$lg">
-      <Title text="Actividad" backTo={`/class/${params.classid}/activities`} />
+      <Title text={activity()?.name ?? ''} backTo={`/class/${params.classid}/activities`} />
       <Table striped="odd" highlightOnHover dense>
         <Thead>
           <Tr>
