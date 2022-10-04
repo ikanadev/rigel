@@ -10,6 +10,7 @@ import type {
   Provincia,
   Municipio,
   School,
+  AppError,
 } from '@app/types';
 
 interface SignUpReq {
@@ -84,4 +85,8 @@ export const getMunicipios = async (provId: string): Promise<Municipio[]> => {
 export const getSchools = async (munId: string): Promise<School[]> => {
   const resp = await api.get(`schools/mun/${munId}`);
   return await resp.json();
+};
+
+export const saveAppErrors = async (data: AppError[]): Promise<void> => {
+  await api.post('errors', { json: data });
 };
