@@ -9,6 +9,8 @@ import {
   AttendanceTransaction,
   Activity,
   ActivityTransaction,
+  Score,
+  ScoreTransaction,
 } from '@app/types';
 
 import ky from 'ky';
@@ -67,5 +69,13 @@ export const saveActivities = async (acts: ActivityTransaction[]): Promise<void>
 };
 export const getActivities = async (yearId: string): Promise<Activity[]> => {
   const resp = await api.get(`auth/activities/year/${yearId}`);
+  return await resp.json();
+};
+
+export const saveScores = async (scores: ScoreTransaction[]): Promise<void> => {
+  await api.post('auth/scores', { json: scores });
+};
+export const getScores = async (yearId: string): Promise<Score[]> => {
+  const resp = await api.get(`auth/scores/year/${yearId}`);
   return await resp.json();
 };
