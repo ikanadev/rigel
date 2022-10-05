@@ -23,15 +23,19 @@ export const downloadAndSync = () => {
   void downloadAndSyncScores();
 };
 
+const syncData = async () => {
+  await syncStudents();
+  await syncClassPeriods();
+  await syncAttendanceDays();
+  await syncAttendances();
+  await syncActivities();
+  await syncScores();
+};
+
 export const syncApp = () => {
   const { addInterval } = useStore;
   const studentIntevalId = setInterval(() => {
-    void syncStudents();
-    void syncClassPeriods();
-    void syncAttendanceDays();
-    void syncAttendances();
-    void syncActivities();
-    void syncScores();
+    void syncData();
   }, syncInterval);
   addInterval(studentIntevalId);
 };

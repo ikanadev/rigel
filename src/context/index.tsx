@@ -5,7 +5,8 @@ import { createStore } from 'solid-js/store';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { fetchAndSyncClasses } from '@app/db/class';
 import { db } from '@app/db/dexie';
-import { DEFAULT_CLASS_KEY, DOWNLOAD_AND_SYNC_MSG, JWT_KEY, SET_DATA_MSG } from '@app/utils/constants';
+import worker from '@app/utils/worker';
+import { DEFAULT_CLASS_KEY, DOWNLOAD_AND_SYNC_MSG, JWT_KEY, SET_DATA_MSG, SYNC_DATA_MSG } from '@app/utils/constants';
 
 export interface AppContextData {
   year: Omit<Year, 'edges'>
@@ -53,17 +54,9 @@ export const AppProvider: ParentComponent = (props) => {
   createEffect(() => {
     if (data.year.value > 0) {
       console.info('Working with year: ', data.year.value);
-      navigator.serviceWorker.controller?.postMessage({
-        type: SET_DATA_MSG,
-        jwtStr: localStorage.getItem(JWT_KEY),
-        yearId: data.year.id,
-      });
-      navigator.serviceWorker.controller?.postMessage({
-        type: JWT_KEY,
-      });
-      navigator.serviceWorker.controller?.postMessage({
-        type: DOWNLOAD_AND_SYNC_MSG,
-      });
+      worker.postMessage({ type: SET_DATA_MSG, jwt: localStorage.getItem(JWT_KEY), yearId: data.year.id });
+      worker.postMessage({ type: SYNC_DATA_MSG });
+      worker.postMessage({ type: DOWNLOAD_AND_SYNC_MSG });
     }
   });
 
