@@ -1,12 +1,12 @@
 import type { Component } from 'solid-js';
 import type { Class } from '@app/types';
 
-import { Flex, Heading, Text, Badge, Box } from '@hope-ui/solid';
+import { Flex, Heading, Text, Badge } from '@hope-ui/solid';
 import { Link } from '@solidjs/router';
 
 import { useAppData } from '@app/context';
 
-const ClassItem: Component<{item: Class}> = (props) => {
+const ClassItem: Component<{ item: Class }> = (props) => {
   const { actions: { setSelectedClass } } = useAppData();
   return (
     <Link
@@ -15,8 +15,7 @@ const ClassItem: Component<{item: Class}> = (props) => {
     >
       <Flex
         borderRadius="$sm"
-        py="$3"
-        px="$4"
+        p={{ '@initial': '$2', '@md': '$3' }}
         bgColor="$neutral1"
         borderWidth="thin"
         borderColor="$neutral7"
@@ -24,16 +23,15 @@ const ClassItem: Component<{item: Class}> = (props) => {
         _hover={{ shadow: 'none', bgColor: '$neutral4' }}
         direction="column"
       >
-        <Flex alignItems="start">
-          <Heading color="$primary10">
-            {props.item.edges.subject.name}
-          </Heading>
-          <Box flex="1" />
-          <Badge colorScheme="primary" fontSize="$lg">{props.item.parallel}</Badge>
+        <Heading color="$primary10">
+          {props.item.edges.subject.name}
+        </Heading>
+        <Flex alignItems="end">
+          <Text size="sm" flex="1">
+            {props.item.edges.grade.name}
+          </Text>
+          <Badge colorScheme="primary" fontSize="$base">{props.item.parallel}</Badge>
         </Flex>
-        <Text size="sm">
-          {props.item.edges.grade.name}
-        </Text>
       </Flex>
     </Link>
   );

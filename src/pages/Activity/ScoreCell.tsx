@@ -71,7 +71,7 @@ const ScoreCell: Component<Props> = (props) => {
             onInput={(ev) => setScore(ev.currentTarget.value)}
             max={100}
             min={0}
-            size="sm"
+            size="md"
             width="$20"
             invalid={score() !== '' && parseInt(score()) > 100}
           />

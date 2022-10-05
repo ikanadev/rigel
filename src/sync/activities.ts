@@ -19,10 +19,5 @@ export const syncActivities = async () => {
 export const downloadAndSyncActivities = async () => {
   const { store } = useStore;
   const serverActs = await getActivities(store.yearId);
-  const localActs = await db.activities.toArray();
-  const notSavedServerActs = serverActs.filter((serverAct) => {
-    return !localActs.some((localAct) => localAct.id === serverAct.id);
-  });
-  log(`Saving ${notSavedServerActs.length} ACTIVITIES from server!`);
-  await db.activities.bulkAdd(notSavedServerActs);
+  await db.activities.bulkPut(serverActs);
 };

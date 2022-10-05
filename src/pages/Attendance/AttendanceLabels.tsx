@@ -6,11 +6,11 @@ import attendanceColor from './attendanceColors';
 
 const AttendanceLabels: Component = () => {
   return (
-    <Flex gap="$4" alignItems="center">
+    <Flex gap={{ '@initial': '$3', '@md': '$4' }} alignItems="center">
       <For each={Object.values(AttendanceStatus)}>
         {(value) => (
           <Flex alignItems="center">
-            <Box w="$4" h="$4" borderRadius="$sm" mr="$1" bg={attendanceColor[value].on} />
+            <Box w="$4" h="$4" borderRadius="$sm" mr="$0_5" bg={attendanceColor[value].on} />
             <Text size="sm">{value}</Text>
           </Flex>
         )}

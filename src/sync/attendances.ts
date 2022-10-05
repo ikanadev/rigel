@@ -19,10 +19,5 @@ export const syncAttendances = async () => {
 export const downloadAndSyncAttendances = async () => {
   const { store } = useStore;
   const serverAtts = await getAttendances(store.yearId);
-  const localAtts = await db.attendances.toArray();
-  const notSavedServerAtts = serverAtts.filter((serverAtt) => {
-    return !localAtts.some((localAtt) => localAtt.id === serverAtt.id);
-  });
-  log(`Saving ${notSavedServerAtts.length} ATTENDANCES from server!`);
-  await db.attendances.bulkAdd(notSavedServerAtts);
+  await db.attendances.bulkPut(serverAtts);
 };

@@ -33,7 +33,7 @@ const Activity: Component = () => {
   return (
     <Box maxW="$lg">
       <Title text={activity()?.name ?? ''} backTo={`/class/${params.classid}/activities`} />
-      <Table striped="odd" highlightOnHover dense>
+      <Table striped="odd" highlightOnHover dense mt="$4">
         <Thead>
           <Tr>
             <Th>Estudiante</Th>

@@ -19,10 +19,5 @@ export const syncScores = async () => {
 export const downloadAndSyncScores = async () => {
   const { store } = useStore;
   const serverScores = await getScores(store.yearId);
-  const localScores = await db.scores.toArray();
-  const notSavedServerScores = serverScores.filter((serverScore) => {
-    return !localScores.some((localScore) => localScore.id === serverScore.id);
-  });
-  log(`Saving ${notSavedServerScores.length} SCORES from server!`);
-  await db.scores.bulkAdd(notSavedServerScores);
+  await db.scores.bulkPut(serverScores);
 };
