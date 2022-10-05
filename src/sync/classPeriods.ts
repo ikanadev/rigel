@@ -19,10 +19,5 @@ export const syncClassPeriods = async () => {
 export const downloadAndSyncClassPeriods = async () => {
   const { store } = useStore;
   const serverClassPeriods = await getClassPeriods(store.yearId);
-  const localClassPeriods = await db.classPeriods.toArray();
-  const notSavedServerClassPeriods = serverClassPeriods.filter((serverCp) => {
-    return !localClassPeriods.some((localCp) => localCp.id === serverCp.id);
-  });
-  log(`Saving ${notSavedServerClassPeriods.length} classPeriods from server!`);
-  await db.classPeriods.bulkAdd(notSavedServerClassPeriods);
+  await db.classPeriods.bulkPut(serverClassPeriods);
 };

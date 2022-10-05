@@ -19,10 +19,5 @@ export const syncAttendanceDays = async () => {
 export const donwloadAndSyncAttendanceDays = async () => {
   const { store } = useStore;
   const serverAttDays = await getAttendanceDays(store.yearId);
-  const localAttDays = await db.attendanceDays.toArray();
-  const notSavedServerAttDays = serverAttDays.filter((serverAttDay) => {
-    return !localAttDays.some((localAttDay) => localAttDay.id === serverAttDay.id);
-  });
-  log(`Saving ${notSavedServerAttDays.length} ATTENDANCEDAYS from server!`);
-  await db.attendanceDays.bulkAdd(notSavedServerAttDays);
+  await db.attendanceDays.bulkPut(serverAttDays);
 };

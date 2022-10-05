@@ -18,10 +18,5 @@ export const syncStudents = async () => {
 export const downloadAndSyncStudents = async () => {
   const { store } = useStore;
   const serverStudents = await getStudents(store.yearId);
-  const localStudents = await db.students.toArray();
-  const notSavedServerStudents = serverStudents.filter((ss) => {
-    return !localStudents.some((ls) => ls.id === ss.id);
-  });
-  log(`Saving ${notSavedServerStudents.length} students from server!`);
-  await db.students.bulkAdd(notSavedServerStudents);
+  await db.students.bulkPut(serverStudents);
 };

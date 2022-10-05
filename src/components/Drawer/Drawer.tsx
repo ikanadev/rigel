@@ -13,12 +13,13 @@ import {
   Button,
   Badge,
   Text,
+  Box,
 } from '@hope-ui/solid';
 import { Link, useNavigate } from '@solidjs/router';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal, ColorModeButton } from '@app/components';
 
-import { JWT_KEY, DEFAULT_CLASS_KEY, EXIT_MESSAGE } from '@app/utils/constants';
+import { JWT_KEY, DEFAULT_CLASS_KEY, EXIT_MESSAGE, APP_VERSION } from '@app/utils/constants';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
 import worker from '@app/utils/worker';
@@ -176,8 +177,10 @@ const Drawer: Component<Props> = (props) => {
             </Flex>
           </DrawerBody>
 
-          <DrawerFooter>
+          <DrawerFooter alignItems="center">
             <ColorModeButton />
+            <Box flex="1" />
+            <Text size="sm" fontWeight="$semibold">V. {APP_VERSION}</Text>
           </DrawerFooter>
         </DrawerContent>
       </HopeDrawer>
