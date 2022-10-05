@@ -100,7 +100,7 @@ const SignUp: Component = () => {
 
       <Flex flexDirection="column" mt="$16">
         <Flex flexDirection="column" alignItems="center">
-          <Box maxW="$24" mb="$6">
+          <Box maxW="$36" mb="$1">
             <Logo width="100%" height="100%" />
           </Box>
           <Heading level="1" size="4xl" color="$primary9">Rigel</Heading>
