@@ -71,7 +71,7 @@ const NewStudentForm: Component<Props> = (props) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@lg': 3 }} rowGap="$4" columnGap="$4">
+      <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@lg': 3 }} rowGap="$4" columnGap="$4" mt="$4">
         <Flex flexDirection="column">
           <Text size="sm">Nombre(s):</Text>
           <Input
@@ -107,7 +107,7 @@ const NewStudentForm: Component<Props> = (props) => {
           <Text size="sm">Cédula de Identidad (Opcional):</Text>
           <Input
             name="ci"
-            type="numeric"
+            type="number"
             placeholder="Ej. 111111"
             value={formData.ci.value}
             onInput={onChange}

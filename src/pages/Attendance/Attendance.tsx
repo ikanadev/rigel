@@ -64,8 +64,8 @@ const Attendance: Component = () => {
 
   return (
     <>
-      <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap">
-        <Title text="Asistencias" />
+      <Flex justifyContent="space-between" alignItems="center" flexWrap="wrap" mb="$4" gap="$2">
+        <Title text="Asistencia" />
         <AttendanceLabels />
       </Flex>
       <Show
@@ -75,7 +75,7 @@ const Attendance: Component = () => {
         <Show
           when={students.length > 0}
           fallback={
-            <Text textAlign="center" fontStyle="italic">
+            <Text textAlign="center" fontStyle="italic" my="$6">
               <Text color="$neutral10" as="span">
                 No hay estudiantes registrados en esta materia, agrega estudiantes desde el menu de:
               </Text>
@@ -113,8 +113,7 @@ const Attendance: Component = () => {
                   {(student, index) => (
                     <Tr>
                       <Td w="$1" pl={0} css={{ whiteSpace: 'nowrap' }}>
-                        <Text>{student.last_name}</Text>
-                        <Text>{student.name}</Text>
+                        <Text>{`${student.last_name} ${student.name}`}</Text>
                       </Td>
                       <Show
                         when={todayAttendanceDay() !== null}

@@ -38,8 +38,8 @@ const Classes: Component = () => {
         </For>
       </SimpleGrid>
 
-      <Button as={Link} href="/class/new" mt="$6" colorScheme="success" leftIcon={<Plus />}>
-        Nuevo curso
+      <Button as={Link} href="/class/new" mt="$6" colorScheme="success" leftIcon={<Plus />} fullWidth={{ '@initial': true, '@md': false }}>
+        Nuevo materia
       </Button>
     </>
   );
