@@ -5,6 +5,7 @@ import { syncAttendances, downloadAndSyncAttendances } from './attendances';
 import { syncActivities, downloadAndSyncActivities } from './activities';
 import { syncScores, downloadAndSyncScores } from './scores';
 import useStore from './store';
+import { log } from '@app/utils/functions';
 
 const syncInterval = 1000 * 30; // 30 seconds
 
@@ -42,7 +43,7 @@ export const syncApp = () => {
 
 export const stopSyncs = () => {
   const { store, clearIntervals } = useStore;
-  console.log(`Clearing ${store.intervals.length} syncs`);
+  log(`Clearing ${store.intervals.length} syncs`);
   store.intervals.forEach((intervalId) => {
     // @ts-expect-error
     clearInterval(intervalId);
