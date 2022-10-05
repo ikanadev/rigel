@@ -7,6 +7,7 @@ import { fetchAndSyncClasses } from '@app/db/class';
 import { db } from '@app/db/dexie';
 import worker from '@app/utils/worker';
 import { DEFAULT_CLASS_KEY, DOWNLOAD_AND_SYNC_MSG, JWT_KEY, SET_DATA_MSG, SYNC_DATA_MSG } from '@app/utils/constants';
+import { log } from '@app/utils/functions';
 
 export interface AppContextData {
   year: Omit<Year, 'edges'>
@@ -48,12 +49,12 @@ export const AppProvider: ParentComponent = (props) => {
   const [data, setData] = createStore<AppContextData>(getDefaultState());
 
   createEffect(() => {
-    console.info('%c NEW STATE:', 'font-weight:700; background:blue; color:white; border-radius:3px;');
-    console.log(JSON.parse(JSON.stringify(data)));
+    log('%c NEW STATE:', 'font-weight:700; background:blue; color:white; border-radius:3px;');
+    log(JSON.parse(JSON.stringify(data)));
   });
   createEffect(() => {
     if (data.year.value > 0) {
-      console.info('Working with year: ', data.year.value);
+      log('Working with year: ', data.year.value);
       worker.postMessage({ type: SET_DATA_MSG, jwt: localStorage.getItem(JWT_KEY), yearId: data.year.id });
       worker.postMessage({ type: SYNC_DATA_MSG });
       worker.postMessage({ type: DOWNLOAD_AND_SYNC_MSG });

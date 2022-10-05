@@ -2,6 +2,13 @@ import { EMAIL_REGEX, JWT_KEY } from './constants';
 
 export const getToken = (): string | null => localStorage.getItem(JWT_KEY);
 
+// @ts-expect-error
+export const log = (...items) => {
+  if (import.meta.env.DEV) {
+    console.log(...items);
+  }
+};
+
 // Form validators
 export const nonEmptyValidator = (val: string): string => {
   if (val.trim() === '') return 'Campo requerido';
