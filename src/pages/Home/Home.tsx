@@ -31,7 +31,7 @@ const Home: Component = () => {
       <AppProvider>
         <Header openDrawer={toggleDrawer} />
         <Drawer isOpen={isDrawerOpen()} onClose={toggleDrawer} />
-        <Container p="$4">
+        <Container px={{ '@initial': '$2', '@md': '$4' }} py="$4">
           <Outlet />
         </Container>
       </AppProvider>

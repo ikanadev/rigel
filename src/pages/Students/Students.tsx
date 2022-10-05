@@ -36,7 +36,7 @@ const Students: Component = () => {
           </Text>
         }
       >
-        <Box overflowX="auto" maxW="$full">
+        <Box overflowX="auto" maxW="$full" mt="$4">
           <Table striped="even" dense>
             <Thead>
               <Tr>

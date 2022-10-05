@@ -37,16 +37,17 @@ const ClassSelector: Component = () => {
   return (
     <Show when={appState.selectedClass !== null}>
       <Select onChange={handleChange} value={appState.selectedClass!.id}>
-        <SelectTrigger border="none">
-          <Flex flexDirection="column">
-            <Text fontWeight="$semibold" textAlign="start" size="sm" overflow="hidden" css={{ textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} maxW="$full">
+        <SelectTrigger border="none" py="$0_5" px="$2">
+          <Flex flexDirection="column" minW="$60">
+            <Text fontWeight="$semibold" textAlign="start" size="sm" overflow="hidden" maxW="$full">
               {appState.selectedClass?.edges.subject.name}
             </Text>
-            <Text size="sm" textAlign="start">{appState.selectedClass?.edges.grade.name}</Text>
+            <Flex flexWrap="wrap">
+              <Text size="sm" textAlign="start" flex="1">{appState.selectedClass?.edges.grade.name}</Text>
+              <Badge colorScheme="primary" fontSize="$sm">{appState.selectedClass?.parallel}</Badge>
+            </Flex>
           </Flex>
-          <Box flex={1} />
-          <Badge colorScheme="primary" fontSize="$lg">{appState.selectedClass?.parallel}</Badge>
-          <SelectIcon />
+          <SelectIcon ml="$2" />
         </SelectTrigger>
         <SelectContent>
           <SelectListbox p="$2">
