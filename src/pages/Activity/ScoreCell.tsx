@@ -33,6 +33,24 @@ const ScoreCell: Component<Props> = (props) => {
     }
   });
 
+  createEffect(() => {
+    if (edit.isActive()) {
+      window.addEventListener('keydown', handleKeyPress);
+    } else {
+      window.removeEventListener('keydown', handleKeyPress);
+    }
+  });
+
+  const handleKeyPress = (ev: KeyboardEvent) => {
+    if (ev.key !== 'Enter') return;
+    if (score().trim() === '' || parseInt(score()) > 100 || parseInt(score()) < 0) return;
+    if (props.score === undefined) {
+      handleAdd();
+    } else {
+      handleUpdate();
+    }
+  };
+
   const handleAdd = () => {
     addScore({
       id: nanoid(),
