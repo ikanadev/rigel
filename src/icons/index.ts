@@ -15,6 +15,7 @@ export { default as ArrowLongRight } from './ArrowLongRight';
 export { default as WarningOutline } from './WarningOutline';
 
 export { default as UsersMini } from './UsersMini';
+export { default as Cog6Mini } from './Cog6Mini';
 export { default as CheckCircleMini } from './CheckCircleMini';
 export { default as DocumentDuplicateMini } from './DocumentDuplicateMini';
 export { default as RectangleStackMini } from './RectangleStackMini';

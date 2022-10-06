@@ -5,3 +5,4 @@ export { default as attendanceDaysStore } from './attendanceDaysStore';
 export { default as useLocalStorage } from './useLocalStorage';
 export { default as errorSignal } from './errorSignal';
 export { default as periodAttendanceStore } from './periodAttendanceStore';
+export { default as coloredScoresSignal } from './coloredScoresSignal';

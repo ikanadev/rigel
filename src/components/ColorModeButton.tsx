@@ -12,8 +12,8 @@ const ColorModeButton: Component<Omit<IconButtonProps, 'aria-label' | 'icon'>> =
       aria-label="Cambiar color"
       onClick={colorMode.toggleColorMode}
       variant="ghost"
-      color={colorMode.colorMode() === 'light' ? '#04A8B3' : 'orange'}
-      icon={colorMode.colorMode() === 'light' ? <Moon /> : <Sun />}
+      color={colorMode.colorMode() === 'light' ? 'orange' : '#04A8B3'}
+      icon={colorMode.colorMode() === 'light' ? <Sun /> : <Moon />}
     />
   );
 };

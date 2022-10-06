@@ -22,6 +22,7 @@ import {
   DocumentDuplicateMini,
   ArrowLeftOnRectMini,
   RectangleStackMini,
+  Cog6Mini,
 } from '@app/icons';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal, ColorModeButton } from '@app/components';
@@ -187,6 +188,14 @@ const Drawer: Component<Props> = (props) => {
               >
                 Mis materias
               </Button>
+              <LinkButton
+                text="Opciones"
+                colorScheme="neutral"
+                // eslint-disable-next-line solid/reactivity
+                onClick={props.onClose}
+                icon={<Cog6Mini />}
+                href="/settings"
+              />
               <Button
                 onClick={handleLogout}
                 compact

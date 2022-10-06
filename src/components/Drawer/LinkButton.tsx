@@ -6,7 +6,7 @@ interface Props {
   href: string
   icon?: JSX.Element
   text: JSX.Element
-  onClick: () => void
+  onClick?: () => void
   colorScheme?: 'info' | 'primary' | 'accent' | 'neutral' | 'success' | 'warning' | 'danger'
 }
 const LinkButton: Component<Props> = (props) => {
