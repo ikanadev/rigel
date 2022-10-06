@@ -25,8 +25,10 @@ import {
   Cog6Mini,
 } from '@app/icons';
 import { Show } from 'solid-js';
-import { StartPeriodModal, FinishPeriodModal, ColorModeButton } from '@app/components';
+import { StartPeriodModal, FinishPeriodModal } from '@app/components';
 import LinkButton from './LinkButton';
+import AboutModal from './AboutModal';
+import ContactModal from './ContactModal';
 
 import { JWT_KEY, DEFAULT_CLASS_KEY, EXIT_MESSAGE, APP_VERSION } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
@@ -42,9 +44,20 @@ interface Props {
 
 const Drawer: Component<Props> = (props) => {
   const navigate = useNavigate();
+  const aboutModal = booleanSignal();
+  const contactModal = booleanSignal();
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
   const { appState, actions: { setSelectedClass, clearAll } } = useAppData();
+
+  const openAbout = () => {
+    props.onClose();
+    aboutModal.enable();
+  };
+  const openContact = () => {
+    props.onClose();
+    contactModal.enable();
+  };
 
   const handleLogout = () => {
     worker.postMessage({ type: EXIT_MESSAGE });
@@ -67,8 +80,10 @@ const Drawer: Component<Props> = (props) => {
 
   return (
     <>
-      <StartPeriodModal isOpen={newPeriodModal.active()} onClose={newPeriodModal.disable} />
-      <FinishPeriodModal isOpen={finishPeriodModal.active()} onClose={finishPeriodModal.disable} />
+      <StartPeriodModal isOpen={newPeriodModal.isActive()} onClose={newPeriodModal.disable} />
+      <FinishPeriodModal isOpen={finishPeriodModal.isActive()} onClose={finishPeriodModal.disable} />
+      <AboutModal isOpen={aboutModal.isActive()} onClose={aboutModal.disable} />
+      <ContactModal isOpen={contactModal.isActive()} onClose={contactModal.disable} />
       <HopeDrawer
         size="md"
         opened={props.isOpen}
@@ -209,10 +224,12 @@ const Drawer: Component<Props> = (props) => {
             </Flex>
           </DrawerBody>
 
-          <DrawerFooter alignItems="center">
-            <ColorModeButton />
-            <Box flex="1" />
+          <DrawerFooter alignItems="end">
             <Text size="sm" fontWeight="$semibold">{APP_VERSION}</Text>
+            <Box flex="1" />
+            <Button variant="ghost" colorScheme="primary" size="sm" compact onClick={openAbout}>Acerca</Button>
+            <Text mx="$1" size="xs">{' '}</Text>
+            <Button variant="ghost" colorScheme="primary" size="sm" compact onClick={openContact}>Contacto</Button>
           </DrawerFooter>
         </DrawerContent>
       </HopeDrawer>

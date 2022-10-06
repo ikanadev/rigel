@@ -27,7 +27,7 @@ const ScoreCell: Component<Props> = (props) => {
   });
 
   createEffect(() => {
-    if (edit.active() && inputRef !== undefined) {
+    if (edit.isActive() && inputRef !== undefined) {
       inputRef.focus();
       inputRef.select();
     }
@@ -61,7 +61,7 @@ const ScoreCell: Component<Props> = (props) => {
 
   return (
     <Show
-      when={!edit.active()}
+      when={!edit.isActive()}
       fallback={
         <Flex alignItems="center" justifyContent="end" gap="$2">
           <Input
