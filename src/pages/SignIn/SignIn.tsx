@@ -13,9 +13,9 @@ import {
   Anchor,
 } from '@hope-ui/solid';
 import { Logo } from '@app/icons';
-import { ColorModeButton } from '@app/components';
+import { ColorModeButton, Alert } from '@app/components';
 
-import { errorSignal } from '@app/hooks';
+import { errorSignal, isOnline } from '@app/hooks';
 import { createStore } from 'solid-js/store';
 import { useNavigate, Link } from '@solidjs/router';
 import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from '@app/utils/functions';
@@ -27,7 +27,7 @@ interface FormData {
   email: InputState
   password: InputState
 }
-const validators: {[key in keyof FormData]: Array<(val: string) => string> } = {
+const validators: { [key in keyof FormData]: Array<(val: string) => string> } = {
   email: [nonEmptyValidator, emailValidator],
   password: [nonEmptyValidator, minLenValidator(6)],
 };
@@ -46,7 +46,7 @@ const SignIn: Component = () => {
   const isDisabled = (): boolean => {
     return Object.keys(formData).some(
       (key) => formData[key as keyof FormData].errorMsg !== '' ||
-      formData[key as keyof FormData].value === '',
+        formData[key as keyof FormData].value === '',
     );
   };
 
@@ -139,14 +139,20 @@ const SignIn: Component = () => {
               placeholder="Contraseña"
               invalid={formData.password.isTouched && formData.password.errorMsg !== ''}
               mt="$4"
+              mb="$8"
               type="password"
             />
             <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
             </Show>
-            <Button disabled={isDisabled()} loading={isLoading()} mt="$8" type="submit">
-              Iniciar
-            </Button>
+            <Show
+              when={isOnline()}
+              fallback={<Alert status="warning" text="No hay conexión a Internet" />}
+            >
+              <Button disabled={isDisabled()} loading={isLoading()} type="submit">
+                Iniciar
+              </Button>
+            </Show>
             <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
               ¿Aún no tienes una cuenta?{' '}
               <Anchor as={Link} href="/signup" fontWeight="$bold" color="$primary11">
