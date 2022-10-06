@@ -9,17 +9,26 @@ import {
   DrawerBody,
   DrawerFooter,
   Divider,
+  Heading,
   Flex,
   Button,
   Badge,
   Text,
   Box,
 } from '@hope-ui/solid';
-import { Link, useNavigate } from '@solidjs/router';
+import {
+  CheckCircleMini,
+  UsersMini,
+  DocumentDuplicateMini,
+  ArrowLeftOnRectMini,
+  RectangleStackMini,
+} from '@app/icons';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal, ColorModeButton } from '@app/components';
+import LinkButton from './LinkButton';
 
 import { JWT_KEY, DEFAULT_CLASS_KEY, EXIT_MESSAGE, APP_VERSION } from '@app/utils/constants';
+import { useNavigate } from '@solidjs/router';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
 import worker from '@app/utils/worker';
@@ -69,92 +78,56 @@ const Drawer: Component<Props> = (props) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
-            <Text>{' '}</Text>
+            <Heading color="$primary9" size="xl" fontWeight="$bold">
+              RIGEL
+            </Heading>
+            <Divider mt="$2" />
           </DrawerHeader>
 
           <DrawerBody>
             <Show
               when={appState.selectedClass !== null}
               fallback={
-                <Text fontStyle="italic" color="$neutral11" textAlign="center" my="$6">
-                  Selecciona una materia para administrar
+                <Text fontStyle="italic" color="$neutral11" fontSize="$sm" my="$4">
+                  Ninguna materia seleccionada
                 </Text>
               }
             >
-              <Text size="lg" fontWeight="$semibold" color="$primary10">{appState.selectedClass!.edges.subject.name}</Text>
-              <Text>
-                {appState.selectedClass!.edges.grade.name}
-                {' '}
-                <Badge colorScheme="primary" fontSize="$lg">{appState.selectedClass!.parallel}</Badge>
-              </Text>
-              <Text mt="$2">
+              <Text size="base" fontWeight="$semibold">{appState.selectedClass!.edges.subject.name}</Text>
+              <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap">
+                <Text size="sm">{appState.selectedClass!.edges.grade.name}</Text>
+                <Badge colorScheme="primary">{appState.selectedClass!.parallel}</Badge>
+              </Flex>
+              <Text size="sm">
                 Periodo:{' '}
                 <Text as="span" fontWeight="$semibold" color={appState.activePeriod !== null ? undefined : '$neutral10'}>
                   {appState.activePeriod !== null ? appState.activePeriod.period.name : 'No iniciado'}
                 </Text>
               </Text>
-              <Text>Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.edges.year.value}</Text></Text>
-              <Flex direction="column" mt="$6">
-                <Show
-                  when={appState.activePeriod !== null}
-                  fallback={
-                    <Text fontStyle="italic" color="$neutral11" textAlign="center" my="$6">
-                      Debe iniciar un periodo para administrar asistencias y tareas.
-                    </Text>
-                  }
-                >
-                  <Button
-                    as={Link}
-                    onClick={() => props.onClose()}
-                    href={`/class/${appState.selectedClass!.id}/attendance`}
-                    variant="ghost"
-                    colorScheme="neutral"
-                    justifyContent="start"
-                  >
-                    Asistencia
-                  </Button>
-                  <Button
-                    as={Link}
-                    onClick={() => props.onClose()}
-                    href={`/class/${appState.selectedClass!.id}/activities`}
-                    variant="ghost"
-                    colorScheme="neutral"
-                    justifyContent="start"
-                  >
-                    Tareas / Actividades
-                  </Button>
-                </Show>
-                <Button
-                  as={Link}
-                  onClick={() => props.onClose()}
-                  href={`/class/${appState.selectedClass!.id}/students`}
-                  variant="ghost"
-                  colorScheme="neutral"
-                  justifyContent="start"
-                >
-                  Administrar Estudiantes
-                </Button>
-
+              <Text size="sm">Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.edges.year.value}</Text></Text>
+              <Flex justifyContent="end">
                 <Show
                   when={appState.activePeriod === null}
                   fallback={
                     <Button
-                      mt="$4"
+                      compact
                       size="sm"
-                      colorScheme="danger"
+                      colorScheme="neutral"
+                      variant="subtle"
                       onClick={() => {
                         finishPeriodModal.enable();
                         props.onClose();
                       }}
                     >
-                      Finalizar periodo
+                      {`Finalizar ${appState.activePeriod!.period.name}`}
                     </Button>
                   }
                 >
                   <Button
-                    mt="$4"
                     size="sm"
-                    colorScheme="accent"
+                    colorScheme="success"
+                    variant="subtle"
+                    compact
                     onClick={() => {
                       newPeriodModal.enable();
                       props.onClose();
@@ -163,15 +136,65 @@ const Drawer: Component<Props> = (props) => {
                     Iniciar nuevo periodo
                   </Button>
                 </Show>
-
               </Flex>
-              <Divider mb="$4" mt="$4" />
+
+              <Flex direction="column" mt="$2" gap="$2">
+                <Show
+                  when={appState.activePeriod !== null}
+                  fallback={
+                    <Text fontStyle="italic" color="$neutral11" textAlign="center" my="$6">
+                      Debe iniciar un periodo para administrar asistencias y tareas.
+                    </Text>
+                  }
+                >
+                  <LinkButton
+                    text="Asistencia"
+                    colorScheme="neutral"
+                    // eslint-disable-next-line solid/reactivity
+                    onClick={props.onClose}
+                    icon={<CheckCircleMini />}
+                    href={`/class/${appState.selectedClass!.id}/attendance`}
+                  />
+                  <LinkButton
+                    text="Tareas / Actividades"
+                    colorScheme="neutral"
+                    // eslint-disable-next-line solid/reactivity
+                    onClick={props.onClose}
+                    icon={<DocumentDuplicateMini />}
+                    href={`/class/${appState.selectedClass!.id}/activities`}
+                  />
+                </Show>
+                <LinkButton
+                  text="Estudiantes"
+                  colorScheme="neutral"
+                  // eslint-disable-next-line solid/reactivity
+                  onClick={props.onClose}
+                  icon={<UsersMini />}
+                  href={`/class/${appState.selectedClass!.id}/students`}
+                />
+              </Flex>
             </Show>
-            <Flex flexDirection="column">
-              <Button onClick={handleGoToClasses} variant="ghost" colorScheme="neutral" justifyContent="start">
-                Ver todas mis materias
+
+            <Flex flexDirection="column" gap="$2">
+              <Divider my="$3" />
+              <Button
+                onClick={handleGoToClasses}
+                compact
+                variant="ghost"
+                colorScheme="neutral"
+                justifyContent="start"
+                leftIcon={<RectangleStackMini />}
+              >
+                Mis materias
               </Button>
-              <Button onClick={handleLogout} variant="ghost" colorScheme="danger" justifyContent="start">
+              <Button
+                onClick={handleLogout}
+                compact
+                variant="ghost"
+                colorScheme="danger"
+                justifyContent="start"
+                leftIcon={<ArrowLeftOnRectMini />}
+              >
                 Cerrar sesión
               </Button>
             </Flex>
@@ -180,7 +203,7 @@ const Drawer: Component<Props> = (props) => {
           <DrawerFooter alignItems="center">
             <ColorModeButton />
             <Box flex="1" />
-            <Text size="sm" fontWeight="$semibold">V. {APP_VERSION}</Text>
+            <Text size="sm" fontWeight="$semibold">{APP_VERSION}</Text>
           </DrawerFooter>
         </DrawerContent>
       </HopeDrawer>
