@@ -1,7 +1,11 @@
 import { Component, createMemo } from 'solid-js';
 import { Text, TextProps } from '@hope-ui/solid';
 
+import { coloredScoresSignal } from '@app/hooks';
+
 const ColoredScore: Component<{ score: number } & TextProps> = (props) => {
+  const { coloredScores } = coloredScoresSignal;
+
   const getColor = createMemo(() => {
     switch (true) {
       case props.score < 51:
@@ -17,7 +21,7 @@ const ColoredScore: Component<{ score: number } & TextProps> = (props) => {
     }
   });
   return (
-    <Text color={getColor()} {...props} fontWeight="$semibold" size="base">
+    <Text color={coloredScores() ? getColor() : '$neutral12'} {...props} fontWeight="$semibold" size="base">
       {props.score}
     </Text>
   );

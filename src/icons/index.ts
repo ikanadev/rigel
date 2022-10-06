@@ -10,5 +10,16 @@ export { default as XMark } from './XMark';
 export { default as ChevronUp } from './ChevronUp';
 export { default as ChevronLeft } from './ChevronLeft';
 export { default as ChevronDown } from './ChevronDown';
-export { default as WarningOutline } from './WarningOutline';
 export { default as ArrowLongRight } from './ArrowLongRight';
+
+export { default as WarningOutline } from './WarningOutline';
+
+export { default as UsersMini } from './UsersMini';
+export { default as Cog6Mini } from './Cog6Mini';
+export { default as CheckCircleMini } from './CheckCircleMini';
+export { default as DocumentDuplicateMini } from './DocumentDuplicateMini';
+export { default as RectangleStackMini } from './RectangleStackMini';
+export { default as ArrowLeftOnRectMini } from './ArrowLeftOnRectMini';
+
+export { default as Telegram } from './Telegram';
+export { default as Gmail } from './Gmail';

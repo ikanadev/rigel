@@ -9,7 +9,7 @@ const NonActivePeriodMessage: Component = () => {
 
   return (
     <>
-      <StartPeriodModal isOpen={modalStatus.active()} onClose={modalStatus.disable} />
+      <StartPeriodModal isOpen={modalStatus.isActive()} onClose={modalStatus.disable} />
       <Flex flexDirection="column" alignItems="center" my="$6">
         <Text color="$neutral10" fontStyle="italic" textAlign="center">
           Debes iniciar un periodo para registrar asistencias.
