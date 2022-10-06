@@ -30,7 +30,7 @@ const Classes: Component = () => {
           No existen materias registradas, crea una con el botón de abajo.
         </Text>
       </Show>
-      <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@xl': 3 }} rowGap="$6" columnGap="$6">
+      <SimpleGrid mt="$4" columns={{ '@initial': 1, '@md': 2, '@xl': 3 }} rowGap="$6" columnGap="$6">
         <For each={classes}>
           {(cl) => (
             <ClassItem item={cl} />

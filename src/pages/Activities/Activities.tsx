@@ -26,7 +26,7 @@ const Activities: Component = () => {
 
   return (
     <>
-      <NewActivityModal isOpen={modal.active()} onClose={closeModal} activity={activity()} />
+      <NewActivityModal isOpen={modal.isActive()} onClose={closeModal} activity={activity()} />
       <Flex justifyContent="space-between" flexWrap="wrap">
         <Title text="Actividades" />
         <Button colorScheme="success" leftIcon={<Plus />} size="sm" onClick={modal.enable} textTransform="uppercase">
