@@ -29,13 +29,12 @@ import { StartPeriodModal, FinishPeriodModal } from '@app/components';
 import LinkButton from './LinkButton';
 import AboutModal from './AboutModal';
 import ContactModal from './ContactModal';
+import LogoutModal from './LogoutModal';
 
-import { JWT_KEY, DEFAULT_CLASS_KEY, EXIT_MESSAGE, APP_VERSION } from '@app/utils/constants';
+import { APP_VERSION } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
-import worker from '@app/utils/worker';
-import { db } from '@app/db/dexie';
 
 interface Props {
   isOpen: boolean
@@ -45,11 +44,16 @@ interface Props {
 const Drawer: Component<Props> = (props) => {
   const navigate = useNavigate();
   const aboutModal = booleanSignal();
+  const logoutModal = booleanSignal();
   const contactModal = booleanSignal();
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
-  const { appState, actions: { setSelectedClass, clearAll } } = useAppData();
+  const { appState, actions: { setSelectedClass } } = useAppData();
 
+  const openLogout = () => {
+    props.onClose();
+    logoutModal.enable();
+  };
   const openAbout = () => {
     props.onClose();
     aboutModal.enable();
@@ -59,19 +63,6 @@ const Drawer: Component<Props> = (props) => {
     contactModal.enable();
   };
 
-  const handleLogout = () => {
-    worker.postMessage({ type: EXIT_MESSAGE });
-    const clearDb = async (): Promise<void> => {
-      await Promise.all(db.tables.map((table) => table.clear()));
-      localStorage.removeItem(JWT_KEY);
-      localStorage.removeItem(DEFAULT_CLASS_KEY);
-    };
-    clearDb().finally(() => {
-      clearAll();
-      props.onClose();
-      navigate('/signin');
-    });
-  };
   const handleGoToClasses = () => {
     setSelectedClass(null);
     props.onClose();
@@ -84,6 +75,7 @@ const Drawer: Component<Props> = (props) => {
       <FinishPeriodModal isOpen={finishPeriodModal.isActive()} onClose={finishPeriodModal.disable} />
       <AboutModal isOpen={aboutModal.isActive()} onClose={aboutModal.disable} />
       <ContactModal isOpen={contactModal.isActive()} onClose={contactModal.disable} />
+      <LogoutModal isOpen={logoutModal.isActive()} onClose={logoutModal.disable} />
       <HopeDrawer
         size="md"
         opened={props.isOpen}
@@ -212,7 +204,7 @@ const Drawer: Component<Props> = (props) => {
                 href="/settings"
               />
               <Button
-                onClick={handleLogout}
+                onClick={openLogout}
                 compact
                 variant="ghost"
                 colorScheme="danger"
