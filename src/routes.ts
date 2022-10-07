@@ -7,6 +7,7 @@ import Classes from '@app/pages/Classes';
 import NewClass from '@app/pages/NewClass';
 import Class from '@app/pages/Class';
 import Attendance from '@app/pages/Attendance';
+import AttendanceReport from '@app/pages/AttendanceReport';
 import Students from '@app/pages/Students';
 import NewStudent from '@app/pages/NewStudent';
 import EditStudent from '@app/pages/EditStudent';
@@ -27,6 +28,7 @@ const routes: RouteDefinition[] = [
         component: Class,
         children: [
           { path: '/attendance', component: Attendance },
+          { path: '/attendance/report', component: AttendanceReport },
           { path: '/students', component: Students },
           { path: '/students/new', component: NewStudent },
           { path: '/student/:studentid/edit', component: EditStudent },

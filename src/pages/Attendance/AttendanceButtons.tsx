@@ -2,7 +2,7 @@ import { Component, For } from 'solid-js';
 import { Box, Flex, Button } from '@hope-ui/solid';
 
 import { AttendanceStatus } from '@app/types';
-import attendanceColor from './attendanceColors';
+import { attendanceColors } from '@app/utils/constants';
 
 interface Props {
   status?: AttendanceStatus
@@ -26,7 +26,7 @@ const AttendanceButtons: Component<Props> = (props) => {
               h={props.status === value ? '$5' : '$4'}
               transition="all 0.5s"
               borderRadius="$sm"
-              bg={props.status === value ? attendanceColor[value].on : attendanceColor[value].off}
+              bg={props.status === value ? attendanceColors[value].on : attendanceColors[value].off}
             />
           </Button>
         )}

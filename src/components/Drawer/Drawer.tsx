@@ -23,6 +23,7 @@ import {
   ArrowLeftOnRectMini,
   RectangleStackMini,
   Cog6Mini,
+  DocumentCheckMini,
 } from '@app/icons';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal } from '@app/components';
@@ -162,6 +163,14 @@ const Drawer: Component<Props> = (props) => {
                     onClick={props.onClose}
                     icon={<CheckCircleMini />}
                     href={`/class/${appState.selectedClass!.id}/attendance`}
+                  />
+                  <LinkButton
+                    text="Reporte de Asistencias"
+                    colorScheme="neutral"
+                    // eslint-disable-next-line solid/reactivity
+                    onClick={props.onClose}
+                    icon={<DocumentCheckMini />}
+                    href={`/class/${appState.selectedClass!.id}/attendance/report`}
                   />
                   <LinkButton
                     text="Tareas / Actividades"
