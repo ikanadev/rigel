@@ -165,14 +165,6 @@ const Drawer: Component<Props> = (props) => {
                     href={`/class/${appState.selectedClass!.id}/attendance`}
                   />
                   <LinkButton
-                    text="Reporte de Asistencias"
-                    colorScheme="neutral"
-                    // eslint-disable-next-line solid/reactivity
-                    onClick={props.onClose}
-                    icon={<DocumentCheckMini />}
-                    href={`/class/${appState.selectedClass!.id}/attendance/report`}
-                  />
-                  <LinkButton
                     text="Tareas / Actividades"
                     colorScheme="neutral"
                     // eslint-disable-next-line solid/reactivity
@@ -188,6 +180,22 @@ const Drawer: Component<Props> = (props) => {
                   onClick={props.onClose}
                   icon={<UsersMini />}
                   href={`/class/${appState.selectedClass!.id}/students`}
+                />
+                <LinkButton
+                  text="Reporte de Asistencias"
+                  colorScheme="neutral"
+                  // eslint-disable-next-line solid/reactivity
+                  onClick={props.onClose}
+                  icon={<DocumentCheckMini />}
+                  href={`/class/${appState.selectedClass!.id}/attendance/report`}
+                />
+                <LinkButton
+                  text="Reporte de Notas"
+                  colorScheme="neutral"
+                  // eslint-disable-next-line solid/reactivity
+                  onClick={props.onClose}
+                  icon={<DocumentCheckMini />}
+                  href={`/class/${appState.selectedClass!.id}/scores/report`}
                 />
               </Flex>
             </Show>

@@ -2,7 +2,7 @@ import { AttendanceStatus } from '@app/types';
 
 // Indexed DB
 export const DB_NAME = 'RIGEL_LOCAL';
-export const DB_VERSION = 18;
+export const DB_VERSION = 19;
 
 // App constants
 export const APP_VERSION = 'v0.9.2';

@@ -54,7 +54,7 @@ const AttendanceReport: Component = () => {
 
   return (
     <>
-      <Title text="Reporte asistencias" />
+      <Title text="Asistencias" />
       <Box maxW="$full" maxH="calc(100vh - 128px)" overflow="auto" mt="$2">
         <Table striped="even" dense>
           <Thead bgColor="$background" pos="sticky" top={0} zIndex={2} shadow="$md">
@@ -78,40 +78,31 @@ const AttendanceReport: Component = () => {
             </Tr>
             <Tr>
               <For each={periodsWithAttDays()}>{(classPeriod, i) => (
-                <Show
-                  when={classPeriod.attDays.length > 0}
-                  fallback={null}
-                >
-                  <For each={classPeriod.attDays}>{(attDay) => (
-                    <Th
-                      borderBottom="none"
-                      pt={0} px="$1" bg={i() % 2 === 1 ? '$neutral3' : undefined}
-                    >
-                      <Text as="pre" textAlign="center">
-                        {dayjs(attDay.day).format('ddd\nDD/MM')}
-                      </Text>
-                    </Th>
-                  )}</For>
-                </Show>
+                <For each={classPeriod.attDays}>{(attDay) => (
+                  <Th
+                    borderBottom="none"
+                    pt={0} px="$1" bg={i() % 2 === 1 ? '$neutral3' : undefined}
+                  >
+                    <Text as="pre" textAlign="center">
+                      {dayjs(attDay.day).format('ddd\nDD/MM')}
+                    </Text>
+                  </Th>
+                )}</For>
               )}</For>
             </Tr>
           </Thead>
           <Tbody maxW="$full" overflowX="auto" zIndex={1}>
             <For each={studentsWithAtts()}>{(student, index) => (
               <Tr>
-                <Td pl={0} bgColor="$background" pr="$0_5" py="$0_5" pos="sticky" left={0}>
-                  <Text css={{ whiteSpace: ' nowrap' }}>{student.last_name}</Text>
-                  <Text css={{ whiteSpace: ' nowrap' }}>{student.name}</Text>
+                <Td bgColor="$background" p="$0_5" pos="sticky" left={0}>
+                  <Text textAlign="right" css={{ whiteSpace: 'nowrap' }}>{student.last_name}</Text>
+                  <Text textAlign="right" css={{ whiteSpace: 'nowrap' }}>{student.name}</Text>
                 </Td>
                 <For each={periodsWithAttDays()}>{(classPeriod) => (
-                  <Show
-                    when={classPeriod.attDays.length > 0}
-                    fallback={
-                      index() === 0
-                        ? <Td rowSpan={students.length}>Sin datos</Td>
-                        : undefined
-                    }
-                  >
+                  <>
+                    <Show when={classPeriod.attDays.length === 0 && index() === 0}>
+                      <Td rowSpan={students.length}>Sin datos</Td>
+                    </Show>
                     <For each={classPeriod.attDays}>{(attDay) => (
                       <Td px="$1">
                         <Flex display="flex" justifyContent="center">
@@ -119,7 +110,7 @@ const AttendanceReport: Component = () => {
                         </Flex>
                       </Td>
                     )}</For>
-                  </Show>
+                  </>
                 )}</For>
               </Tr>
             )}</For>
