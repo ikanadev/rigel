@@ -14,7 +14,7 @@ import {
 } from '@hope-ui/solid';
 
 import { For, Show } from 'solid-js';
-import { useNavigate, useLocation } from '@solidjs/router';
+import { useNavigate, useLocation, useMatch } from '@solidjs/router';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { useAppData } from '@app/context';
 import { db } from '@app/db/dexie';
@@ -26,6 +26,10 @@ const ClassSelector: Component = () => {
   const classes = createDexieArrayQuery(() => db.classes.toArray());
   const { actions, appState } = useAppData();
 
+  // these routes don't need a class selector
+  const matchEditStudent = useMatch(() => '/class/:classid/student/:studentid/edit');
+  const matchActivity = useMatch(() => '/class/:classid/activity/:activityid');
+
   const handleChange = (classId: string) => {
     if (appState.selectedClass === null) return;
     const path = location.pathname.replace(appState.selectedClass.id, classId);
@@ -35,7 +39,7 @@ const ClassSelector: Component = () => {
   };
 
   return (
-    <Show when={appState.selectedClass !== null}>
+    <Show when={appState.selectedClass !== null && matchEditStudent() === null && matchActivity() === null}>
       <Select onChange={handleChange} value={appState.selectedClass!.id}>
         <SelectTrigger border="none" py="$0_5" px="$2">
           <Flex flexDirection="column" minW="$60">

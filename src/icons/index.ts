@@ -20,6 +20,7 @@ export { default as CheckCircleMini } from './CheckCircleMini';
 export { default as DocumentDuplicateMini } from './DocumentDuplicateMini';
 export { default as RectangleStackMini } from './RectangleStackMini';
 export { default as ArrowLeftOnRectMini } from './ArrowLeftOnRectMini';
+export { default as DocumentCheckMini } from './DocumentCheckMini';
 
 export { default as Telegram } from './Telegram';
 export { default as Gmail } from './Gmail';

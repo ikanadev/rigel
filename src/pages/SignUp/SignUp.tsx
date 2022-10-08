@@ -13,9 +13,9 @@ import {
   Anchor,
 } from '@hope-ui/solid';
 import { Logo } from '@app/icons';
-import { ColorModeButton } from '@app/components';
+import { ColorModeButton, Alert } from '@app/components';
 
-import { errorSignal } from '@app/hooks';
+import { errorSignal, isOnline } from '@app/hooks';
 import { createStore } from 'solid-js/store';
 import { useNavigate, Link } from '@solidjs/router';
 import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from '@app/utils/functions';
@@ -160,14 +160,20 @@ const SignUp: Component = () => {
               placeholder="Contraseña"
               invalid={formData.password.isTouched && formData.password.errorMsg !== ''}
               mt="$4"
+              mb="$8"
               type="password"
             />
             <Show when={formData.password.isTouched && formData.password.errorMsg !== ''}>
               <Text color="$danger10" size="sm">{formData.password.errorMsg}</Text>
             </Show>
-            <Button disabled={isDisabled()} mt="$8" type="submit">
+            <Show
+              when={isOnline()}
+              fallback={<Alert status="warning" text="No hay conexión a Internet" />}
+            >
+            <Button disabled={isDisabled()} type="submit">
               Darme de Alta
             </Button>
+            </Show>
             <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
               ¿Ya tienes una cuenta?{' '}
               <Anchor as={Link} href="/signin" fontWeight="$bold" color="$primary11">

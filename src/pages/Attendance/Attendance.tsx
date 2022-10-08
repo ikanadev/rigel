@@ -1,5 +1,5 @@
 import { Component, Show, For } from 'solid-js';
-import { Title } from '@app/components';
+import { Title, AttendanceBox } from '@app/components';
 import {
   Button,
   Box,
@@ -24,7 +24,6 @@ import { useAppData } from '@app/context';
 import { studentsStore, periodAttendanceStore, errorSignal } from '@app/hooks';
 import { addAttendanceDay } from '@app/db/attendanceDay';
 import { addAttendance, updateAttendance } from '@app/db/attendance';
-import attendanceColors from './attendanceColors';
 
 const Attendance: Component = () => {
   const { reportError } = errorSignal;
@@ -155,18 +154,7 @@ const Attendance: Component = () => {
                       <For each={pastAttendancesDay()}>{(att) => (
                         <Td>
                           <Flex justifyContent="center">
-                            <Show
-                              when={att.attendances[student.id] !== undefined}
-                              fallback={'-'}
-                            >
-                              <Box
-                                w="$4"
-                                h="$4"
-                                borderRadius="$sm"
-                                mr="$1"
-                                bg={attendanceColors[att.attendances[student.id].value].on}
-                              />
-                            </Show>
+                            <AttendanceBox status={att.attendances[student.id]?.value} />
                           </Flex>
                         </Td>
                       )}</For>

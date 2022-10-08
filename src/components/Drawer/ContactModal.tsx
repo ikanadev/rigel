@@ -25,7 +25,7 @@ const ContactModal: Component<Props> = (props) => {
         <ModalCloseButton />
         <ModalHeader>Contacto</ModalHeader>
         <ModalBody>
-          <Text size="sm">
+          <Text size="sm" fontFamily="$mono">
             👋{' '}
             Hola, soy Kevin, el desarrollador de la WebApp, si tienes algún problema, duda o sugerencia, puedes contactarme por:
           </Text>

@@ -3,6 +3,7 @@ export { default as Header } from './Header';
 export { default as Title } from './Title';
 export { default as Alert } from './Alert';
 export { default as Drawer } from './Drawer';
+export { default as AttendanceBox } from './AttendanceBox';
 export { default as ColoredScore } from './ColoredScore';
 export { default as ClassSelector } from './ClassSelector';
 export { default as AppErrorModal } from './AppErrorModal';

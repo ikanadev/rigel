@@ -2,7 +2,7 @@ import { Component, For } from 'solid-js';
 import { Box, Flex, Text } from '@hope-ui/solid';
 
 import { AttendanceStatus } from '@app/types';
-import attendanceColor from './attendanceColors';
+import { attendanceColors } from '@app/utils/constants';
 
 const AttendanceLabels: Component = () => {
   return (
@@ -10,7 +10,7 @@ const AttendanceLabels: Component = () => {
       <For each={Object.values(AttendanceStatus)}>
         {(value) => (
           <Flex alignItems="center">
-            <Box w="$4" h="$4" borderRadius="$sm" mr="$0_5" bg={attendanceColor[value].on} />
+            <Box w="$4" h="$4" borderRadius="$sm" mr="$0_5" bg={attendanceColors[value].on} />
             <Text size="sm">{value}</Text>
           </Flex>
         )}
