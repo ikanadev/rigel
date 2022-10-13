@@ -112,7 +112,6 @@ const ScoresReport: Component = () => {
                     ) + 1
                   }
                   borderBottom="none"
-                  py="$0_5"
                   textAlign="center"
                   borderLeft="1.5px solid $neutral4"
                 >
@@ -130,8 +129,6 @@ const ScoresReport: Component = () => {
                     <Th
                       colSpan={area.acts.length > 0 ? area.acts.length + 1 : 1}
                       borderBottom="none"
-                      py="$0_5"
-                      px="$1_5"
                       textAlign="center"
                       borderLeft="1.5px solid $neutral4"
                       fontSize="$2xs"
@@ -140,7 +137,7 @@ const ScoresReport: Component = () => {
                       {`${area.name} / ${area.points}`}
                     </Th>
                   )}</For>
-                  <Th py="$0_5" px="$1_5" rowSpan={2} borderLeft="1.5px solid $neutral4">
+                  <Th rowSpan={2} borderLeft="1.5px solid $neutral4">
                     Nota
                   </Th>
                 </>
@@ -151,10 +148,7 @@ const ScoresReport: Component = () => {
                 <For each={classPeriod.areas}>{(area) => (
                   <>
                     <For each={area.acts}>{(act, i) => (
-                      <Td
-                        px="$1_5"
-                        borderLeft={i() === 0 ? '1.5px solid $neutral4' : undefined}
-                      >
+                      <Td borderLeft={i() === 0 ? '1.5px solid $neutral4' : undefined}>
                         <Tooltip label={act.name}>
                           <Text textAlign="center" noOfLines={2} size="xs">{act.name}</Text>
                         </Tooltip>
@@ -164,7 +158,7 @@ const ScoresReport: Component = () => {
                       when={area.acts.length > 0}
                       fallback={<Td borderLeft="1.5px solid $neutral4" />}
                     >
-                      <Th borderLeft="1.5px solid $neutral4" py="$0_5" px="$1_5">
+                      <Th borderLeft="1.5px solid $neutral4">
                         <Text fontSize="$2xs">Promedio</Text>
                       </Th>
                     </Show>
@@ -176,10 +170,7 @@ const ScoresReport: Component = () => {
           <Tbody>
             <For each={studentsWithScores()}>{(student, index) => (
               <Tr>
-                <Td
-                  p="$0_5"
-                  bg={student.yearGrade <= 50 ? '$danger3' : '$success3'}
-                >
+                <Td bg={student.yearGrade <= 50 ? '$danger3' : '$success3'}>
                   <Flex
                     flexDirection={{ '@initial': 'column', '@md': 'row' }}
                     gap={{ '@initial': 0, '@md': '$1' }}
@@ -197,12 +188,12 @@ const ScoresReport: Component = () => {
                     <For each={classPeriod.areas}>{(area, areaIndex) => (
                       <>
                         <Show when={area.acts.length === 0 && index() === 0}>
-                          <Td rowSpan={students.length} borderLeft="1.5px solid $neutral4" color="$neutral9" textAlign="center" px="$1_5">
+                          <Td rowSpan={students.length} borderLeft="1.5px solid $neutral4" color="$neutral9" textAlign="center">
                             Sin tareas
                           </Td>
                         </Show>
                         <For each={area.acts}>{(act) => (
-                          <Td borderLeft={areaIndex() === 0 ? '1.5px solid $neutral4' : undefined} p="$0_5">
+                          <Td borderLeft={areaIndex() === 0 ? '1.5px solid $neutral4' : undefined}>
                             <Show
                               when={student.scoresMap[act.id]}
                               fallback={<Text textAlign="center">-</Text>}
@@ -212,23 +203,21 @@ const ScoresReport: Component = () => {
                           </Td>
                         )}</For>
                         <Show when={area.acts.length > 0}>
-                          <Td py="$0_5">
+                          <Td>
                             <Text textAlign="center" fontWeight="$normal">{student.areaGrades[periodIndex()][areaIndex()]}</Text>
                           </Td>
                         </Show>
                       </>
                     )}</For>
-                    <Td px="$1_5" py="$0_5">
+                    <Td>
                       <ColoredScore score={student.periodGrades[periodIndex()]} fontWeight="$semibold" fontSize="$base" textAlign="center" />
                     </Td>
                   </>
                 )}</For>
-                <Td p="$0_5" px="$1_5" borderLeft="1.5px solid $neutral4" bg={student.yearGrade <= 50 ? '$danger2' : '$success2'}>
+                <Td borderLeft="1.5px solid $neutral4" bg={student.yearGrade <= 50 ? '$danger2' : '$success2'}>
                   <ColoredScore score={student.yearGrade} fontWeight="$bold" fontSize="$lg" textAlign="center" />
                 </Td>
                 <Td
-                  py="$0_5"
-                  px="$1_5"
                   bg={student.yearGrade <= 50 ? '$danger2' : '$success2'}
                   color={student.yearGrade <= 50 ? '$danger8' : '$success8'}
                 >
