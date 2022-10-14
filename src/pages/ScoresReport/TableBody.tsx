@@ -44,13 +44,13 @@ const TableBody: Component<Props> = (props) => {
                             when={student.scoresMap[act.id]}
                             fallback={<Text textAlign="center">-</Text>}
                           >
-                            <ColoredScore score={student.scoresMap[act.id].points} fontWeight="$thin" textAlign="center" />
+                            <ColoredScore score={student.scoresMap[act.id].points} fontWeight="$normal" textAlign="center" />
                           </Show>
                         </Td>
                       )}</For>
                     </Show>
                     <Show when={area.acts.length > 0}>
-                      <Td>
+                      <Td borderLeft={props.viewMode === ViewMode.Area && areaIndex() === 0 ? '3px solid $neutral4' : undefined}>
                         <Text textAlign="center" fontWeight="$normal">{student.areaScores[periodIndex()][areaIndex()]}</Text>
                       </Td>
                     </Show>
