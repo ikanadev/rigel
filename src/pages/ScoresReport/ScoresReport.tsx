@@ -1,22 +1,11 @@
-import { Component, For, Show, createMemo } from 'solid-js';
-import { Title, ColoredScore } from '@app/components';
-import {
-  Tooltip,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  Flex,
-  Button,
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Text,
-  Box,
-} from '@hope-ui/solid';
+import { Component, createMemo, createSignal, For } from 'solid-js';
+import { Title } from '@app/components';
+import { Flex, Button, Table, Box, SimpleOption, SimpleSelect, Text } from '@hope-ui/solid';
 import { Score } from '@app/types';
+import { ViewMode } from './types';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
+import FullModal from './FullModal';
 
 import { createDexieArrayQuery } from 'solid-dexie';
 import { useParams } from '@solidjs/router';
@@ -26,6 +15,7 @@ import { useAppData } from '@app/context';
 
 interface ScoresMap { [key: string]: Score }
 const ScoresReport: Component = () => {
+  const [viewMode, setViewMode] = createSignal<ViewMode>(ViewMode.Activity);
   const params = useParams<{ classid: string }>();
   const { appState } = useAppData();
   const modal = booleanSignal();
@@ -61,7 +51,7 @@ const ScoresReport: Component = () => {
           return res;
         }, {}),
     })).map((st) => {
-      const areaGrades = classPeriodsWithActs().map((cp) => {
+      const areaScores = classPeriodsWithActs().map((cp) => {
         return cp.areas.map((area) => {
           if (area.acts.length === 0) return 0;
           const sum = area.acts.reduce((res, act) => {
@@ -71,163 +61,47 @@ const ScoresReport: Component = () => {
           return Math.round((sum * area.points) / (area.acts.length * 100));
         });
       });
-      const periodGrades = areaGrades.map((ag) => ag.reduce((res, a) => res + a, 0));
-      const yearGrade = Math.round(periodGrades.reduce((res, pg) => res + pg, 0) / periodGrades.length);
+      const periodScores = areaScores.map((ag) => ag.reduce((res, a) => res + a, 0));
+      const yearScore = Math.round(periodScores.reduce((res, pg) => res + pg, 0) / periodScores.length);
       return {
         ...st,
-        areaGrades,
-        periodGrades,
-        yearGrade,
+        areaScores,
+        periodScores,
+        yearScore,
       };
     });
   };
 
   return (
     <>
-      <Flex justifyContent="space-between">
+      <Flex alignItems="center" flexWrap="wrap">
         <Title text="Notas" />
-        <Button size="xs" onClick={modal.enable}>Full</Button>
+        <Box flex="1" />
+        <Flex alignItems="center" >
+          <Text mr="$2" fontWeight="$medium">Ver</Text>
+          <Box mr="$4" minW="$48">
+            <SimpleSelect value={viewMode()} onChange={setViewMode} size="sm">
+              <For each={Object.values(ViewMode)}>{(level) => (
+                <SimpleOption value={level}>{level}</SimpleOption>
+              )}</For>
+            </SimpleSelect>
+          </Box>
+          <Button size="sm" onClick={modal.enable} colorScheme="info">Agrandar</Button>
+        </Flex>
       </Flex>
-      <Modal opened={modal.isActive()} onClose={modal.disable} size="full">
-        <ModalOverlay />
-        <ModalContent>
-          Hey
-        </ModalContent>
-      </Modal>
+      <FullModal
+        classPeriods={classPeriodsWithActs()}
+        students={studentsWithScores()}
+        isOpen={modal.isActive()}
+        onClose={modal.disable}
+        viewMode={viewMode()}
+      />
       <Box maxW="$full" overflow="auto">
         <Table dense mt="$4">
-          <Thead>
-            <Tr>
-              <Th rowSpan={3} pl={0}>
-                Nombre(s) y Apellido(s)
-              </Th>
-              <For each={classPeriodsWithActs()}>{(classPeriod) => (
-                <Th
-                  colSpan={
-                    classPeriod.areas.reduce(
-                      // activities + average
-                      (res, area) => res + (area.acts.length > 0 ? area.acts.length + 1 : 1),
-                      0,
-                      // + final
-                    ) + 1
-                  }
-                  borderBottom="none"
-                  textAlign="center"
-                  borderLeft="1.5px solid $neutral4"
-                >
-                  {classPeriod.period.name}
-                </Th>
-              )}</For>
-              <Th rowSpan={3} colSpan={2} borderLeft="1.5px solid $neutral4">
-                <Text fontWeight="$bold" textAlign="center">Nota Final</Text>
-              </Th>
-            </Tr>
-            <Tr>
-              <For each={classPeriodsWithActs()}>{(classPeriod) => (
-                <>
-                  <For each={classPeriod.areas}>{(area) => (
-                    <Th
-                      colSpan={area.acts.length > 0 ? area.acts.length + 1 : 1}
-                      borderBottom="none"
-                      textAlign="center"
-                      borderLeft="1.5px solid $neutral4"
-                      fontSize="$2xs"
-                      css={{ whiteSpace: 'nowrap' }}
-                    >
-                      {`${area.name} / ${area.points}`}
-                    </Th>
-                  )}</For>
-                  <Th rowSpan={2} borderLeft="1.5px solid $neutral4">
-                    Nota
-                  </Th>
-                </>
-              )}</For>
-            </Tr>
-            <Tr>
-              <For each={classPeriodsWithActs()}>{(classPeriod) => (
-                <For each={classPeriod.areas}>{(area) => (
-                  <>
-                    <For each={area.acts}>{(act, i) => (
-                      <Td borderLeft={i() === 0 ? '1.5px solid $neutral4' : undefined}>
-                        <Tooltip label={act.name}>
-                          <Text textAlign="center" noOfLines={2} size="xs">{act.name}</Text>
-                        </Tooltip>
-                      </Td>
-                    )}</For>
-                    <Show
-                      when={area.acts.length > 0}
-                      fallback={<Td borderLeft="1.5px solid $neutral4" />}
-                    >
-                      <Th borderLeft="1.5px solid $neutral4">
-                        <Text fontSize="$2xs">Promedio</Text>
-                      </Th>
-                    </Show>
-                  </>
-                )}</For>
-              )}</For>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <For each={studentsWithScores()}>{(student, index) => (
-              <Tr>
-                <Td bg={student.yearGrade <= 50 ? '$danger3' : '$success3'}>
-                  <Flex
-                    flexDirection={{ '@initial': 'column', '@md': 'row' }}
-                    gap={{ '@initial': 0, '@md': '$1' }}
-                  >
-                    <Text css={{ whiteSpace: 'nowrap' }}>
-                      {student.last_name}
-                    </Text>
-                    <Text css={{ whiteSpace: 'nowrap' }}>
-                      {student.name}
-                    </Text>
-                  </Flex>
-                </Td>
-                <For each={classPeriodsWithActs()}>{(classPeriod, periodIndex) => (
-                  <>
-                    <For each={classPeriod.areas}>{(area, areaIndex) => (
-                      <>
-                        <Show when={area.acts.length === 0 && index() === 0}>
-                          <Td rowSpan={students.length} borderLeft="1.5px solid $neutral4" color="$neutral9" textAlign="center">
-                            Sin tareas
-                          </Td>
-                        </Show>
-                        <For each={area.acts}>{(act) => (
-                          <Td borderLeft={areaIndex() === 0 ? '1.5px solid $neutral4' : undefined}>
-                            <Show
-                              when={student.scoresMap[act.id]}
-                              fallback={<Text textAlign="center">-</Text>}
-                            >
-                              <ColoredScore score={student.scoresMap[act.id].points} fontWeight="$thin" textAlign="center" />
-                            </Show>
-                          </Td>
-                        )}</For>
-                        <Show when={area.acts.length > 0}>
-                          <Td>
-                            <Text textAlign="center" fontWeight="$normal">{student.areaGrades[periodIndex()][areaIndex()]}</Text>
-                          </Td>
-                        </Show>
-                      </>
-                    )}</For>
-                    <Td>
-                      <ColoredScore score={student.periodGrades[periodIndex()]} fontWeight="$semibold" fontSize="$base" textAlign="center" />
-                    </Td>
-                  </>
-                )}</For>
-                <Td borderLeft="1.5px solid $neutral4" bg={student.yearGrade <= 50 ? '$danger2' : '$success2'}>
-                  <ColoredScore score={student.yearGrade} fontWeight="$bold" fontSize="$lg" textAlign="center" />
-                </Td>
-                <Td
-                  bg={student.yearGrade <= 50 ? '$danger2' : '$success2'}
-                  color={student.yearGrade <= 50 ? '$danger8' : '$success8'}
-                >
-                  <Text>{student.yearGrade <= 50 ? 'REPROBADO' : 'APROBADO'}</Text>
-                </Td>
-              </Tr>
-            )}</For>
-          </Tbody>
+          <TableHeader classPeriods={classPeriodsWithActs()} viewMode={viewMode()} />
+          <TableBody classPeriods={classPeriodsWithActs()} students={studentsWithScores()} viewMode={viewMode()} />
         </Table>
-      </Box >
+      </Box>
     </>
   );
 };
