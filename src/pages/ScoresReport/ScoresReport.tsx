@@ -1,6 +1,7 @@
 import { Component, createMemo, createSignal, For } from 'solid-js';
 import { Title } from '@app/components';
-import { Flex, Button, Table, Box, SimpleOption, SimpleSelect, Text } from '@hope-ui/solid';
+import { ArrowsPointingOutMini } from '@app/icons';
+import { Flex, IconButton, Table, Box, SimpleOption, SimpleSelect, Text } from '@hope-ui/solid';
 import { Score } from '@app/types';
 import { ViewMode } from './types';
 import TableHeader from './TableHeader';
@@ -86,7 +87,15 @@ const ScoresReport: Component = () => {
               )}</For>
             </SimpleSelect>
           </Box>
-          <Button size="sm" onClick={modal.enable} colorScheme="info">Agrandar</Button>
+          <IconButton
+            size="sm"
+            colorScheme="neutral"
+            variant="outline"
+            onClick={modal.enable}
+            color="$neutral11"
+            icon={<ArrowsPointingOutMini />}
+            aria-label="Agrandar"
+          />
         </Flex>
       </Flex>
       <FullModal
