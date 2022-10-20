@@ -11,3 +11,4 @@ export { default as OfflineMessage } from './OfflineMessage';
 export { default as NewStudentForm } from './NewStudentForm';
 export { default as StartPeriodModal } from './StartPeriodModal';
 export { default as FinishPeriodModal } from './FinishPeriodModal';
+export { default as AttendanceLabels } from './AttendanceLabels';

@@ -1,8 +1,8 @@
 import { Component, For } from 'solid-js';
-import { Box, Flex, Button } from '@hope-ui/solid';
+import { Flex, Button } from '@hope-ui/solid';
+import { AttendanceBox } from '@app/components';
 
 import { AttendanceStatus } from '@app/types';
-import { attendanceColors } from '@app/utils/constants';
 
 interface Props {
   status?: AttendanceStatus
@@ -19,15 +19,12 @@ const AttendanceButtons: Component<Props> = (props) => {
             onClick={[props.onSelect, value]}
             _hover={{ background: '$neutral2' }}
             _focus={{ boxShadow: 'none' }}
-            px="$1"
+            transform={value === props.status ? 'scale(1.3)' : 'scale(1)'}
+            transition="all 0.5s"
+            px={0}
+            mx="$0_5"
           >
-            <Box
-              w={props.status === value ? '$5' : '$4'}
-              h={props.status === value ? '$5' : '$4'}
-              transition="all 0.5s"
-              borderRadius="$sm"
-              bg={props.status === value ? attendanceColors[value].on : attendanceColors[value].off}
-            />
+            <AttendanceBox status={value} active={value === props.status} />
           </Button>
         )}
       </For>
