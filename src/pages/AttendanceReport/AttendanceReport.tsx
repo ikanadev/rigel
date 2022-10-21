@@ -1,27 +1,22 @@
-import { Component, For, Show, createMemo } from 'solid-js';
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  Text,
-  Box,
-  Flex,
-} from '@hope-ui/solid';
-import { Title, AttendanceBox } from '@app/components';
+import { Component, createMemo, createSignal } from 'solid-js';
+import { Table, Text, Box, Flex, Switch, IconButton } from '@hope-ui/solid';
+import { Title, AttendanceLabels } from '@app/components';
+import { ArrowsPointingOutMini } from '@app/icons';
+import { TotalAttendances } from '@app/types';
+import { AttsMap } from './types';
+import TableHeader from './TableHeader';
+import TableBody from './TableBody';
+import FullModal from './FullModal';
 
-import dayjs from 'dayjs';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { useParams } from '@solidjs/router';
-import { studentsStore } from '@app/hooks';
+import { studentsStore, booleanSignal } from '@app/hooks';
 import { db } from '@app/db/dexie';
-import { Attendance } from '@app/types';
 
-interface AttsMap { [key: string]: Attendance }
 const AttendanceReport: Component = () => {
   const params = useParams<{ classid: string }>();
+  const [showDays, setShowDays] = createSignal(true);
+  const modal = booleanSignal(false);
   const students = studentsStore();
   const classPeriods = createDexieArrayQuery(
     () => db.classPeriods.where('class_id').equals(params.classid).sortBy('start'),
@@ -33,6 +28,8 @@ const AttendanceReport: Component = () => {
     () => db.attendances.where('attendance_day_id').anyOf(attDays.map(ad => ad.id)).toArray(),
   );
 
+  const toggleShowDays = () => setShowDays(prev => !prev);
+
   const periodsWithAttDays = createMemo(() => {
     return classPeriods.map((classP) => ({
       ...classP,
@@ -41,80 +38,76 @@ const AttendanceReport: Component = () => {
   });
 
   const studentsWithAtts = () => {
-    return students.map((st) => ({
-      ...st,
-      attsMap: atts
-        .filter((att) => att.student_id === st.id)
-        .reduce((res: AttsMap, att) => {
-          res[att.attendance_day_id] = att;
+    return students.map((st) => {
+      return {
+        ...st,
+        attsMap: atts
+          .filter((att) => att.student_id === st.id)
+          .reduce((res: AttsMap, att) => {
+            res[att.attendance_day_id] = att;
+            return res;
+          }, {}),
+      };
+    }).map((st) => {
+      const yearAtts: TotalAttendances = {
+        Presente: 0,
+        Falta: 0,
+        Atraso: 0,
+        Licencia: 0,
+      };
+      const periodAtts: TotalAttendances[] = periodsWithAttDays().map((period) => {
+        return period.attDays.reduce((res, attDay) => {
+          if (st.attsMap[attDay.id] === undefined) return res;
+          yearAtts[st.attsMap[attDay.id].value]++;
+          res[st.attsMap[attDay.id].value]++;
           return res;
-        }, {}),
-    }));
+        }, {
+          Presente: 0,
+          Falta: 0,
+          Atraso: 0,
+          Licencia: 0,
+        });
+      });
+      return {
+        ...st,
+        periodAtts,
+        yearAtts,
+      };
+    });
   };
 
   return (
     <>
-      <Title text="Asistencias" />
-      <Box maxW="$full" maxH="calc(100vh - 128px)" overflow="auto" mt="$2">
-        <Table striped="even" dense>
-          <Thead bgColor="$background" pos="sticky" top={0} zIndex={2} shadow="$md">
-            <Tr>
-              <Th rowSpan={2} bgColor="$background" pos="sticky" left={0} pl={0}>
-                Nombre(s) y Apellido(s):
-              </Th>
-              <For each={periodsWithAttDays()}>{(classPeriod, i) => (
-                <Th
-                  py="$0_5"
-                  colSpan={classPeriod.attDays.length}
-                  rowSpan={classPeriod.attDays.length > 0 ? 1 : 2}
-                  textAlign="center"
-                  borderBottom="none"
-                  bg={i() % 2 === 1 ? '$neutral3' : undefined}
-                  style={{ 'white-space': 'nowrap' }}
-                >
-                  {classPeriod.period.name}
-                </Th>
-              )}</For>
-            </Tr>
-            <Tr>
-              <For each={periodsWithAttDays()}>{(classPeriod, i) => (
-                <For each={classPeriod.attDays}>{(attDay) => (
-                  <Th
-                    borderBottom="none"
-                    pt={0} px="$1" bg={i() % 2 === 1 ? '$neutral3' : undefined}
-                  >
-                    <Text as="pre" textAlign="center">
-                      {dayjs(attDay.day).format('ddd\nDD/MM')}
-                    </Text>
-                  </Th>
-                )}</For>
-              )}</For>
-            </Tr>
-          </Thead>
-          <Tbody maxW="$full" overflowX="auto" zIndex={1}>
-            <For each={studentsWithAtts()}>{(student, index) => (
-              <Tr>
-                <Td bgColor="$background" p="$0_5" pos="sticky" left={0}>
-                  <Text textAlign="right" css={{ whiteSpace: 'nowrap' }}>{student.last_name}</Text>
-                  <Text textAlign="right" css={{ whiteSpace: 'nowrap' }}>{student.name}</Text>
-                </Td>
-                <For each={periodsWithAttDays()}>{(classPeriod) => (
-                  <>
-                    <Show when={classPeriod.attDays.length === 0 && index() === 0}>
-                      <Td rowSpan={students.length}>Sin datos</Td>
-                    </Show>
-                    <For each={classPeriod.attDays}>{(attDay) => (
-                      <Td px="$1">
-                        <Flex display="flex" justifyContent="center">
-                          <AttendanceBox status={student.attsMap[attDay.id]?.value} />
-                        </Flex>
-                      </Td>
-                    )}</For>
-                  </>
-                )}</For>
-              </Tr>
-            )}</For>
-          </Tbody>
+      <FullModal
+        isOpen={modal.isActive()}
+        onClose={modal.disable}
+        classPeriods={periodsWithAttDays()}
+        students={studentsWithAtts()}
+        showDays={showDays()}
+      />
+      <Flex justifyContent="space-between" flexWrap="wrap">
+        <Title text="Asistencias" />
+        <Flex alignItems="center">
+          <Text fontSize="$sm">Mostrar días</Text>
+          <Switch size="sm" mr="$2" checked={showDays()} onChange={toggleShowDays} />
+          <IconButton
+            size="sm"
+            colorScheme="neutral"
+            variant="outline"
+            onClick={modal.enable}
+            color="$neutral11"
+            icon={<ArrowsPointingOutMini />}
+            aria-label="Agrandar"
+          />
+        </Flex>
+      </Flex>
+      <Flex justifyContent="end" mt="$2">
+        <AttendanceLabels />
+      </Flex>
+      <Box maxW="$full" overflow="auto" mt="$3">
+        <Table dense>
+          <TableHeader classPeriods={periodsWithAttDays()} showDays={showDays()} />
+          <TableBody classPeriods={periodsWithAttDays()} students={studentsWithAtts()} showDays={showDays()} />
         </Table>
       </Box>
     </>

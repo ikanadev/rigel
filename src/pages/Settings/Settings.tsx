@@ -22,10 +22,13 @@ const Settings: Component = () => {
           </Flex>
           <Flex justifyContent="end" gap="$2">
             <Text>Ej.</Text>
+            <ColoredScore score={40} />
             <ColoredScore score={50} />
             <ColoredScore score={60} />
-            <ColoredScore score={79} />
-            <ColoredScore score={99} />
+            <ColoredScore score={70} />
+            <ColoredScore score={80} />
+            <ColoredScore score={90} />
+            <ColoredScore score={100} />
           </Flex>
         </Flex>
 

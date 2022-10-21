@@ -172,6 +172,10 @@ export enum AttendanceStatus {
   L = 'Licencia',
 }
 
+export type TotalAttendances = {
+  [key in AttendanceStatus]: number
+};
+
 export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;
 export type OnInputEvent = JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
 export type OnChangeEvent = JSX.EventHandlerUnion<HTMLInputElement, Event>;

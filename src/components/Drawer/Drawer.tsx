@@ -23,7 +23,8 @@ import {
   ArrowLeftOnRectMini,
   RectangleStackMini,
   Cog6Mini,
-  DocumentCheckMini,
+  ClipboardDocumentCheckMini,
+  ClipboardDocumentListMini,
 } from '@app/icons';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal } from '@app/components';
@@ -186,7 +187,7 @@ const Drawer: Component<Props> = (props) => {
                   colorScheme="neutral"
                   // eslint-disable-next-line solid/reactivity
                   onClick={props.onClose}
-                  icon={<DocumentCheckMini />}
+                  icon={<ClipboardDocumentCheckMini />}
                   href={`/class/${appState.selectedClass!.id}/attendance/report`}
                 />
                 <LinkButton
@@ -194,7 +195,7 @@ const Drawer: Component<Props> = (props) => {
                   colorScheme="neutral"
                   // eslint-disable-next-line solid/reactivity
                   onClick={props.onClose}
-                  icon={<DocumentCheckMini />}
+                  icon={<ClipboardDocumentListMini />}
                   href={`/class/${appState.selectedClass!.id}/scores/report`}
                 />
               </Flex>
