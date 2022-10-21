@@ -10,7 +10,7 @@ interface Props {
 }
 const AttendanceButtons: Component<Props> = (props) => {
   return (
-    <Flex alignItems="center">
+    <Flex alignItems="center" gap="$3">
       <For each={Object.values(AttendanceStatus)}>
         {(value) => (
           <Button
@@ -22,7 +22,6 @@ const AttendanceButtons: Component<Props> = (props) => {
             transform={value === props.status ? 'scale(1.3)' : 'scale(1)'}
             transition="all 0.5s"
             px={0}
-            mx="$0_5"
           >
             <AttendanceBox status={value} active={value === props.status} />
           </Button>
