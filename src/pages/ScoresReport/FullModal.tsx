@@ -29,7 +29,7 @@ const FullModal: Component<Props> = (props) => {
           <Box maxW="$full" maxH="$screenH" overflow="auto">
             <Table dense css={{ borderCollapse: 'separate', borderSpacing: 0 }}>
               <TableHeader classPeriods={props.classPeriods} viewMode={props.viewMode} sticky />
-              <TableBody classPeriods={props.classPeriods} students={props.students} viewMode={props.viewMode} sticky />
+              <TableBody classPeriods={props.classPeriods} students={props.students} viewMode={props.viewMode} />
             </Table>
           </Box>
         </ModalContent>

@@ -11,7 +11,7 @@ const TableHeader: Component<Props> = (props) => {
   return (
     <Thead pos={props.sticky === true ? 'sticky' : undefined} top={0} bgColor="$background" shadow="$sm" zIndex={2}>
       <Tr>
-        <Th rowSpan={3} pos={props.sticky === true ? 'sticky' : undefined} left={0} bgColor="$background">
+        <Th rowSpan={3} pos="sticky" left={0} bgColor="$background">
           Nombre(s) y Apellido(s)
         </Th>
         <For each={props.classPeriods}>{(classPeriod) => (
@@ -60,13 +60,15 @@ const TableHeader: Component<Props> = (props) => {
                   textAlign="center"
                   borderLeft={areaIndex() === 0 ? '3px solid $neutral4' : '1.5px solid $neutral4'}
                   fontSize="$2xs"
-                  css={{ whiteSpace: 'nowrap' }}
+                  fontWeight="$normal"
+                  lineHeight={1}
+                  css={{ whiteSpace: 'pre-wrap' }}
                 >
-                  {`${area.name} / ${area.points}`}
+                  {`${area.name}\n${area.points}`}
                 </Th>
               )}</For>
             </Show>
-            <Th rowSpan={2} borderLeft="1.5px solid $neutral4" textAlign="center">
+            <Th rowSpan={2} fontSize="$xs" borderLeft="1.5px solid $neutral4" textAlign="center">
               Nota
             </Th>
           </>
@@ -87,14 +89,9 @@ const TableHeader: Component<Props> = (props) => {
                     </Td>
                   )}</For>
                 </Show>
-                <Show
-                  when={area.acts.length > 0}
-                  fallback={<Td borderLeft="1.5px solid $neutral4" />}
-                >
-                  <Th borderLeft="1.5px solid $neutral4">
-                    <Text fontSize="$2xs">Promedio</Text>
-                  </Th>
-                </Show>
+                <Th borderLeft="1.5px solid $neutral4">
+                  <Text fontSize="$2xs">Promedio</Text>
+                </Th>
               </>
             )}</For>
           )}</For>

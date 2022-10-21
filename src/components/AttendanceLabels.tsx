@@ -6,7 +6,7 @@ import { AttendanceBox } from '@app/components';
 
 const AttendanceLabels: Component = () => {
   return (
-    <Flex gap={{ '@initial': '$3', '@md': '$4' }} alignItems="center">
+    <Flex gap={{ '@initial': '$2', '@md': '$4' }} alignItems="center">
       <For each={Object.values(AttendanceStatus)}>
         {(value) => (
           <Flex alignItems="center">
