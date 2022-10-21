@@ -1,19 +1,22 @@
 import { Component, createMemo, createSignal } from 'solid-js';
-import { Table, Text, Box, Flex, Switch } from '@hope-ui/solid';
+import { Table, Text, Box, Flex, Switch, IconButton } from '@hope-ui/solid';
 import { Title, AttendanceLabels } from '@app/components';
+import { ArrowsPointingOutMini } from '@app/icons';
+import { TotalAttendances } from '@app/types';
+import { AttsMap } from './types';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
+import FullModal from './FullModal';
 
 import { createDexieArrayQuery } from 'solid-dexie';
 import { useParams } from '@solidjs/router';
-import { studentsStore } from '@app/hooks';
+import { studentsStore, booleanSignal } from '@app/hooks';
 import { db } from '@app/db/dexie';
-import { TotalAttendances } from '@app/types';
-import { AttsMap } from './types';
 
 const AttendanceReport: Component = () => {
   const params = useParams<{ classid: string }>();
   const [showDays, setShowDays] = createSignal(true);
+  const modal = booleanSignal(false);
   const students = studentsStore();
   const classPeriods = createDexieArrayQuery(
     () => db.classPeriods.where('class_id').equals(params.classid).sortBy('start'),
@@ -75,11 +78,27 @@ const AttendanceReport: Component = () => {
 
   return (
     <>
+      <FullModal
+        isOpen={modal.isActive()}
+        onClose={modal.disable}
+        classPeriods={periodsWithAttDays()}
+        students={studentsWithAtts()}
+        showDays={showDays()}
+      />
       <Flex justifyContent="space-between" flexWrap="wrap">
         <Title text="Asistencias" />
         <Flex alignItems="center">
           <Text fontSize="$sm">Mostrar días</Text>
-          <Switch size="sm" checked={showDays()} onChange={toggleShowDays} />
+          <Switch size="sm" mr="$2" checked={showDays()} onChange={toggleShowDays} />
+          <IconButton
+            size="sm"
+            colorScheme="neutral"
+            variant="outline"
+            onClick={modal.enable}
+            color="$neutral11"
+            icon={<ArrowsPointingOutMini />}
+            aria-label="Agrandar"
+          />
         </Flex>
       </Flex>
       <Flex justifyContent="end" mt="$2">

@@ -1,4 +1,4 @@
-import { Component, For } from 'solid-js';
+import { Component, For, mergeProps } from 'solid-js';
 import { Thead, Tr, Th, Text, Flex } from '@hope-ui/solid';
 import { AttendanceBox } from '@app/components';
 
@@ -8,18 +8,20 @@ import { AttendanceDay, ClassPeriod, AttendanceStatus } from '@app/types';
 interface Props {
   showDays: boolean
   classPeriods: Array<ClassPeriod & { attDays: AttendanceDay[] }>
+  sticky?: boolean
 }
 const TableHeader: Component<Props> = (props) => {
+  const ps = mergeProps({ sticky: false }, props);
   return (
-    <Thead bgColor="$background" shadow="$md">
+    <Thead bgColor="$background" shadow="$md" top={0} zIndex={2} pos={ps.sticky ? 'sticky' : undefined}>
       <Tr>
-        <Th rowSpan={2} bgColor="$background" pos="sticky" left={0} pl={0}>
+        <Th rowSpan={2} bgColor="$background" pos="sticky" left={0} borderBottom="none">
           Nombre(s) y Apellido(s):
         </Th>
-        <For each={props.classPeriods}>{(classPeriod) => (
+        <For each={ps.classPeriods}>{(classPeriod) => (
           <Th
             py="$0_5"
-            colSpan={props.showDays ? classPeriod.attDays.length + 4 : 4}
+            colSpan={ps.showDays ? classPeriod.attDays.length + 4 : 4}
             textAlign="center"
             borderBottom="none"
             verticalAlign="bottom"
@@ -34,7 +36,7 @@ const TableHeader: Component<Props> = (props) => {
         </Th>
       </Tr>
       <Tr>
-        <For each={props.classPeriods}>{(classPeriod) => (
+        <For each={ps.classPeriods}>{(classPeriod) => (
           <>
             <For each={classPeriod.attDays}>{(attDay, attDayIndex) => (
               <Th
@@ -44,7 +46,7 @@ const TableHeader: Component<Props> = (props) => {
                 borderLeft={attDayIndex() === 0 ? '3px solid $neutral4' : 'none'}
                 pt={0} px="$1"
                 verticalAlign="bottom"
-                display={!props.showDays ? 'none' : undefined}
+                display={!ps.showDays ? 'none' : undefined}
               >
                 <Text textAlign="center" css={{ whiteSpace: 'pre-wrap' }}>
                   {dayjs(attDay.day).format('ddd\nDD/MM')}
@@ -53,7 +55,7 @@ const TableHeader: Component<Props> = (props) => {
             )}</For>
             <Th
               borderBottom="none"
-              borderLeft={classPeriod.attDays.length === 0 || !props.showDays ? '3px solid $neutral4' : undefined}
+              borderLeft={classPeriod.attDays.length === 0 || !ps.showDays ? '3px solid $neutral4' : undefined}
             >
               <Flex justifyContent="center">
                 <AttendanceBox status={AttendanceStatus.P} active />
