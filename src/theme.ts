@@ -16,8 +16,8 @@ const config: HopeThemeConfig = {
           py: '$1',
         },
         th: {
-          px: '$2',
-          py: '$1_5',
+          px: '$1_5',
+          py: '$1',
         },
       },
     },

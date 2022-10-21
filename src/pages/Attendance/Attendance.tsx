@@ -1,5 +1,5 @@
 import { Component, Show, For } from 'solid-js';
-import { Title, AttendanceBox } from '@app/components';
+import { Title, AttendanceBox, AttendanceLabels } from '@app/components';
 import {
   Button,
   Box,
@@ -14,7 +14,6 @@ import {
 } from '@hope-ui/solid';
 import { Link } from '@solidjs/router';
 import { AttendanceStatus, Student } from '@app/types';
-import AttendanceLabels from './AttendanceLabels';
 import AttendanceButtons from './AttendanceButtons';
 import NonActivePeriodMessage from './NonActivePeriodMessage';
 
@@ -98,7 +97,7 @@ const Attendance: Component = () => {
                   <For each={pastAttendancesDay()}>
                     {(att) => (
                       <Td>
-                        <Flex flexDirection="column" alignItems="center">
+                        <Flex flexDirection="column" alignItems="center" fontSize="$xs" color="$neutral11">
                           <Text>{dayjs(att.day).format('dddd')}</Text>
                           <Text>{dayjs(att.day).format('DD [de] MMM')}</Text>
                         </Flex>
@@ -154,7 +153,7 @@ const Attendance: Component = () => {
                       <For each={pastAttendancesDay()}>{(att) => (
                         <Td>
                           <Flex justifyContent="center">
-                            <AttendanceBox status={att.attendances[student.id]?.value} />
+                            <AttendanceBox status={att.attendances[student.id]?.value} active />
                           </Flex>
                         </Td>
                       )}</For>

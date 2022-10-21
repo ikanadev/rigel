@@ -6,18 +6,23 @@ import { StudentWithScores, ClassPeriodWithActs, ViewMode } from './types';
 interface Props {
   classPeriods: ClassPeriodWithActs[]
   students: StudentWithScores[]
-  sticky?: boolean
   viewMode: ViewMode
 }
 const TableBody: Component<Props> = (props) => {
   return (
     <Tbody>
-      <For each={props.students}>{(student, index) => (
+      <For each={props.students}>{(student) => (
         <Tr>
-          <Td bg={student.yearScore <= 50 ? '$danger3' : '$success3'} pos={props.sticky === true ? 'sticky' : undefined} left={0}>
+          <Td
+            bg={student.yearScore <= 50 ? '$danger3' : '$success3'}
+            pos="sticky"
+            left={0}
+            color={student.yearScore <= 50 ? '$danger11' : '$success11'}
+          >
             <Flex
               flexDirection={{ '@initial': 'column', '@md': 'row' }}
               gap={{ '@initial': 0, '@md': '$1' }}
+              lineHeight={1}
             >
               <Text css={{ whiteSpace: 'nowrap' }}>
                 {student.last_name}
@@ -32,11 +37,6 @@ const TableBody: Component<Props> = (props) => {
               <Show when={props.viewMode !== ViewMode.Period}>
                 <For each={classPeriod.areas}>{(area, areaIndex) => (
                   <>
-                    <Show when={area.acts.length === 0 && index() === 0}>
-                      <Td rowSpan={props.students.length} borderLeft="1.5px solid $neutral4" color="$neutral9" textAlign="center">
-                        Sin tareas
-                      </Td>
-                    </Show>
                     <Show when={props.viewMode === ViewMode.Activity}>
                       <For each={area.acts}>{(act) => (
                         <Td borderLeft={areaIndex() === 0 ? '3px solid $neutral4' : undefined}>
@@ -44,16 +44,14 @@ const TableBody: Component<Props> = (props) => {
                             when={student.scoresMap[act.id]}
                             fallback={<Text textAlign="center">-</Text>}
                           >
-                            <ColoredScore score={student.scoresMap[act.id].points} fontWeight="$normal" textAlign="center" />
+                            <ColoredScore score={student.scoresMap[act.id].points} fontSize="$sm" fontWeight="$normal" textAlign="center" />
                           </Show>
                         </Td>
                       )}</For>
                     </Show>
-                    <Show when={area.acts.length > 0}>
-                      <Td borderLeft={props.viewMode === ViewMode.Area && areaIndex() === 0 ? '3px solid $neutral4' : undefined}>
-                        <Text textAlign="center" fontWeight="$normal">{student.areaScores[periodIndex()][areaIndex()]}</Text>
-                      </Td>
-                    </Show>
+                    <Td borderLeft={props.viewMode === ViewMode.Area && areaIndex() === 0 ? '3px solid $neutral4' : undefined}>
+                      <Text textAlign="center" fontWeight="$normal">{student.areaScores[periodIndex()][areaIndex()]}</Text>
+                    </Td>
                   </>
                 )}</For>
               </Show>

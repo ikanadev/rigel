@@ -1,6 +1,7 @@
 import type { Component } from 'solid-js';
 
 import {
+  Flex,
   Button,
   IconButton,
   Box,
@@ -27,7 +28,18 @@ const Students: Component = () => {
 
   return (
     <>
-      <Title text="Estudiantes" />
+      <Flex justifyContent="space-between" flexWrap="wrap">
+        <Title text="Estudiantes" />
+        <Button
+          size="sm"
+          as={Link}
+          href={`/class/${appState.selectedClass!.id}/students/new`}
+          colorScheme="success"
+          leftIcon={<Plus w="$5" h="$5" />}
+        >
+          REGISTRAR ESTUDIANTE
+        </Button>
+      </Flex>
       <Show
         when={students.length > 0}
         fallback={
@@ -72,16 +84,6 @@ const Students: Component = () => {
           </Table>
         </Box>
       </Show>
-      <Box mt="$6">
-        <Button
-          as={Link}
-          href={`/class/${appState.selectedClass!.id}/students/new`}
-          colorScheme="success"
-          leftIcon={<Plus />}
-        >
-          Agregar estudiante
-        </Button>
-      </Box>
     </>
   );
 };
