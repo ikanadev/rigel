@@ -21,7 +21,6 @@ const AttendanceBox: Component<{ status?: AttendanceStatus, active: boolean }> =
         as="pre"
         px="$0_5"
         lineHeight={1.2}
-        mr="$0_5"
         fontWeight="$semibold"
       >
         {props.status!.substring(0, 1)}

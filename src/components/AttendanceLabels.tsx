@@ -11,7 +11,7 @@ const AttendanceLabels: Component = () => {
         {(value) => (
           <Flex alignItems="center">
             <AttendanceBox status={value} active />
-            <Text size="sm">{value}</Text>
+            <Text ml="$1" size="sm">{value}</Text>
           </Flex>
         )}
       </For>
