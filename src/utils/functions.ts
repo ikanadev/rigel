@@ -32,3 +32,25 @@ export const getErrorMsg = async (error: unknown): Promise<string> => {
     throw error;
   }
 };
+
+// returns the default font size or 0 if it's not possible to get it
+export const getDefaultFontSize = () => {
+  const element = document.createElement('div');
+  element.style.width = '1rem';
+  element.style.display = 'none';
+  document.body.append(element);
+
+  const widthMatch = window
+    .getComputedStyle(element)
+    .getPropertyValue('width')
+    .match(/\d+/);
+
+  element.remove();
+
+  if (widthMatch === null || widthMatch.length < 1) {
+    return 0;
+  }
+
+  const result = Number(widthMatch[0]);
+  return !isNaN(result) ? result : 0;
+};
