@@ -3,8 +3,10 @@ import { Component, Show } from 'solid-js';
 import { Box } from '@hope-ui/solid';
 
 import { attendanceColors } from '@app/utils/constants';
+import { coloredAttendancesSignal } from '@app/hooks';
 
 const AttendanceBox: Component<{ status?: AttendanceStatus, active: boolean }> = (props) => {
+  const { coloredAtts } = coloredAttendancesSignal;
   return (
     <Show
       when={props.status !== undefined}
@@ -13,10 +15,10 @@ const AttendanceBox: Component<{ status?: AttendanceStatus, active: boolean }> =
       <Box
         borderRadius="$xs"
         opacity={props.active ? 1 : 0.4}
-        color={attendanceColors[props.status!].on}
+        color={coloredAtts() ? attendanceColors[props.status!].on : '$neutral12'}
         borderWidth={1}
-        borderColor={attendanceColors[props.status!].on}
-        bgColor={attendanceColors[props.status!].off}
+        borderColor={coloredAtts() ? attendanceColors[props.status!].on : '$neutral12'}
+        bgColor={coloredAtts() ? attendanceColors[props.status!].off : '$neutral2'}
         fontSize="$xs"
         as="pre"
         px="$0_5"
