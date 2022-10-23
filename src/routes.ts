@@ -13,7 +13,6 @@ import NewStudent from '@app/pages/NewStudent';
 import EditStudent from '@app/pages/EditStudent';
 import Activities from '@app/pages/Activities';
 import Activity from '@app/pages/Activity';
-import Settings from '@app/pages/Settings';
 import ScoresReport from '@app/pages/ScoresReport';
 
 const routes: RouteDefinition[] = [
@@ -22,7 +21,6 @@ const routes: RouteDefinition[] = [
     component: Home,
     children: [
       { path: '/', component: Classes },
-      { path: '/settings', component: Settings },
       { path: '/class/new', component: NewClass },
       {
         path: '/class/:classid',

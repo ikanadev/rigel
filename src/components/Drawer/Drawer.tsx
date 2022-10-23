@@ -32,6 +32,7 @@ import LinkButton from './LinkButton';
 import AboutModal from './AboutModal';
 import ContactModal from './ContactModal';
 import LogoutModal from './LogoutModal';
+import SettingsModal from './SettingsModal';
 
 import { APP_VERSION } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
@@ -48,6 +49,7 @@ const Drawer: Component<Props> = (props) => {
   const aboutModal = booleanSignal();
   const logoutModal = booleanSignal();
   const contactModal = booleanSignal();
+  const settingsModal = booleanSignal();
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
   const { appState, actions: { setSelectedClass } } = useAppData();
@@ -64,6 +66,10 @@ const Drawer: Component<Props> = (props) => {
     props.onClose();
     contactModal.enable();
   };
+  const openSettings = () => {
+    props.onClose();
+    settingsModal.enable();
+  };
 
   const handleGoToClasses = () => {
     setSelectedClass(null);
@@ -78,6 +84,8 @@ const Drawer: Component<Props> = (props) => {
       <AboutModal isOpen={aboutModal.isActive()} onClose={aboutModal.disable} />
       <ContactModal isOpen={contactModal.isActive()} onClose={contactModal.disable} />
       <LogoutModal isOpen={logoutModal.isActive()} onClose={logoutModal.disable} />
+      <SettingsModal isOpen={settingsModal.isActive()} onClose={settingsModal.disable} />
+
       <HopeDrawer
         size="md"
         opened={props.isOpen}
@@ -213,14 +221,16 @@ const Drawer: Component<Props> = (props) => {
               >
                 Mis materias
               </Button>
-              <LinkButton
-                text="Opciones"
+              <Button
+                onClick={openSettings}
+                compact
+                variant="ghost"
                 colorScheme="neutral"
-                // eslint-disable-next-line solid/reactivity
-                onClick={props.onClose}
-                icon={<Cog6Mini />}
-                href="/settings"
-              />
+                justifyContent="start"
+                leftIcon={<Cog6Mini />}
+              >
+                Opciones
+              </Button>
               <Button
                 onClick={openLogout}
                 compact

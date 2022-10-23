@@ -7,3 +7,4 @@ export { default as errorSignal } from './errorSignal';
 export { default as periodAttendanceStore } from './periodAttendanceStore';
 export { default as coloredScoresSignal } from './coloredScoresSignal';
 export { default as coloredAttendancesSignal } from './coloredAttendancesSignal';
+export { default as fontSizeStore } from './fontSizeStore';
