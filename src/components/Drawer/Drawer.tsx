@@ -111,9 +111,9 @@ const Drawer: Component<Props> = (props) => {
                 </Text>
               }
             >
-              <Text size="base" fontWeight="$semibold">{appState.selectedClass!.edges.subject.name}</Text>
+              <Text size="base" fontWeight="$semibold">{appState.selectedClass!.subject.name}</Text>
               <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap">
-                <Text size="sm">{appState.selectedClass!.edges.grade.name}</Text>
+                <Text size="sm">{appState.selectedClass!.grade.name}</Text>
                 <Badge colorScheme="primary">{appState.selectedClass!.parallel}</Badge>
               </Flex>
               <Text size="sm">
@@ -122,7 +122,7 @@ const Drawer: Component<Props> = (props) => {
                   {appState.activePeriod !== null ? appState.activePeriod.period.name : 'No iniciado'}
                 </Text>
               </Text>
-              <Text size="sm">Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.edges.year.value}</Text></Text>
+              <Text size="sm">Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.year.value}</Text></Text>
               <Flex justifyContent="end">
                 <Show
                   when={appState.activePeriod === null}

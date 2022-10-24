@@ -1,12 +1,12 @@
 import type { Component } from 'solid-js';
-import type { Class } from '@app/types';
+import type { ClassData } from '@app/types';
 
 import { Flex, Heading, Text, Badge } from '@hope-ui/solid';
 import { Link } from '@solidjs/router';
 
 import { useAppData } from '@app/context';
 
-const ClassItem: Component<{ item: Class }> = (props) => {
+const ClassItem: Component<{ item: ClassData }> = (props) => {
   const { actions: { setSelectedClass } } = useAppData();
   return (
     <Link
@@ -24,11 +24,11 @@ const ClassItem: Component<{ item: Class }> = (props) => {
         direction="column"
       >
         <Heading color="$primary10">
-          {props.item.edges.subject.name}
+          {props.item.subject.name}
         </Heading>
         <Flex alignItems="end">
           <Text size="sm" flex="1">
-            {props.item.edges.grade.name}
+            {props.item.grade.name}
           </Text>
           <Badge colorScheme="primary" fontSize="$base">{props.item.parallel}</Badge>
         </Flex>

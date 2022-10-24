@@ -1,4 +1,4 @@
-import type { Class } from '@app/types';
+import type { ClassData } from '@app/types';
 
 import { db } from './dexie';
 import { getClasses } from '@app/api';
@@ -6,7 +6,7 @@ import { getClasses } from '@app/api';
 /**
 * Compares classesToSync items against local items and saves the missing ones
 */
-export const syncClasses = async (classesToSync: Class[]): Promise<void> => {
+export const syncClasses = async (classesToSync: ClassData[]): Promise<void> => {
   const localClasses = await db.classes.toArray();
   const missingClasses = classesToSync.filter((c) => {
     return !localClasses.some((lc) => lc.id === c.id);
@@ -22,7 +22,7 @@ export const fetchAndSyncClasses = async (yearId: string): Promise<void> => {
 
   // Delete classes of other year
   const localClasses = db.classes.toCollection();
-  const localClassesToDelete = localClasses.filter((c) => c.edges.year.id !== yearId);
+  const localClassesToDelete = localClasses.filter((c) => c.year.id !== yearId);
   await localClassesToDelete.delete();
 
   // sync with local data

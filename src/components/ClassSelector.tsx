@@ -44,10 +44,10 @@ const ClassSelector: Component = () => {
         <SelectTrigger border="none" py="$0_5" px="$2">
           <Flex flexDirection="column" minW="$60">
             <Text fontWeight="$semibold" textAlign="start" size="sm" overflow="hidden" maxW="$full">
-              {appState.selectedClass?.edges.subject.name}
+              {appState.selectedClass?.subject.name}
             </Text>
             <Flex flexWrap="wrap">
-              <Text size="sm" textAlign="start" flex="1">{appState.selectedClass?.edges.grade.name}</Text>
+              <Text size="sm" textAlign="start" flex="1">{appState.selectedClass?.grade.name}</Text>
               <Badge colorScheme="primary" fontSize="$sm">{appState.selectedClass?.parallel}</Badge>
             </Flex>
           </Flex>
@@ -60,9 +60,9 @@ const ClassSelector: Component = () => {
                 <SelectOption value={cl.id} p="$1">
                   <Flex flexDirection="column">
                     <Text fontWeight="$semibold" size="sm">
-                      {cl.edges.subject.name}
+                      {cl.subject.name}
                     </Text>
-                    <Text size="xs">{cl.edges.grade.name}</Text>
+                    <Text size="xs">{cl.grade.name}</Text>
                   </Flex>
                   <Box flex={1} />
                   <Badge colorScheme="primary">{cl.parallel}</Badge>

@@ -1,4 +1,4 @@
-import type { Year, Period, Area, Class, ClassPeriod } from '@app/types';
+import type { Year, YearData, Period, Area, ClassData, ClassPeriod } from '@app/types';
 
 import { createContext, useContext, createEffect, ParentComponent } from 'solid-js';
 import { createStore } from 'solid-js/store';
@@ -10,15 +10,15 @@ import { DEFAULT_CLASS_KEY, DOWNLOAD_AND_SYNC_MSG, JWT_KEY, SET_DATA_MSG, SYNC_D
 import { log } from '@app/utils/functions';
 
 export interface AppContextData {
-  year: Omit<Year, 'edges'>
+  year: Year
   periods: Period[]
   areas: Area[]
-  selectedClass: Class | null
+  selectedClass: ClassData | null
   activePeriod: ClassPeriod | null
 }
 export interface AppContextActions {
-  setYear: (year: Year) => void
-  setSelectedClass: (cl: Class | null) => void
+  setYear: (year: YearData) => void
+  setSelectedClass: (cl: ClassData | null) => void
   clearAll: () => void
 }
 export interface AppContextState {
@@ -106,16 +106,16 @@ export const AppProvider: ParentComponent = (props) => {
     }
   };
 
-  const setYearData = (year: Year) => {
+  const setYearData = (year: YearData) => {
     setData({
       year: { id: year.id, value: year.value },
-      periods: year.edges.periods,
-      areas: year.edges.areas,
+      periods: year.periods,
+      areas: year.areas,
     });
     void fetchAndSyncClasses(year.id);
   };
 
-  const setSelectedClass = (cl: Class | null) => {
+  const setSelectedClass = (cl: ClassData | null) => {
     if (cl === null) {
       localStorage.removeItem(DEFAULT_CLASS_KEY);
     } else {
