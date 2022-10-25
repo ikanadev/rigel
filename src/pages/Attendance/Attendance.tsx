@@ -111,7 +111,10 @@ const Attendance: Component = () => {
                   {(student, index) => (
                     <Tr>
                       <Td w="$1" pl={0} css={{ whiteSpace: 'nowrap' }}>
-                        <Text>{`${student.last_name} ${student.name}`}</Text>
+                        <Flex flexDirection={{ '@initial': 'column', '@md': 'row' }} lineHeight={1}>
+                          <Text mr="$1">{student.last_name}</Text>
+                          <Text>{student.name}</Text>
+                        </Flex>
                       </Td>
                       <Show
                         when={todayAttendanceDay() !== null}
