@@ -13,12 +13,12 @@ import { db } from '@app/db/dexie';
 
 const Classes: Component = () => {
   const navigate = useNavigate();
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   const classes = createDexieArrayQuery(() => db.classes.toArray());
 
   createEffect(() => {
-    if (appState.selectedClass !== null) {
-      navigate(`/class/${appState.selectedClass.id}/attendance`);
+    if (classStore.class !== null) {
+      navigate(`/class/${classStore.class.id}/attendance`);
     }
   });
 

@@ -52,7 +52,7 @@ const Drawer: Component<Props> = (props) => {
   const settingsModal = booleanSignal();
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
-  const { appState, actions: { setSelectedClass } } = useAppData();
+  const { classStore, actions: { setSelectedClass } } = useAppData();
 
   const openLogout = () => {
     props.onClose();
@@ -104,28 +104,28 @@ const Drawer: Component<Props> = (props) => {
 
           <DrawerBody>
             <Show
-              when={appState.selectedClass !== null}
+              when={classStore.class !== null}
               fallback={
                 <Text fontStyle="italic" color="$neutral11" fontSize="$sm" my="$4">
                   Ninguna materia seleccionada
                 </Text>
               }
             >
-              <Text size="base" fontWeight="$semibold">{appState.selectedClass!.edges.subject.name}</Text>
+              <Text size="base" fontWeight="$semibold">{classStore.class!.subject.name}</Text>
               <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap">
-                <Text size="sm">{appState.selectedClass!.edges.grade.name}</Text>
-                <Badge colorScheme="primary">{appState.selectedClass!.parallel}</Badge>
+                <Text size="sm">{classStore.class!.grade.name}</Text>
+                <Badge colorScheme="primary">{classStore.class!.parallel}</Badge>
               </Flex>
               <Text size="sm">
                 Periodo:{' '}
-                <Text as="span" fontWeight="$semibold" color={appState.activePeriod !== null ? undefined : '$neutral10'}>
-                  {appState.activePeriod !== null ? appState.activePeriod.period.name : 'No iniciado'}
+                <Text as="span" fontWeight="$semibold" color={classStore.classPeriod !== null ? undefined : '$neutral10'}>
+                  {classStore.classPeriod !== null ? classStore.classPeriod.period.name : 'No iniciado'}
                 </Text>
               </Text>
-              <Text size="sm">Gestión: <Text as="span" fontWeight="$semibold">{appState.selectedClass!.edges.year.value}</Text></Text>
+              <Text size="sm">Gestión: <Text as="span" fontWeight="$semibold">{classStore.class!.year.value}</Text></Text>
               <Flex justifyContent="end">
                 <Show
-                  when={appState.activePeriod === null}
+                  when={classStore.classPeriod === null}
                   fallback={
                     <Button
                       compact
@@ -137,7 +137,7 @@ const Drawer: Component<Props> = (props) => {
                         props.onClose();
                       }}
                     >
-                      {`Finalizar ${appState.activePeriod!.period.name}`}
+                      {`Finalizar ${classStore.classPeriod!.period.name}`}
                     </Button>
                   }
                 >
@@ -158,7 +158,7 @@ const Drawer: Component<Props> = (props) => {
 
               <Flex direction="column" mt="$2" gap="$2">
                 <Show
-                  when={appState.activePeriod !== null}
+                  when={classStore.classPeriod !== null}
                   fallback={
                     <Text fontStyle="italic" color="$neutral11" textAlign="center" my="$6">
                       Debe iniciar un periodo para administrar asistencias y tareas.
@@ -171,7 +171,7 @@ const Drawer: Component<Props> = (props) => {
                     // eslint-disable-next-line solid/reactivity
                     onClick={props.onClose}
                     icon={<CheckCircleMini />}
-                    href={`/class/${appState.selectedClass!.id}/attendance`}
+                    href={`/class/${classStore.class!.id}/attendance`}
                   />
                   <LinkButton
                     text="Tareas / Actividades"
@@ -179,7 +179,7 @@ const Drawer: Component<Props> = (props) => {
                     // eslint-disable-next-line solid/reactivity
                     onClick={props.onClose}
                     icon={<DocumentDuplicateMini />}
-                    href={`/class/${appState.selectedClass!.id}/activities`}
+                    href={`/class/${classStore.class!.id}/activities`}
                   />
                 </Show>
                 <LinkButton
@@ -188,7 +188,7 @@ const Drawer: Component<Props> = (props) => {
                   // eslint-disable-next-line solid/reactivity
                   onClick={props.onClose}
                   icon={<UsersMini />}
-                  href={`/class/${appState.selectedClass!.id}/students`}
+                  href={`/class/${classStore.class!.id}/students`}
                 />
                 <LinkButton
                   text="Reporte de Asistencias"
@@ -196,7 +196,7 @@ const Drawer: Component<Props> = (props) => {
                   // eslint-disable-next-line solid/reactivity
                   onClick={props.onClose}
                   icon={<ClipboardDocumentCheckMini />}
-                  href={`/class/${appState.selectedClass!.id}/attendance/report`}
+                  href={`/class/${classStore.class!.id}/attendance/report`}
                 />
                 <LinkButton
                   text="Reporte de Notas"
@@ -204,7 +204,7 @@ const Drawer: Component<Props> = (props) => {
                   // eslint-disable-next-line solid/reactivity
                   onClick={props.onClose}
                   icon={<ClipboardDocumentListMini />}
-                  href={`/class/${appState.selectedClass!.id}/scores/report`}
+                  href={`/class/${classStore.class!.id}/scores/report`}
                 />
               </Flex>
             </Show>

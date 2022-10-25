@@ -12,9 +12,9 @@ interface Props {
   onEditActivity: (activity: Activity) => void
 }
 const Area: Component<Props> = (props) => {
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   const activities = createDexieArrayQuery(() => db.activities.where(
-    { area_id: props.area.id, class_period_id: appState.activePeriod?.id ?? '' },
+    { area_id: props.area.id, class_period_id: classStore.classPeriod?.id ?? '' },
   ).toArray());
   return (
     <Box my="$4">

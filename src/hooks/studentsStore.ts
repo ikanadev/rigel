@@ -4,9 +4,9 @@ import { db } from '@app/db/dexie';
 
 /** returns the students list of current class use it only when appState.selectedClass is defined */
 const studentsStore = () => {
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   return createDexieArrayQuery(
-    () => db.students.where('class_id').equals(appState.selectedClass!.id).sortBy('last_name'),
+    () => db.students.where('class_id').equals(classStore.class!.id).sortBy('last_name'),
   );
 };
 

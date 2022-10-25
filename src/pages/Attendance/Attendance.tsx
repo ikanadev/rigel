@@ -26,16 +26,16 @@ import { addAttendance, updateAttendance } from '@app/db/attendance';
 
 const Attendance: Component = () => {
   const { reportError } = errorSignal;
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   const students = studentsStore();
   const { todayAttendanceDay, pastAttendancesDay } = periodAttendanceStore();
 
   const startTodaysAttendance = () => {
-    if (appState.activePeriod === null) return;
+    if (classStore.classPeriod === null) return;
     addAttendanceDay({
       id: nanoid(),
       day: Date.now(),
-      class_period_id: appState.activePeriod.id,
+      class_period_id: classStore.classPeriod.id,
     }).catch((err) => {
       void reportError('Starting attendance (new attendance day)', err);
     });
@@ -67,7 +67,7 @@ const Attendance: Component = () => {
         <AttendanceLabels />
       </Flex>
       <Show
-        when={appState.activePeriod !== null}
+        when={classStore.classPeriod !== null}
         fallback={<NonActivePeriodMessage />}
       >
         <Show
@@ -77,7 +77,7 @@ const Attendance: Component = () => {
               <Text color="$neutral10" as="span">
                 No hay estudiantes registrados en esta materia, agrega estudiantes desde el menu de:
               </Text>
-              <Anchor as={Link} href={`/class/${appState.selectedClass!.id}/students`} color="$primary10">
+              <Anchor as={Link} href={`/class/${classStore.class!.id}/students`} color="$primary10">
                 {' '}Administrar Estudiantes
               </Anchor>
             </Text>
@@ -111,7 +111,10 @@ const Attendance: Component = () => {
                   {(student, index) => (
                     <Tr>
                       <Td w="$1" pl={0} css={{ whiteSpace: 'nowrap' }}>
-                        <Text>{`${student.last_name} ${student.name}`}</Text>
+                        <Flex flexDirection={{ '@initial': 'column', '@md': 'row' }} lineHeight={1}>
+                          <Text mr="$1">{student.last_name}</Text>
+                          <Text>{student.name}</Text>
+                        </Flex>
                       </Td>
                       <Show
                         when={todayAttendanceDay() !== null}
