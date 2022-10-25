@@ -107,7 +107,7 @@ const SignIn: Component = () => {
           </Box>
           <Heading level="1" size="4xl" color="$primary9">Rigel</Heading>
           <Text textAlign="center" mt="$2">
-            La WebApp de los profesores de 🇧🇴 Bolivia.
+            La Aplicación Web de los profesores de 🇧🇴 Bolivia.
           </Text>
         </Flex>
       </Flex>
