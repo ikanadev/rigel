@@ -12,6 +12,7 @@ import {
   DOWNLOAD_AND_SYNC_MSG,
   JWT_KEY,
 } from '@app/utils/constants';
+import { fetchAndSyncClasses } from '@app/db/class';
 
 const getEmptyYearData = (): YearData => ({
   id: '',
@@ -34,6 +35,7 @@ export const useYearData = () => {
       });
       worker.postMessage({ type: SYNC_DATA_MSG });
       worker.postMessage({ type: DOWNLOAD_AND_SYNC_MSG });
+      void fetchAndSyncClasses(yearData.id);
     }
   });
 
