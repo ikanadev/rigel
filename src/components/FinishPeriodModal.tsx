@@ -21,10 +21,10 @@ interface Props {
 }
 const FinishPeriodModal: Component<Props> = (props) => {
   const { reportError } = errorSignal;
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
 
   const onFinish = () => {
-    const activePeriod = appState.activePeriod;
+    const activePeriod = classStore.classPeriod;
     if (activePeriod === null) return;
     finishClassPeriod({
       id: activePeriod.id,

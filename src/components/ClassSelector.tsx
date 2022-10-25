@@ -24,31 +24,31 @@ const ClassSelector: Component = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const classes = createDexieArrayQuery(() => db.classes.toArray());
-  const { actions, appState } = useAppData();
+  const { actions, classStore } = useAppData();
 
   // these routes don't need a class selector
   const matchEditStudent = useMatch(() => '/class/:classid/student/:studentid/edit');
   const matchActivity = useMatch(() => '/class/:classid/activity/:activityid');
 
   const handleChange = (classId: string) => {
-    if (appState.selectedClass === null) return;
-    const path = location.pathname.replace(appState.selectedClass.id, classId);
+    if (classStore.class === null) return;
+    const path = location.pathname.replace(classStore.class.id, classId);
     const newClass = classes.find((c) => c.id === classId);
     actions.setSelectedClass(newClass ?? null);
     navigate(path);
   };
 
   return (
-    <Show when={appState.selectedClass !== null && matchEditStudent() === null && matchActivity() === null}>
-      <Select onChange={handleChange} value={appState.selectedClass!.id}>
+    <Show when={classStore.class !== null && matchEditStudent() === null && matchActivity() === null}>
+      <Select onChange={handleChange} value={classStore.class!.id}>
         <SelectTrigger border="none" py="$0_5" px="$2">
           <Flex flexDirection="column" minW="$60">
             <Text fontWeight="$semibold" textAlign="start" size="sm" overflow="hidden" maxW="$full">
-              {appState.selectedClass?.subject.name}
+              {classStore.class?.subject.name}
             </Text>
             <Flex flexWrap="wrap">
-              <Text size="sm" textAlign="start" flex="1">{appState.selectedClass?.grade.name}</Text>
-              <Badge colorScheme="primary" fontSize="$sm">{appState.selectedClass?.parallel}</Badge>
+              <Text size="sm" textAlign="start" flex="1">{classStore.class?.grade.name}</Text>
+              <Badge colorScheme="primary" fontSize="$sm">{classStore.class?.parallel}</Badge>
             </Flex>
           </Flex>
           <SelectIcon ml="$2" />

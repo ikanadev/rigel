@@ -34,7 +34,7 @@ interface FormData {
 
 const NewClass: Component = () => {
   const navigate = useNavigate();
-  const { appState } = useAppData();
+  const { year } = useAppData();
   const [serverErr, setServerErr] = createSignal('');
   const [formData, setFormData] = createStore<FormData>({
     dpto: null,
@@ -84,7 +84,7 @@ const NewClass: Component = () => {
       schoolId: formData.school,
       subjectId: formData.subject,
       gradeId: formData.grade,
-      yearId: appState.year.id,
+      yearId: year.id,
       parallel: formData.parallel,
     }).then((resp) => {
       void syncClasses(resp);
@@ -96,7 +96,7 @@ const NewClass: Component = () => {
 
   return (
     <>
-      <Title text={`Nueva materia (${appState.year.value})`} backTo="/" />
+      <Title text={`Nueva materia (${year.value})`} backTo="/" />
       <Show when={isOnline()} fallback={<Alert status="warning" text="Lo sentimos, pero esta sección requiere conexión a Internet." />}>
         <Text mb="$6">
           Luego de crear una materia podrá registrar estudiantes, controlar asistencia, actividades y notas.

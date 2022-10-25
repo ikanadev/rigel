@@ -6,10 +6,10 @@ import { Outlet } from '@solidjs/router';
 import { useAppData } from '@app/context';
 
 const Class: Component = () => {
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   return (
     // we ensure selected class exists in Class subroutes
-    <Show when={appState.selectedClass !== null}>
+    <Show when={classStore.class !== null}>
       <Outlet />
     </Show>
   );

@@ -22,7 +22,7 @@ import { useAppData } from '@app/context';
 import { studentsStore } from '@app/hooks';
 
 const Students: Component = () => {
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
 
   const students = studentsStore();
 
@@ -33,7 +33,7 @@ const Students: Component = () => {
         <Button
           size="sm"
           as={Link}
-          href={`/class/${appState.selectedClass!.id}/students/new`}
+          href={`/class/${classStore.class!.id}/students/new`}
           colorScheme="success"
           leftIcon={<Plus w="$5" h="$5" />}
         >
@@ -68,7 +68,7 @@ const Students: Component = () => {
                     <Td numeric>
                       <IconButton
                         as={Link}
-                        href={`/class/${appState.selectedClass!.id}/student/${student.id}/edit`}
+                        href={`/class/${classStore.class!.id}/student/${student.id}/edit`}
                         size="xs"
                         colorScheme="info"
                         aria-label="Editar"

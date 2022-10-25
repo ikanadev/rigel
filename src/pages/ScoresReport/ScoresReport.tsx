@@ -18,7 +18,7 @@ interface ScoresMap { [key: string]: Score }
 const ScoresReport: Component = () => {
   const [viewMode, setViewMode] = createSignal<ViewMode>(ViewMode.Activity);
   const params = useParams<{ classid: string }>();
-  const { appState } = useAppData();
+  const { year } = useAppData();
   const modal = booleanSignal();
 
   const students = studentsStore();
@@ -35,7 +35,7 @@ const ScoresReport: Component = () => {
   const classPeriodsWithActs = createMemo(() => {
     return classPeriods.map((cp) => ({
       ...cp,
-      areas: appState.areas.map(area => ({
+      areas: year.areas.map(area => ({
         ...area,
         acts: acts.filter(act => act.class_period_id === cp.id && act.area_id === area.id),
       })),

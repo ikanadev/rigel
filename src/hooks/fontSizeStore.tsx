@@ -33,7 +33,6 @@ const fontSizeStore = () => {
     if (fontStore.activeSize > 0 && fontStore.valid && htmlEl !== null) {
       localStorage.setItem(FONT_SIZE_KEY, fontStore.activeSize.toString());
       htmlEl.style.fontSize = `${fontStore.activeSize}px`;
-      console.log('Setting font size: ', fontStore.activeSize);
     }
   });
 
@@ -63,7 +62,6 @@ const fontSizeStore = () => {
     } else {
       setFontStore('activeSize', baseSize);
     }
-    console.log('Using fontSize: ', fontStore.activeSize);
   });
 
   const setSm = () => setFontStore('activeSize', fontStore.sizes.sm);

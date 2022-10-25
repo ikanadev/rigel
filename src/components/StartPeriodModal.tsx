@@ -26,17 +26,17 @@ interface Props {
 const StartPeriodModal: Component<Props> = (props) => {
   const { reportError } = errorSignal;
   const [periodId, setPeriodId] = createSignal<string | null>(null);
-  const { appState } = useAppData();
+  const { classStore, year } = useAppData();
 
   createEffect(() => {
-    if (appState.periods.length > 0) {
-      setPeriodId(appState.periods[0].id);
+    if (year.periods.length > 0) {
+      setPeriodId(year.periods[0].id);
     }
   });
 
   const onCreate = () => {
-    const period = appState.periods.find(p => p.id === periodId());
-    if (period === undefined || appState.selectedClass === null) return;
+    const period = year.periods.find(p => p.id === periodId());
+    if (period === undefined || classStore.class === null) return;
     const date = Date.now();
     startClassPeriod({
       id: nanoid(),
@@ -44,7 +44,7 @@ const StartPeriodModal: Component<Props> = (props) => {
       start: date,
       end: date,
       period: { id: period.id, name: period.name },
-      class_id: appState.selectedClass.id,
+      class_id: classStore.class.id,
     }).then(() => {
       props.onClose();
     }).catch((err) => {
@@ -64,7 +64,7 @@ const StartPeriodModal: Component<Props> = (props) => {
               Periodo:
             </Text>
             <SimpleSelect value={periodId()} onChange={setPeriodId}>
-              <For each={appState.periods}>
+              <For each={year.periods}>
                 {(period) => (
                   <SimpleOption value={period.id}>
                     {period.name}
