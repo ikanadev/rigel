@@ -13,7 +13,7 @@ import { updateStudent } from '@app/db/student';
 const EditStudent: Component = () => {
   const params = useParams<{ studentid: string }>();
   const navigate = useNavigate();
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   const [errorMsg, setErrorMsg] = createSignal('');
   const student = createDexieSignalQuery(() => db.students.get(params.studentid));
 
@@ -27,7 +27,7 @@ const EditStudent: Component = () => {
       ci: data.ci.value,
     })
       .then(() => {
-        navigate(`/class/${appState.selectedClass!.id}/students`);
+        navigate(`/class/${classStore.class!.id}/students`);
       }).catch(() => {
         setErrorMsg('Error registrando estudiante.');
       });
@@ -35,7 +35,7 @@ const EditStudent: Component = () => {
 
   return (
     <>
-      <Title text="Editar estudiante" backTo={`/class/${appState.selectedClass!.id}/students`} />
+      <Title text="Editar estudiante" backTo={`/class/${classStore.class!.id}/students`} />
       <Alert status="danger" text={errorMsg()} setText={setErrorMsg} />
       <NewStudentForm onSubmit={onSubmit} student={student()} />
     </>

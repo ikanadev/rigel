@@ -30,13 +30,13 @@ const NewActivityModal: Component<Props> = (props) => {
   const { reportError } = errorSignal;
   const [areaId, setAreaId] = createSignal('');
   const [activityName, setActivityName] = createSignal('');
-  const { appState } = useAppData();
+  const { year, classStore } = useAppData();
   const isUpdating = () => props.activity !== null;
 
   createEffect(() => {
     if (props.activity === null) {
-      if (appState.areas.length > 0) {
-        setAreaId(appState.areas[0].id);
+      if (year.areas.length > 0) {
+        setAreaId(year.areas[0].id);
       }
     } else {
       setAreaId(props.activity.area_id);
@@ -45,7 +45,7 @@ const NewActivityModal: Component<Props> = (props) => {
   });
 
   const onUpdate = () => {
-    if (appState.activePeriod?.id === undefined) return;
+    if (classStore.classPeriod?.id === undefined) return;
     if (areaId() === '') return;
     if (props.activity === null) return;
     updateActivity({
@@ -63,14 +63,14 @@ const NewActivityModal: Component<Props> = (props) => {
   };
 
   const onCreate = () => {
-    if (appState.activePeriod?.id === undefined) return;
+    if (classStore.classPeriod === null) return;
     if (areaId() === '') return;
     addActivity({
       id: nanoid(),
       date: Date.now(),
       name: activityName(),
       area_id: areaId(),
-      class_period_id: appState.activePeriod.id,
+      class_period_id: classStore.classPeriod.id,
     })
       .then(() => {
         setActivityName('');
@@ -100,7 +100,7 @@ const NewActivityModal: Component<Props> = (props) => {
             />
             <Text size="sm" mb="$1">Área</Text>
             <SimpleSelect value={areaId()} onChange={setAreaId}>
-              <For each={appState.areas}>{(area) => (
+              <For each={year.areas}>{(area) => (
                 <SimpleOption value={area.id}>{area.name}</SimpleOption>
               )}</For>
             </SimpleSelect>

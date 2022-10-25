@@ -12,7 +12,7 @@ import { booleanSignal } from '@app/hooks';
 const Activities: Component = () => {
   const [activity, setActivity] = createSignal<Activity | null>(null);
   const modal = booleanSignal();
-  const { appState } = useAppData();
+  const { year } = useAppData();
 
   const closeModal = () => {
     modal.disable();
@@ -33,7 +33,7 @@ const Activities: Component = () => {
           Nueva Actividad
         </Button>
       </Flex>
-      <For each={appState.areas}>{(area) => (
+      <For each={year.areas}>{(area) => (
         <Area area={area} onEditActivity={onEditActivity} />
       )}</For>
     </>

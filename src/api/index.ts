@@ -2,10 +2,10 @@ import { api } from './api';
 
 import type {
   Teacher,
-  Year,
+  YearData,
   Grade,
   Subject,
-  Class,
+  ClassData,
   Departamento,
   Provincia,
   Municipio,
@@ -36,7 +36,7 @@ export const signIn = async (data: SignInReq): Promise<SignInRes> => {
   return await resp.json();
 };
 
-export const getYears = async (): Promise<Year[]> => {
+export const getYears = async (): Promise<YearData[]> => {
   const resp = await api.get('years');
   return await resp.json();
 };
@@ -50,7 +50,7 @@ export const getGradesAndSubjects = async (): Promise<GetGradesAndSubjectsRes> =
   return await resp.json();
 };
 
-export const getClasses = async (yearId: string): Promise<Class[]> => {
+export const getClasses = async (yearId: string): Promise<ClassData[]> => {
   const resp = await api.get(`auth/classes/year/${yearId}`);
   return await resp.json();
 };
@@ -62,7 +62,7 @@ interface NewClassReq {
   yearId: string
   parallel: string
 }
-export const newClass = async (data: NewClassReq): Promise<Class[]> => {
+export const newClass = async (data: NewClassReq): Promise<ClassData[]> => {
   const resp = await api.post('auth/class', { json: data });
   return await resp.json();
 };

@@ -11,7 +11,7 @@ import { addStudent } from '@app/db/student';
 
 const NewStudent: Component = () => {
   const navigate = useNavigate();
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   const [errorMsg, setErrorMsg] = createSignal('');
 
   const onSubmit = (data: NewStudentFormData) => {
@@ -20,10 +20,10 @@ const NewStudent: Component = () => {
       name: data.name.value,
       last_name: data.last_name.value,
       ci: data.ci.value,
-      class_id: appState.selectedClass!.id,
+      class_id: classStore.class!.id,
     })
       .then(() => {
-        navigate(`/class/${appState.selectedClass!.id}/students`);
+        navigate(`/class/${classStore.class!.id}/students`);
       }).catch(() => {
         setErrorMsg('Error registrando estudiante.');
       });
@@ -31,7 +31,7 @@ const NewStudent: Component = () => {
 
   return (
     <>
-      <Title text="Registrar estudiante" backTo={`/class/${appState.selectedClass!.id}/students`} />
+      <Title text="Registrar estudiante" backTo={`/class/${classStore.class!.id}/students`} />
       <Alert status="danger" text={errorMsg()} setText={setErrorMsg} />
       <NewStudentForm onSubmit={onSubmit} />
     </>

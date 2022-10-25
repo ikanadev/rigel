@@ -13,10 +13,10 @@ interface AttDayWithAtts extends AttendanceDay {
 }
 const periodAttendanceStore = () => {
   const columns = attendanceColumnsSignal();
-  const { appState } = useAppData();
+  const { classStore } = useAppData();
   // get attendanceDays from current period
   const attendanceDays = createDexieArrayQuery(
-    () => db.attendanceDays.where('class_period_id').equals(appState.activePeriod?.id ?? '').reverse().sortBy('day'),
+    () => db.attendanceDays.where('class_period_id').equals(classStore.classPeriod?.id ?? '').reverse().sortBy('day'),
   );
   // get all attendances from all attendanceDays from this period
   const attendances = createDexieArrayQuery(

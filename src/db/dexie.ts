@@ -1,9 +1,9 @@
 import type {
   Teacher,
-  Year,
+  YearData,
   Subject,
   Grade,
-  Class,
+  ClassData,
   Student,
   StudentTransaction,
   ClassPeriod,
@@ -26,8 +26,8 @@ class RigelStore extends Dexie {
   teachers!: Dexie.Table<Teacher, string>;
   subjects!: Dexie.Table<Subject, string>;
   grades!: Dexie.Table<Grade, string>;
-  years!: Dexie.Table<Year, string>;
-  classes!: Dexie.Table<Class, string>;
+  years!: Dexie.Table<YearData, string>;
+  classes!: Dexie.Table<ClassData, string>;
   students!: Dexie.Table<Student, string>;
   studentTransactions!: Dexie.Table<StudentTransaction, string>;
   classPeriods!: Dexie.Table<ClassPeriod, string>;
@@ -42,7 +42,7 @@ class RigelStore extends Dexie {
   scoreTransactions!: Dexie.Table<ScoreTransaction, string>;
   errors!: Dexie.Table<AppError, string>;
 
-  constructor () {
+  constructor() {
     super(DB_NAME);
     this.version(DB_VERSION).stores({
       teachers: 'id, email',
