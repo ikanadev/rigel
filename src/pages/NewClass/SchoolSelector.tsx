@@ -8,7 +8,6 @@ import {
   SelectTrigger,
   SelectPlaceholder,
   SelectValue,
-  SelectIcon,
   SelectContent,
   SelectListbox,
   SelectOption,
@@ -16,6 +15,7 @@ import {
   SelectOptionText,
 } from '@hope-ui/solid';
 import { School } from '@app/types';
+import { MagnifyingGlass, XMark } from '@app/icons';
 
 interface Props {
   schools: Resource<School[]>
@@ -25,12 +25,14 @@ const SchoolSelector: Component<Props & SelectProps> = (props) => {
   const [{ schools }, selectProps] = splitProps(props, ['schools']);
 
   createEffect(() => {
-    if (props.value !== null) setFilter('');
+    if (props.value === null) {
+      setFilter('');
+    }
   });
 
   const filteredSchools = () => {
     if (filter() === '') return schools();
-    return schools()?.filter((sc) => sc.name.toLowerCase().includes(filter().toLowerCase()));
+    return schools()?.filter((sc) => sc.name.toLowerCase().includes(filter().toLowerCase().trim()));
   };
 
   return (
@@ -43,11 +45,26 @@ const SchoolSelector: Component<Props & SelectProps> = (props) => {
               variant="unstyled"
               placeholder="Selecciona colegio"
               disabled={selectProps.disabled}
-              onInput={(ev) => setFilter(ev.currentTarget.value)}
+              value={filter()}
+              onInput={(ev) => {
+                setFilter(ev.currentTarget.value);
+              }}
+              onKeyDown={ev => ev.stopPropagation()}
+              onBlur={ev => ev.stopPropagation()}
+              onFocus={ev => ev.stopPropagation()}
             />
           </SelectPlaceholder>
           <SelectValue />
-          <SelectIcon />
+          {props.value === null
+            ? <MagnifyingGlass />
+            : <XMark
+              onClick={e => {
+                e.stopPropagation();
+                props.onChange?.(null);
+              }}
+              onKeyDown={e => e.stopPropagation()}
+            />
+          }
         </SelectTrigger>
         <SelectContent>
           <SelectListbox>
