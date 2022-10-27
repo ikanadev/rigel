@@ -2,19 +2,19 @@ import type { JSX } from 'solid-js';
 
 // Simple entities
 export interface Municipio {
-  id: number
+  id: string
   name: string
 }
 export interface Provincia {
-  id: number
+  id: string
   name: string
 }
 export interface Departamento {
-  id: number
+  id: string
   name: string
 }
 export interface School {
-  id: number
+  id: string
   name: string
   lat: string
   lon: string
