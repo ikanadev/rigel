@@ -12,6 +12,7 @@ export { default as ChevronLeft } from './ChevronLeft';
 export { default as ChevronDown } from './ChevronDown';
 export { default as ArrowLongRight } from './ArrowLongRight';
 export { default as MagnifyingGlass } from './MagnifyingGlass';
+export { default as BarsArrowDown } from './BarsArrowDown';
 
 export { default as WarningOutline } from './WarningOutline';
 

@@ -16,30 +16,44 @@ import {
 import { Show, For } from 'solid-js';
 import { Title } from '@app/components';
 import { Link } from '@solidjs/router';
-import { Plus, Pencil, Trash } from '@app/icons';
+import { Plus, Pencil, Trash, BarsArrowDown } from '@app/icons';
+import CopyStudentsModal from './CopyStudentsModal';
 
 import { useAppData } from '@app/context';
-import { studentsStore } from '@app/hooks';
+import { studentsStore, booleanSignal } from '@app/hooks';
 
 const Students: Component = () => {
+  const copyModal = booleanSignal();
   const { classStore } = useAppData();
 
   const students = studentsStore();
 
   return (
     <>
-      <Flex justifyContent="space-between" flexWrap="wrap">
+      <CopyStudentsModal opened={copyModal.isActive()} onClose={copyModal.disable} />
+      <Flex justifyContent="space-between" flexWrap="wrap" mb="$2">
         <Title text="Estudiantes" />
-        <Button
-          size="sm"
-          as={Link}
-          href={`/class/${classStore.class!.id}/students/new`}
-          colorScheme="success"
-          leftIcon={<Plus w="$5" h="$5" />}
-        >
-          REGISTRAR ESTUDIANTE
-        </Button>
+        <Box>
+          <Button
+            colorScheme="neutral"
+            size="xs"
+            variant="outline"
+            rightIcon={<BarsArrowDown w="$4" h="$4" />}
+            onClick={copyModal.enable}
+          >
+            Copiar de otra materia
+          </Button>
+        </Box>
       </Flex>
+      <Button
+        size="sm"
+        as={Link}
+        href={`/class/${classStore.class!.id}/students/new`}
+        colorScheme="success"
+        leftIcon={<Plus w="$5" h="$5" />}
+      >
+        NUEVO ESTUDIANTE
+      </Button>
       <Show
         when={students.length > 0}
         fallback={
@@ -48,7 +62,7 @@ const Students: Component = () => {
           </Text>
         }
       >
-        <Box overflowX="auto" maxW="$full" mt="$4">
+        <Box overflowX="auto" maxW="$full" mt="$2">
           <Table striped="even" dense>
             <Thead>
               <Tr>
