@@ -44,7 +44,7 @@ const Students: Component = () => {
         when={students.length > 0}
         fallback={
           <Text color="$neutral11" fontStyle="italic" textAlign="center" my="$6">
-            No existen estudiantes registrados aun.
+            No existen estudiantes registrados aún.
           </Text>
         }
       >

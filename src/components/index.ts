@@ -12,3 +12,4 @@ export { default as NewStudentForm } from './NewStudentForm';
 export { default as StartPeriodModal } from './StartPeriodModal';
 export { default as FinishPeriodModal } from './FinishPeriodModal';
 export { default as AttendanceLabels } from './AttendanceLabels';
+export { default as NoStudentsMessage } from './NoStudentsMessage';
