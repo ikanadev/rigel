@@ -29,3 +29,4 @@ export { default as ClipboardDocumentCheckMini } from './ClipboardDocumentCheckM
 
 export { default as Telegram } from './Telegram';
 export { default as Gmail } from './Gmail';
+export { default as XLS } from './XLS';

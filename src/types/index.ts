@@ -172,6 +172,10 @@ export type TotalAttendances = {
   [key in AttendanceStatus]: number
 };
 
+export interface XMLData {
+  [key: string]: Array<string[] | null>
+}
+
 export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;
 export type OnInputEvent = JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;
 export type OnChangeEvent = JSX.EventHandlerUnion<HTMLInputElement, Event>;

@@ -14,6 +14,7 @@ import EditStudent from '@app/pages/EditStudent';
 import Activities from '@app/pages/Activities';
 import Activity from '@app/pages/Activity';
 import ScoresReport from '@app/pages/ScoresReport';
+import StudentsFromXLS from '@app/pages/StudentsFromXLS';
 
 const routes: RouteDefinition[] = [
   {
@@ -27,6 +28,7 @@ const routes: RouteDefinition[] = [
         component: Class,
         children: [
           { path: '/attendance', component: Attendance },
+          { path: '/add_from_xls', component: StudentsFromXLS },
           { path: '/attendance/report', component: AttendanceReport },
           { path: '/students', component: Students },
           { path: '/students/new', component: NewStudent },

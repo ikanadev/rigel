@@ -16,7 +16,7 @@ import {
 import { Show, For } from 'solid-js';
 import { Title } from '@app/components';
 import { Link } from '@solidjs/router';
-import { Plus, Pencil, Trash, BarsArrowDown } from '@app/icons';
+import { Plus, Pencil, Trash, BarsArrowDown, XLS } from '@app/icons';
 import CopyStudentsModal from './CopyStudentsModal';
 
 import { useAppData } from '@app/context';
@@ -35,25 +35,39 @@ const Students: Component = () => {
         <Title text="Estudiantes" />
         <Box>
           <Button
+            as={Link}
+            href={`/class/${classStore.class!.id}/add_from_xls`}
             colorScheme="neutral"
-            size="xs"
+            size="sm"
             variant="outline"
-            rightIcon={<BarsArrowDown w="$4" h="$4" />}
+            rightIcon={<XLS w="$6" h="$6" />}
+            onClick={copyModal.enable}
+          >
+            Copiar de Excel
+          </Button>
+          <Button
+            ml="$2"
+            colorScheme="neutral"
+            size="sm"
+            variant="outline"
+            rightIcon={<BarsArrowDown w="$6" h="$6" />}
             onClick={copyModal.enable}
           >
             Copiar de otra materia
           </Button>
         </Box>
       </Flex>
-      <Button
-        size="sm"
-        as={Link}
-        href={`/class/${classStore.class!.id}/students/new`}
-        colorScheme="success"
-        leftIcon={<Plus w="$5" h="$5" />}
-      >
-        NUEVO ESTUDIANTE
-      </Button>
+      <Flex justifyContent="end" mt="$4">
+        <Button
+          size="sm"
+          as={Link}
+          href={`/class/${classStore.class!.id}/students/new`}
+          colorScheme="success"
+          leftIcon={<Plus w="$5" h="$5" />}
+        >
+          NUEVO ESTUDIANTE
+        </Button>
+      </Flex>
       <Show
         when={students.length > 0}
         fallback={
