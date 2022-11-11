@@ -5,7 +5,7 @@ export const DB_NAME = 'RIGEL_LOCAL';
 export const DB_VERSION = 20;
 
 // App constants
-export const APP_VERSION = 'v0.9.4';
+export const APP_VERSION = 'v0.9.5';
 export const SET_DATA_MSG = 'SET_DATA_MSG';
 export const SYNC_DATA_MSG = 'SYNC_DATA_MSG';
 export const DOWNLOAD_AND_SYNC_MSG = 'DOWNLOAD_AND_SYNC_MSG';
