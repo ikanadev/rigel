@@ -103,7 +103,7 @@ const SignIn: Component = () => {
       <Flex flexDirection="column" mt="$16">
         <Flex flexDirection="column" alignItems="center">
           <Box maxW="$36" mb="$1">
-            <Logo width="100%" height="100%" />
+            <Logo w="100%" h="100%" />
           </Box>
           <Heading level="1" size="4xl" color="$primary9">Rigel</Heading>
           <Text textAlign="center" mt="$2">

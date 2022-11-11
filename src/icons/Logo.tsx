@@ -5,7 +5,7 @@ import { mergeProps } from 'solid-js';
 
 const Logo: Component<IconProps> = (props) => {
   const iconProps = mergeProps(
-    { width: '512px', height: '512px', viewBox: '0 0 512 512' },
+    { w: '512px', h: '512px', viewBox: '0 0 512 512' },
     props,
   );
   return (

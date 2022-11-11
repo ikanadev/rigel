@@ -5,7 +5,7 @@ import { mergeProps } from 'solid-js';
 
 const XLS: Component<IconProps> = (props) => {
   const iconProps = mergeProps(
-    { width: '48px', height: '48px', viewBox: '0 0 48 48', fill: 'currentColor' },
+    { w: '48px', h: '48px', viewBox: '0 0 48 48', fill: 'currentColor' },
     props,
   );
   return (

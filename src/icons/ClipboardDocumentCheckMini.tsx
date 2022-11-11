@@ -5,7 +5,7 @@ import { mergeProps } from 'solid-js';
 
 const ClipboardDocumentCheckMini: Component<IconProps> = (props) => {
   const iconProps = mergeProps(
-    { width: '20px', height: '20px', viewBox: '0 0 20 20', fill: 'currentColor' },
+    { w: '20px', h: '20px', viewBox: '0 0 20 20', fill: 'currentColor' },
     props,
   );
   return (

@@ -6,12 +6,14 @@ import { OnChangeEvent, XMLData } from '@app/types';
 import DataSelector from './DataSelector';
 
 import { parseXLS } from '@app/api';
+import { useAppData } from '@app/context';
 
 const StudentFromXLS = () => {
   let inputRef: HTMLInputElement | undefined;
+  const { classStore } = useAppData();
   const [isLoading, setIsLoading] = createSignal(false);
   const [errMsg, setErrMsg] = createSignal('');
-  const [xmlData, setXMLData] = createSignal<XMLData | null>({ 'Page 1': [['', 'Juan Joel', 'Ramirez Perez', ''], ['', 'Johana', 'Valdez', '']] });
+  const [xmlData, setXMLData] = createSignal<XMLData | null>(null);
 
   const handleFileChange: OnChangeEvent = (ev) => {
     const files = ev.currentTarget.files;
@@ -36,10 +38,11 @@ const StudentFromXLS = () => {
 
   return (
     <>
-      <Title text="Agregar estudiantes desde Excel" />
+      <Title text="Agregar estudiantes desde Excel" backTo={`/class/${classStore.class!.id}/students`} />
       <input
         ref={inputRef}
         onChange={handleFileChange}
+        accept=".xlam, .xlsm, .xlsx, .xltm, .xltx"
         type="file"
         style={{ display: 'none' }}
       />
@@ -76,9 +79,10 @@ const StudentFromXLS = () => {
             Usar otro archivo
           </Button>
           <Text my="$2">
-            Se han encontrado {Object.keys(xmlData()!).length} {Object.keys(xmlData()!).length === 1 ? 'hoja' : 'hojas'} en el archivo Excel.
+            {Object.keys(xmlData()!).length} {Object.keys(xmlData()!).length === 1 ? 'hoja encontrada' : 'hojas encontradas'} en el archivo Excel.
+            Seleccione la que contiene a los estudiantes.
           </Text>
-          <Tabs variant="outline">
+          <Tabs variant="cards" size="sm">
             <TabList maxW="$full" overflowX="auto" overflowY="hidden">
               <For each={Object.keys(xmlData()!)}>{(key) => (
                 <Tab>{key}</Tab>

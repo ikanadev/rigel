@@ -15,11 +15,13 @@ import {
   Button,
 } from '@hope-ui/solid';
 import { Alert } from '@app/components';
+import { Student } from '@app/types';
 
 import { useAppData } from '@app/context';
 import { createDexieArrayQuery } from 'solid-dexie';
 import { db } from '@app/db/dexie';
 import { addStudents } from '@app/db/student';
+import { nanoid } from 'nanoid';
 
 const CopyStudentsModal: Component<ModalProps> = (props) => {
   const [classId, setClassId] = createSignal('');
@@ -31,7 +33,12 @@ const CopyStudentsModal: Component<ModalProps> = (props) => {
 
   const handleAdd = () => {
     if (classStore.class === null) return;
-    addStudents(students, classStore.class.id)
+    const studentsToSave: Student[] = students.map(st => ({
+      ...st,
+      id: nanoid(),
+      class_id: classStore.class!.id,
+    }));
+    addStudents(studentsToSave)
       .then(() => {
         props.onClose();
       })
@@ -48,7 +55,7 @@ const CopyStudentsModal: Component<ModalProps> = (props) => {
         <ModalHeader>Copias estudiantes de otra materia</ModalHeader>
         <ModalBody>
           <Text mb="$1">Copiar de:</Text>
-          <SimpleSelect value={classId} onChange={setClassId} size="sm" placeholder="Selecciona materia" mb="$2">
+          <SimpleSelect value={classId()} onChange={setClassId} size="sm" placeholder="Selecciona materia" mb="$2">
             <For each={otherClasses()}>{cl => (
               <SimpleOption value={cl.id} textValue={`${cl.subject.name}, ${cl.grade.name} - ${cl.parallel}`}>
                 <Flex flexDirection="column" fontSize="$sm" lineHeight={1.2}>

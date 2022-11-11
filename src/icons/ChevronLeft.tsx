@@ -5,7 +5,7 @@ import { mergeProps } from 'solid-js';
 
 const ChevronLeft: Component<IconProps> = (props) => {
   const iconProps = mergeProps(
-    { width: '24px', height: '24px', viewBox: '0 0 24 24', fill: 'currentColor' },
+    { w: '24px', h: '24px', viewBox: '0 0 24 24', fill: 'currentColor' },
     props,
   );
   return (

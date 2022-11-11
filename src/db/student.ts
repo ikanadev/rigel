@@ -30,25 +30,18 @@ export const updateStudent = (studentUpdate: StudentUpdate) => {
   });
 };
 
-export const addStudents = (students: Student[], classId: string) => {
+export const addStudents = (students: Student[]) => {
   const txs: StudentTransaction[] = [];
-  const studentsToSave: Student[] = students.map(st => {
-    // we change the id, since we are copying students from other subject
-    const newStudent: Student = {
-      ...st,
-      id: nanoid(),
-      class_id: classId,
-    };
+  students.forEach(st => {
     txs.push({
       id: nanoid(),
       type: DbOperation.Insert,
-      data: newStudent,
+      data: st,
       date_time: Date.now(),
     });
-    return newStudent;
   });
   return db.transaction('rw', [db.students, db.studentTransactions], async () => {
-    await db.students.bulkAdd(studentsToSave);
+    await db.students.bulkAdd(students);
     await db.studentTransactions.bulkAdd(txs);
   });
 };
