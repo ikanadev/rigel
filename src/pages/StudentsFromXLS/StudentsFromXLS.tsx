@@ -1,8 +1,9 @@
-import { createSignal, Show } from 'solid-js';
-import { Flex, Text, Button, Image } from '@hope-ui/solid';
+import { createSignal, Show, For } from 'solid-js';
+import { Flex, Text, Button, Image, Tabs, TabList, Tab, TabPanel } from '@hope-ui/solid';
 import { Title, Alert } from '@app/components';
-import { XLS } from '@app/icons';
+import { XLS, ChevronLeft } from '@app/icons';
 import { OnChangeEvent, XMLData } from '@app/types';
+import DataSelector from './DataSelector';
 
 import { parseXLS } from '@app/api';
 
@@ -10,7 +11,7 @@ const StudentFromXLS = () => {
   let inputRef: HTMLInputElement | undefined;
   const [isLoading, setIsLoading] = createSignal(false);
   const [errMsg, setErrMsg] = createSignal('');
-  const [xmlData, setXMLData] = createSignal<XMLData | null>(null);
+  const [xmlData, setXMLData] = createSignal<XMLData | null>({ 'Page 1': [['', 'Juan Joel', 'Ramirez Perez', ''], ['', 'Johana', 'Valdez', '']] });
 
   const handleFileChange: OnChangeEvent = (ev) => {
     const files = ev.currentTarget.files;
@@ -64,7 +65,32 @@ const StudentFromXLS = () => {
         </Flex>
       </Show>
       <Show when={xmlData() !== null}>
-        <Text>Data</Text>
+        <>
+          <Button
+            leftIcon={<ChevronLeft w="$4" h="$4" />}
+            mt="$4"
+            size="sm"
+            variant="subtle"
+            onClick={[setXMLData, null]}
+          >
+            Usar otro archivo
+          </Button>
+          <Text my="$2">
+            Se han encontrado {Object.keys(xmlData()!).length} hojas en el archivo Excel.
+          </Text>
+          <Tabs variant="outline">
+            <TabList>
+              <For each={Object.keys(xmlData()!)}>{(key) => (
+                <Tab>{key}</Tab>
+              )}</For>
+            </TabList>
+            <For each={Object.keys(xmlData()!)}>{(key) => (
+              <TabPanel>
+                <DataSelector data={xmlData()![key]} />
+              </TabPanel>
+            )}</For>
+          </Tabs>
+        </>
       </Show>
     </>
   );

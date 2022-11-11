@@ -9,6 +9,7 @@ export { default as Check } from './Check';
 export { default as XMark } from './XMark';
 export { default as ChevronUp } from './ChevronUp';
 export { default as ChevronLeft } from './ChevronLeft';
+export { default as ChevronRight } from './ChevronRight';
 export { default as ChevronDown } from './ChevronDown';
 export { default as ArrowLongRight } from './ArrowLongRight';
 export { default as MagnifyingGlass } from './MagnifyingGlass';
