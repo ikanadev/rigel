@@ -3,17 +3,17 @@ import type { Component } from 'solid-js';
 import { Icon, IconProps } from '@hope-ui/solid';
 import { mergeProps } from 'solid-js';
 
-const Plus: Component<IconProps> = (props) => {
+const ChevronRight: Component<IconProps> = (props) => {
   const iconProps = mergeProps(
     { w: '24px', h: '24px', viewBox: '0 0 24 24', fill: 'currentColor' },
     props,
   );
   return (
     <Icon {...iconProps}>
-      <path fill-rule="evenodd" d="M12 3.75a.75.75 0 01.75.75v6.75h6.75a.75.75 0 010 1.5h-6.75v6.75a.75.75 0 01-1.5 0v-6.75H4.5a.75.75 0 010-1.5h6.75V4.5a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+      <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
     </Icon>
 
   );
 };
 
-export default Plus;
+export default ChevronRight;

@@ -27,7 +27,7 @@ interface FormData {
   email: InputState
   password: InputState
 }
-const validators: {[key in keyof FormData]: Array<(val: string) => string> } = {
+const validators: { [key in keyof FormData]: Array<(val: string) => string> } = {
   name: [nonEmptyValidator],
   lastName: [nonEmptyValidator],
   email: [nonEmptyValidator, emailValidator],
@@ -49,7 +49,7 @@ const SignUp: Component = () => {
   const isDisabled = (): boolean => {
     return Object.keys(formData).some(
       (key) => formData[key as keyof FormData].errorMsg !== '' ||
-      formData[key as keyof FormData].value === '',
+        formData[key as keyof FormData].value === '',
     );
   };
 
@@ -101,7 +101,7 @@ const SignUp: Component = () => {
       <Flex flexDirection="column" mt="$16">
         <Flex flexDirection="column" alignItems="center">
           <Box maxW="$36" mb="$1">
-            <Logo width="100%" height="100%" />
+            <Logo w="100%" h="100%" />
           </Box>
           <Heading level="1" size="4xl" color="$primary9">Rigel</Heading>
           <Text textAlign="center" mt="$2">
@@ -170,9 +170,9 @@ const SignUp: Component = () => {
               when={isOnline()}
               fallback={<Alert status="warning" text="No hay conexión a Internet" />}
             >
-            <Button disabled={isDisabled()} type="submit">
-              Darme de Alta
-            </Button>
+              <Button disabled={isDisabled()} type="submit">
+                Darme de Alta
+              </Button>
             </Show>
             <Text color="$neutral11" textAlign="right" size="sm" mt="$2">
               ¿Ya tienes una cuenta?{' '}

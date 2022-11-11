@@ -2,19 +2,19 @@ import type { JSX } from 'solid-js';
 
 // Simple entities
 export interface Municipio {
-  id: number
+  id: string
   name: string
 }
 export interface Provincia {
-  id: number
+  id: string
   name: string
 }
 export interface Departamento {
-  id: number
+  id: string
   name: string
 }
 export interface School {
-  id: number
+  id: string
   name: string
   lat: string
   lon: string
@@ -171,6 +171,10 @@ export enum AttendanceStatus {
 export type TotalAttendances = {
   [key in AttendanceStatus]: number
 };
+
+export interface XMLData {
+  [key: string]: Array<string[] | null>
+}
 
 export type FormSubmitHandler = JSX.EventHandlerUnion<HTMLFormElement, Event & { submitter: HTMLElement }>;
 export type OnInputEvent = JSX.EventHandlerUnion<HTMLInputElement, InputEvent>;

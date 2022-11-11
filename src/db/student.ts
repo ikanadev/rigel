@@ -29,3 +29,19 @@ export const updateStudent = (studentUpdate: StudentUpdate) => {
     await db.studentTransactions.add(transaction);
   });
 };
+
+export const addStudents = (students: Student[]) => {
+  const txs: StudentTransaction[] = [];
+  students.forEach(st => {
+    txs.push({
+      id: nanoid(),
+      type: DbOperation.Insert,
+      data: st,
+      date_time: Date.now(),
+    });
+  });
+  return db.transaction('rw', [db.students, db.studentTransactions], async () => {
+    await db.students.bulkAdd(students);
+    await db.studentTransactions.bulkAdd(txs);
+  });
+};

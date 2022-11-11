@@ -1,5 +1,5 @@
-import { Component, createMemo, createSignal, For } from 'solid-js';
-import { Title } from '@app/components';
+import { Component, createMemo, createSignal, For, Show } from 'solid-js';
+import { Title, NoStudentsMessage } from '@app/components';
 import { ArrowsPointingOutMini } from '@app/icons';
 import { Flex, IconButton, Table, Box, SimpleOption, SimpleSelect, Text } from '@hope-ui/solid';
 import { Score } from '@app/types';
@@ -78,25 +78,27 @@ const ScoresReport: Component = () => {
       <Flex alignItems="center" flexWrap="wrap">
         <Title text="Notas" />
         <Box flex="1" />
-        <Flex alignItems="center" >
-          <Text mr="$2" fontWeight="$medium">Ver</Text>
-          <Box mr="$4" minW="$48">
-            <SimpleSelect value={viewMode()} onChange={setViewMode} size="sm">
-              <For each={Object.values(ViewMode)}>{(level) => (
-                <SimpleOption value={level}>{level}</SimpleOption>
-              )}</For>
-            </SimpleSelect>
-          </Box>
-          <IconButton
-            size="sm"
-            colorScheme="neutral"
-            variant="outline"
-            onClick={modal.enable}
-            color="$neutral11"
-            icon={<ArrowsPointingOutMini />}
-            aria-label="Agrandar"
-          />
-        </Flex>
+        <Show when={students.length > 0}>
+          <Flex alignItems="center" >
+            <Text mr="$2" fontWeight="$medium">Ver</Text>
+            <Box mr="$4" minW="$48">
+              <SimpleSelect value={viewMode()} onChange={setViewMode} size="sm">
+                <For each={Object.values(ViewMode)}>{(level) => (
+                  <SimpleOption value={level}>{level}</SimpleOption>
+                )}</For>
+              </SimpleSelect>
+            </Box>
+            <IconButton
+              size="sm"
+              colorScheme="neutral"
+              variant="outline"
+              onClick={modal.enable}
+              color="$neutral11"
+              icon={<ArrowsPointingOutMini />}
+              aria-label="Agrandar"
+            />
+          </Flex>
+        </Show>
       </Flex>
       <FullModal
         classPeriods={classPeriodsWithActs()}
@@ -105,12 +107,14 @@ const ScoresReport: Component = () => {
         onClose={modal.disable}
         viewMode={viewMode()}
       />
-      <Box maxW="$full" overflow="auto">
-        <Table dense mt="$4">
-          <TableHeader classPeriods={classPeriodsWithActs()} viewMode={viewMode()} />
-          <TableBody classPeriods={classPeriodsWithActs()} students={studentsWithScores()} viewMode={viewMode()} />
-        </Table>
-      </Box>
+      <Show when={students.length > 0} fallback={<NoStudentsMessage />}>
+        <Box maxW="$full" overflow="auto">
+          <Table dense mt="$4">
+            <TableHeader classPeriods={classPeriodsWithActs()} viewMode={viewMode()} />
+            <TableBody classPeriods={classPeriodsWithActs()} students={studentsWithScores()} viewMode={viewMode()} />
+          </Table>
+        </Box>
+      </Show>
     </>
   );
 };

@@ -12,6 +12,7 @@ import {
   SimpleOption,
   Input,
 } from '@hope-ui/solid';
+import SchoolSelector from './SchoolSelector';
 
 import { createDexieArrayQuery } from 'solid-dexie';
 import { createStore } from 'solid-js/store';
@@ -147,19 +148,12 @@ const NewClass: Component = () => {
               </SimpleSelect>
             </Box>
 
-            <Box>
-              <Text size="sm" mb="$1">Establecimiento educativo:</Text>
-              <SimpleSelect
-                disabled={schools.loading || formData.mun === null}
-                placeholder="Seleccione colegio"
-                value={formData.school}
-                onChange={(val) => setFormData('school', val)}
-              >
-                <For each={schools()}>
-                  {(school) => <SimpleOption value={school.id}>{school.name}</SimpleOption>}
-                </For>
-              </SimpleSelect>
-            </Box>
+            <SchoolSelector
+              schools={schools}
+              disabled={schools.loading || formData.mun === null}
+              value={formData.school}
+              onChange={val => setFormData('school', val)}
+            />
 
             <Box>
               <Text size="sm" mb="$1">Materia:</Text>
