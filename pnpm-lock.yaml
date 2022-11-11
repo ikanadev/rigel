@@ -4,26 +4,26 @@ specifiers:
   '@hope-ui/solid': ^0.6.7
   '@solidjs/router': ^0.4.3
   '@stitches/core': ^1.2.8
-  '@typescript-eslint/eslint-plugin': ^5.42.1
-  '@typescript-eslint/parser': ^5.42.1
-  dayjs: ^1.11.6
+  '@typescript-eslint/eslint-plugin': ^5.38.1
+  '@typescript-eslint/parser': ^5.38.1
+  dayjs: ^1.11.5
   dexie: ^3.2.2
-  eslint: ^8.27.0
+  eslint: ^8.24.0
   eslint-config-standard-with-typescript: ^22.0.0
-  eslint-plugin-import: ^2.26.0
-  eslint-plugin-n: ^15.5.1
-  eslint-plugin-promise: ^6.1.1
-  eslint-plugin-solid: ^0.7.4
-  ky: ^0.31.4
+  eslint-plugin-import: ^2.25.2
+  eslint-plugin-n: ^15.3.0
+  eslint-plugin-promise: ^6.0.0
+  eslint-plugin-solid: ^0.7.3
+  ky: ^0.31.3
   nanoid: ^4.0.0
   solid-dexie: ^0.0.5
-  solid-js: ^1.6.1
+  solid-js: ^1.5.7
   solid-transition-group: ^0.0.11
   typescript: '*'
-  vite: ^3.2.3
+  vite: ^3.1.4
   vite-plugin-eslint: ^1.8.1
   vite-plugin-pwa: ^0.12.8
-  vite-plugin-solid: ^2.4.0
+  vite-plugin-solid: ^2.3.9
   workbox-precaching: ^6.5.4
   workbox-window: ^6.5.4
 
