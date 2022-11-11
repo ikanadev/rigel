@@ -1,5 +1,5 @@
 import { Component, Show, For } from 'solid-js';
-import { Title, AttendanceBox, AttendanceLabels } from '@app/components';
+import { Title, AttendanceBox, AttendanceLabels, NoStudentsMessage } from '@app/components';
 import {
   Button,
   Box,
@@ -8,11 +8,9 @@ import {
   Table,
   Thead,
   Tbody,
-  Anchor,
   Td,
   Tr,
 } from '@hope-ui/solid';
-import { Link } from '@solidjs/router';
 import { AttendanceStatus, Student } from '@app/types';
 import AttendanceButtons from './AttendanceButtons';
 import NonActivePeriodMessage from './NonActivePeriodMessage';
@@ -70,19 +68,7 @@ const Attendance: Component = () => {
         when={classStore.classPeriod !== null}
         fallback={<NonActivePeriodMessage />}
       >
-        <Show
-          when={students.length > 0}
-          fallback={
-            <Text textAlign="center" fontStyle="italic" my="$6">
-              <Text color="$neutral10" as="span">
-                No hay estudiantes registrados en esta materia, agrega estudiantes desde el menu de:
-              </Text>
-              <Anchor as={Link} href={`/class/${classStore.class!.id}/students`} color="$primary10">
-                {' '}Administrar Estudiantes
-              </Anchor>
-            </Text>
-          }
-        >
+        <Show when={students.length > 0} fallback={<NoStudentsMessage />}>
           <Box width="$full" overflowX="auto">
             <Table dense>
               <Thead>

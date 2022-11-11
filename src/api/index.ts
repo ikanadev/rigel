@@ -1,4 +1,7 @@
+import ky from 'ky';
 import { api } from './api';
+import { API_URL } from '@app/utils/constants';
+import { getToken } from '@app/utils/functions';
 
 import type {
   Teacher,
@@ -11,6 +14,7 @@ import type {
   Municipio,
   School,
   AppError,
+  XMLData,
 } from '@app/types';
 
 interface SignUpReq {
@@ -89,4 +93,19 @@ export const getSchools = async (munId: string): Promise<School[]> => {
 
 export const saveAppErrors = async (data: AppError[]): Promise<void> => {
   await api.post('errors', { json: data });
+};
+
+export const parseXLS = async (file: File): Promise<XMLData> => {
+  const formData = new FormData();
+  formData.append('xls', file);
+  const resp = await ky.post(
+    `${API_URL}auth/parsexls`,
+    {
+      body: formData,
+      headers: {
+        Authorization: getToken() ?? '',
+      },
+    },
+  );
+  return await resp.json();
 };

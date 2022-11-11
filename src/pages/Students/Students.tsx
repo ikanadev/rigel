@@ -16,20 +16,48 @@ import {
 import { Show, For } from 'solid-js';
 import { Title } from '@app/components';
 import { Link } from '@solidjs/router';
-import { Plus, Pencil, Trash } from '@app/icons';
+import { Plus, Pencil, Trash, BarsArrowDown, XLS } from '@app/icons';
+import CopyStudentsModal from './CopyStudentsModal';
 
 import { useAppData } from '@app/context';
-import { studentsStore } from '@app/hooks';
+import { studentsStore, booleanSignal } from '@app/hooks';
 
 const Students: Component = () => {
+  const copyModal = booleanSignal();
   const { classStore } = useAppData();
 
   const students = studentsStore();
 
   return (
     <>
-      <Flex justifyContent="space-between" flexWrap="wrap">
+      <CopyStudentsModal opened={copyModal.isActive()} onClose={copyModal.disable} />
+      <Flex justifyContent="space-between" flexWrap="wrap" mb="$2">
         <Title text="Estudiantes" />
+        <Box>
+          <Button
+            as={Link}
+            href={`/class/${classStore.class!.id}/add_from_xls`}
+            colorScheme="neutral"
+            size="sm"
+            variant="outline"
+            rightIcon={<XLS w="$6" h="$6" />}
+            onClick={copyModal.enable}
+          >
+            Copiar de Excel
+          </Button>
+          <Button
+            ml="$2"
+            colorScheme="neutral"
+            size="sm"
+            variant="outline"
+            rightIcon={<BarsArrowDown w="$6" h="$6" />}
+            onClick={copyModal.enable}
+          >
+            Copiar de otra materia
+          </Button>
+        </Box>
+      </Flex>
+      <Flex justifyContent="end" mt="$4">
         <Button
           size="sm"
           as={Link}
@@ -37,18 +65,18 @@ const Students: Component = () => {
           colorScheme="success"
           leftIcon={<Plus w="$5" h="$5" />}
         >
-          REGISTRAR ESTUDIANTE
+          NUEVO ESTUDIANTE
         </Button>
       </Flex>
       <Show
         when={students.length > 0}
         fallback={
           <Text color="$neutral11" fontStyle="italic" textAlign="center" my="$6">
-            No existen estudiantes registrados aun.
+            No existen estudiantes registrados aún.
           </Text>
         }
       >
-        <Box overflowX="auto" maxW="$full" mt="$4">
+        <Box overflowX="auto" maxW="$full" mt="$2">
           <Table striped="even" dense>
             <Thead>
               <Tr>
@@ -72,10 +100,10 @@ const Students: Component = () => {
                         size="xs"
                         colorScheme="info"
                         aria-label="Editar"
-                        icon={<Pencil width="$4" height="$4" />}
+                        icon={<Pencil w="$4" h="$4" />}
                         mr="$2"
                       />
-                      <IconButton size="xs" colorScheme="danger" aria-label="Eliminar" icon={<Trash width="$4" height="$4" />} />
+                      <IconButton size="xs" colorScheme="danger" aria-label="Eliminar" icon={<Trash w="$4" h="$4" />} />
                     </Td>
                   </Tr>
                 )}

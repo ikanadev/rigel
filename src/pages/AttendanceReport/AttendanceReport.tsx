@@ -1,6 +1,6 @@
-import { Component, createMemo, createSignal } from 'solid-js';
+import { Component, Show, createMemo, createSignal } from 'solid-js';
 import { Table, Text, Box, Flex, Switch, IconButton } from '@hope-ui/solid';
-import { Title, AttendanceLabels } from '@app/components';
+import { Title, AttendanceLabels, NoStudentsMessage } from '@app/components';
 import { ArrowsPointingOutMini } from '@app/icons';
 import { TotalAttendances } from '@app/types';
 import { AttsMap } from './types';
@@ -87,29 +87,33 @@ const AttendanceReport: Component = () => {
       />
       <Flex justifyContent="space-between" flexWrap="wrap">
         <Title text="Asistencias" />
-        <Flex alignItems="center">
-          <Text fontSize="$sm">Mostrar días</Text>
-          <Switch size="sm" mr="$2" checked={showDays()} onChange={toggleShowDays} />
-          <IconButton
-            size="sm"
-            colorScheme="neutral"
-            variant="outline"
-            onClick={modal.enable}
-            color="$neutral11"
-            icon={<ArrowsPointingOutMini />}
-            aria-label="Agrandar"
-          />
-        </Flex>
+        <Show when={students.length > 0}>
+          <Flex alignItems="center">
+            <Text fontSize="$sm">Mostrar días</Text>
+            <Switch size="sm" mr="$2" checked={showDays()} onChange={toggleShowDays} />
+            <IconButton
+              size="sm"
+              colorScheme="neutral"
+              variant="outline"
+              onClick={modal.enable}
+              color="$neutral11"
+              icon={<ArrowsPointingOutMini />}
+              aria-label="Agrandar"
+            />
+          </Flex>
+        </Show>
       </Flex>
       <Flex justifyContent="end" mt="$2">
         <AttendanceLabels />
       </Flex>
-      <Box maxW="$full" overflow="auto" mt="$3">
-        <Table dense>
-          <TableHeader classPeriods={periodsWithAttDays()} showDays={showDays()} />
-          <TableBody classPeriods={periodsWithAttDays()} students={studentsWithAtts()} showDays={showDays()} />
-        </Table>
-      </Box>
+      <Show when={students.length > 0} fallback={<NoStudentsMessage />}>
+        <Box maxW="$full" overflow="auto" mt="$3">
+          <Table dense>
+            <TableHeader classPeriods={periodsWithAttDays()} showDays={showDays()} />
+            <TableBody classPeriods={periodsWithAttDays()} students={studentsWithAtts()} showDays={showDays()} />
+          </Table>
+        </Box>
+      </Show>
     </>
   );
 };

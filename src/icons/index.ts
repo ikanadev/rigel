@@ -9,8 +9,11 @@ export { default as Check } from './Check';
 export { default as XMark } from './XMark';
 export { default as ChevronUp } from './ChevronUp';
 export { default as ChevronLeft } from './ChevronLeft';
+export { default as ChevronRight } from './ChevronRight';
 export { default as ChevronDown } from './ChevronDown';
 export { default as ArrowLongRight } from './ArrowLongRight';
+export { default as MagnifyingGlass } from './MagnifyingGlass';
+export { default as BarsArrowDown } from './BarsArrowDown';
 
 export { default as WarningOutline } from './WarningOutline';
 
@@ -27,3 +30,4 @@ export { default as ClipboardDocumentCheckMini } from './ClipboardDocumentCheckM
 
 export { default as Telegram } from './Telegram';
 export { default as Gmail } from './Gmail';
+export { default as XLS } from './XLS';
