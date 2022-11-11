@@ -25,7 +25,7 @@ const DataSelector: Component<{ data: Array<string[] | null> }> = (ps) => {
     }
   });
 
-  const rows = () => ps.data.filter((row): row is string[] => row !== null);
+  const rows = createMemo(() => ps.data.filter((row): row is string[] => row !== null));
 
   const maxCols = createMemo(() => rows().reduce((res, row) => {
     if (row.length > res) {
@@ -45,7 +45,10 @@ const DataSelector: Component<{ data: Array<string[] | null> }> = (ps) => {
         }
       >
         <Text mb="$4">
-          Selecciona las columnas correspondientes a nombres y apellidos, y los estudiantes a agregar.
+          Selecciona las columnas correspondientes a nombres y apellidos
+          usando los botones de <IconButton size="xs" aria-label="" variant="subtle" icon={<ChevronLeft w="$4" h="$4" />} /> y
+          <IconButton size="xs" aria-label="" variant="subtle" icon={<ChevronRight w="$4" h="$4" />} />. Selecciona los estudiantes
+          marcando el cuadro de selección de la primera columna.
         </Text>
         <Box maxW="$full" overflow="auto">
           <Table dense>

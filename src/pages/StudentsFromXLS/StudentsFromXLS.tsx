@@ -76,10 +76,10 @@ const StudentFromXLS = () => {
             Usar otro archivo
           </Button>
           <Text my="$2">
-            Se han encontrado {Object.keys(xmlData()!).length} hojas en el archivo Excel.
+            Se han encontrado {Object.keys(xmlData()!).length} {Object.keys(xmlData()!).length === 1 ? 'hoja' : 'hojas'} en el archivo Excel.
           </Text>
           <Tabs variant="outline">
-            <TabList>
+            <TabList maxW="$full" overflowX="auto" overflowY="hidden">
               <For each={Object.keys(xmlData()!)}>{(key) => (
                 <Tab>{key}</Tab>
               )}</For>
