@@ -16,7 +16,7 @@ const TableBody: Component<Props> = (ps) => {
         <Tr>
           <Td bgColor="$background" p="$0_5" pos="sticky" left={0}>
             <Flex lineHeight={1} flexDirection={{ '@initial': 'column', '@md': 'row' }}>
-              <Text textAlign="right" css={{ whiteSpace: 'nowrap' }}>{student.last_name}</Text>
+              <Text textAlign="right" css={{ whiteSpace: 'nowrap' }} mr="$1">{student.last_name}</Text>
               <Text textAlign="right" css={{ whiteSpace: 'nowrap' }}>{student.name}</Text>
             </Flex>
           </Td>

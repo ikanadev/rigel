@@ -31,9 +31,9 @@ const Students: Component = () => {
   return (
     <>
       <CopyStudentsModal opened={copyModal.isActive()} onClose={copyModal.disable} />
-      <Flex justifyContent="space-between" flexWrap="wrap" mb="$2">
+      <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap" mb="$2">
         <Title text="Estudiantes" />
-        <Box>
+        <Flex flexWrap="wrap" gap="$2" flexDirection={{ '@initial': 'column', '@sm': 'row' }}>
           <Button
             as={Link}
             href={`/class/${classStore.class!.id}/add_from_xls`}
@@ -46,7 +46,6 @@ const Students: Component = () => {
             Copiar de Excel
           </Button>
           <Button
-            ml="$2"
             colorScheme="neutral"
             size="sm"
             variant="outline"
@@ -55,7 +54,7 @@ const Students: Component = () => {
           >
             Copiar de otra materia
           </Button>
-        </Box>
+        </Flex>
       </Flex>
       <Flex justifyContent="end" mt="$4">
         <Button
