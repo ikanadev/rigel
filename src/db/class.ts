@@ -8,11 +8,29 @@ import { getClasses } from '@app/api';
 */
 export const syncClasses = async (classesToSync: ClassData[]): Promise<void> => {
   const localClasses = await db.classes.toArray();
-  const missingClasses = classesToSync.filter((c) => {
-    return !localClasses.some((lc) => lc.id === c.id);
+  const toDelete = localClasses
+    .filter(cl => classesToSync.find(c => c.id === cl.id) === undefined)
+    .map(c => c.id);
+  if (toDelete.length > 0) {
+    await db.classes.bulkDelete(toDelete);
+  }
+
+  const classesToAdd = classesToSync.filter((cl) => {
+    const found = localClasses.find((localCl) => localCl.id === cl.id);
+    if (found === undefined) return true;
+    if (
+      found.parallel !== cl.parallel ||
+      found.year.id !== cl.year.id ||
+      found.year.value !== cl.year.value ||
+      found.grade.id !== cl.grade.id ||
+      found.grade.name !== cl.grade.name ||
+      found.subject.id !== cl.subject.id ||
+      found.subject.name !== cl.subject.name
+    ) return true;
+    return false;
   });
-  if (missingClasses.length > 0) {
-    void db.classes.bulkAdd(missingClasses);
+  if (classesToAdd.length > 0) {
+    void db.classes.bulkAdd(classesToAdd);
   }
 };
 
