@@ -1,6 +1,7 @@
 import { db } from '@app/db/dexie';
 import { log } from '@app/utils/functions';
 import { getAttendanceDays, saveAttendanceDays } from './ky';
+import { getToDeleteIds, getToUpdateItems } from './helpers';
 import useStore from './store';
 
 export const syncAttendanceDays = async () => {
@@ -19,5 +20,15 @@ export const syncAttendanceDays = async () => {
 export const donwloadAndSyncAttendanceDays = async () => {
   const { store } = useStore;
   const serverAttDays = await getAttendanceDays(store.yearId);
-  await db.attendanceDays.bulkPut(serverAttDays);
+  const localAttDays = await db.attendanceDays.toArray();
+
+  const toDelete = getToDeleteIds(localAttDays, serverAttDays);
+  if (toDelete.length > 0) {
+    await db.attendanceDays.bulkDelete(toDelete);
+  }
+
+  const toUpdate = getToUpdateItems(localAttDays, serverAttDays);
+  if (toUpdate.length > 0) {
+    await db.attendanceDays.bulkPut(toUpdate);
+  }
 };

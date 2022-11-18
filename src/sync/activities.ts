@@ -1,6 +1,7 @@
 import { db } from '@app/db/dexie';
 import { log } from '@app/utils/functions';
 import { getActivities, saveActivities } from './ky';
+import { getToDeleteIds, getToUpdateItems } from './helpers';
 import useStore from './store';
 
 export const syncActivities = async () => {
@@ -19,5 +20,17 @@ export const syncActivities = async () => {
 export const downloadAndSyncActivities = async () => {
   const { store } = useStore;
   const serverActs = await getActivities(store.yearId);
-  await db.activities.bulkPut(serverActs);
+  const localActs = await db.activities.toArray();
+
+  // Delete unknown acts
+  const toDelete = getToDeleteIds(localActs, serverActs);
+  if (toDelete.length > 0) {
+    await db.activities.bulkDelete(toDelete);
+  }
+
+  // Update acts
+  const toUpdate = getToUpdateItems(localActs, serverActs);
+  if (toUpdate.length > 0) {
+    await db.activities.bulkPut(toUpdate);
+  }
 };
