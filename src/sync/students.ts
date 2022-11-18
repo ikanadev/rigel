@@ -1,6 +1,7 @@
 import { db } from '@app/db/dexie';
 import { log } from '@app/utils/functions';
 import { saveStudents, getStudents } from './ky';
+import { getToUpdateItems, getToDeleteIds } from './helpers';
 import useStore from './store';
 
 export const syncStudents = async () => {
@@ -18,5 +19,15 @@ export const syncStudents = async () => {
 export const downloadAndSyncStudents = async () => {
   const { store } = useStore;
   const serverStudents = await getStudents(store.yearId);
-  await db.students.bulkPut(serverStudents);
+  const localStudents = await db.students.toArray();
+
+  const toDelete = getToDeleteIds(localStudents, serverStudents);
+  if (toDelete.length > 0) {
+    await db.students.bulkDelete(toDelete);
+  }
+
+  const toUpdate = getToUpdateItems(localStudents, serverStudents);
+  if (toUpdate.length > 0) {
+    await db.students.bulkPut(toUpdate);
+  }
 };

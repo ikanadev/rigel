@@ -30,7 +30,7 @@ export const syncClasses = async (classesToSync: ClassData[]): Promise<void> => 
     return false;
   });
   if (classesToAdd.length > 0) {
-    void db.classes.bulkAdd(classesToAdd);
+    void db.classes.bulkPut(classesToAdd);
   }
 };
 
