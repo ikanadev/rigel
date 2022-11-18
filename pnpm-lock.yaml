@@ -4,6 +4,7 @@ specifiers:
   '@hope-ui/solid': ^0.6.7
   '@solidjs/router': ^0.5.0
   '@stitches/core': ^1.2.8
+  '@types/ramda': ^0.28.20
   '@typescript-eslint/eslint-plugin': ^5.42.1
   '@typescript-eslint/parser': ^5.42.1
   dayjs: ^1.11.6
@@ -16,6 +17,7 @@ specifiers:
   eslint-plugin-solid: ^0.8.0
   ky: ^0.32.2
   nanoid: ^4.0.0
+  ramda: ^0.28.0
   solid-dexie: ^0.0.5
   solid-js: ^1.6.2
   solid-transition-group: ^0.0.12
@@ -31,10 +33,12 @@ dependencies:
   '@hope-ui/solid': 0.6.7_l7sfzi3ood2yialpewr2wkqqkq
   '@solidjs/router': 0.5.0_solid-js@1.6.2
   '@stitches/core': 1.2.8
+  '@types/ramda': 0.28.20
   dayjs: 1.11.6
   dexie: 3.2.2
   ky: 0.32.2
   nanoid: 4.0.0
+  ramda: 0.28.0
   solid-dexie: 0.0.5_dexie@3.2.2+solid-js@1.6.2
   solid-js: 1.6.2
   solid-transition-group: 0.0.12_solid-js@1.6.2
@@ -1537,6 +1541,12 @@ packages:
   /@types/node/18.11.9:
     resolution: {integrity: sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==}
     dev: true
+
+  /@types/ramda/0.28.20:
+    resolution: {integrity: sha512-MeUhzGSXQTRsY19JGn5LIBTLxVEnyF6HDNr08KSJqybsm4DlfLIgK1jBHjhpiSyk252tXYmp+UOe0UFg0UiFsA==}
+    dependencies:
+      ts-toolbelt: 6.15.5
+    dev: false
 
   /@types/resolve/1.17.1:
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
@@ -3434,6 +3444,10 @@ packages:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
     dev: true
 
+  /ramda/0.28.0:
+    resolution: {integrity: sha512-9QnLuG/kPVgWvMQ4aODhsBUFKOUmnbUnsSXACv+NCQZcHbeb+v8Lodp8OVxtRULN1/xOyYLLaL6npE6dMq5QTA==}
+    dev: false
+
   /randombytes/2.1.0:
     resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
     dependencies:
@@ -3813,6 +3827,10 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
+
+  /ts-toolbelt/6.15.5:
+    resolution: {integrity: sha512-FZIXf1ksVyLcfr7M317jbB67XFJhOO1YqdTcuGaq9q5jLUoTikukZ+98TPjKiP2jC5CgmYdWWYs0s2nLSU0/1A==}
+    dev: false
 
   /ts-toolbelt/9.6.0:
     resolution: {integrity: sha512-nsZd8ZeNUzukXPlJmTBwUAuABDe/9qtVDelJeT/qW0ow3ZS3BsQJtNkan1802aM9Uf68/Y8ljw86Hu0h5IUW3w==}
