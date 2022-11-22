@@ -13,24 +13,34 @@ import {
   Th,
   Td,
 } from '@hope-ui/solid';
-import { Show, For } from 'solid-js';
+import { Show, For, createSignal } from 'solid-js';
 import { Title } from '@app/components';
 import { Link } from '@solidjs/router';
 import { Plus, Pencil, Trash, BarsArrowDown, XLS } from '@app/icons';
+import { Student } from '@app/types';
 import CopyStudentsModal from './CopyStudentsModal';
+import DeleteModal from './DeleteModal';
 
 import { useAppData } from '@app/context';
 import { studentsStore, booleanSignal } from '@app/hooks';
 
 const Students: Component = () => {
+  const [selectedStudent, setSelectedStudent] = createSignal<Student | null>(null);
   const copyModal = booleanSignal();
+  const deleteModal = booleanSignal();
   const { classStore } = useAppData();
 
   const students = studentsStore();
 
+  const openDeleteModal = (student: Student) => {
+    setSelectedStudent(student);
+    deleteModal.enable();
+  };
+
   return (
     <>
       <CopyStudentsModal opened={copyModal.isActive()} onClose={copyModal.disable} />
+      <DeleteModal opened={deleteModal.isActive()} onClose={deleteModal.disable} student={selectedStudent()} />
       <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap" mb="$2">
         <Title text="Estudiantes" />
         <Flex flexWrap="wrap" gap="$2" flexDirection={{ '@initial': 'column', '@sm': 'row' }}>
@@ -102,7 +112,13 @@ const Students: Component = () => {
                         icon={<Pencil w="$4" h="$4" />}
                         mr="$2"
                       />
-                      <IconButton size="xs" colorScheme="danger" aria-label="Eliminar" icon={<Trash w="$4" h="$4" />} />
+                      <IconButton
+                        onClick={[openDeleteModal, student]}
+                        size="xs"
+                        colorScheme="danger"
+                        aria-label="Eliminar"
+                        icon={<Trash w="$4" h="$4" />}
+                      />
                     </Td>
                   </Tr>
                 )}

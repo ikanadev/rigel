@@ -16,11 +16,12 @@ import { Student } from '@app/types';
 
 import { deleteStudent } from '@app/db/student';
 
-const CopyStudentsModal: Component<ModalProps & { student: Student }> = (props) => {
+const DeleteModal: Component<ModalProps & { student: Student | null }> = (props) => {
   const [studentProp, modalProps] = splitProps(props, ['student']);
   const [errMsg, setErrMsg] = createSignal('');
 
   const handleDelete = () => {
+    if (studentProp.student === null) return;
     deleteStudent(studentProp.student.id)
       .then(() => {
         props.onClose();
@@ -35,7 +36,7 @@ const CopyStudentsModal: Component<ModalProps & { student: Student }> = (props) 
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
-        <ModalHeader>¿Borrar estudiante {studentProp.student.name}?</ModalHeader>
+        <ModalHeader>¿Borrar estudiante {studentProp.student?.name}?</ModalHeader>
         <ModalBody>
           <Alert text={errMsg()} setText={setErrMsg} status="danger" />
           <Text>Se eliminarán todas las asistencias y notas del estudiante.</Text>
@@ -54,4 +55,4 @@ const CopyStudentsModal: Component<ModalProps & { student: Student }> = (props) 
   );
 };
 
-export default CopyStudentsModal;
+export default DeleteModal;
