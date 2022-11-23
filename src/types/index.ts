@@ -93,7 +93,7 @@ export interface Student {
 }
 export type StudentUpdate = Omit<Student, 'class_id'>;
 export interface StudentTransaction extends Transaction {
-  data: Student | StudentUpdate | string
+  data: Student | StudentUpdate | Pick<Student, 'id'>
 }
 
 export interface AttendanceDay {
