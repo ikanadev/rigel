@@ -100,12 +100,12 @@ const SignUp: Component = () => {
 
       <Flex flexDirection="column" mt="$16">
         <Flex flexDirection="column" alignItems="center">
-          <Box maxW="$36" mb="$1">
+          <Box maxW="$36" mb="$1" mr="$3">
             <Logo w="100%" h="100%" />
           </Box>
-          <Heading level="1" size="4xl" color="$primary9">Rigel</Heading>
+          <Heading level="1" size="4xl" color="$primary9">Auleca</Heading>
           <Text textAlign="center" mt="$2">
-            La WebApp de los profesores de 🇧🇴 Bolivia.
+            La Aplicación Web de los profesores de Bolivia. 🇧🇴
           </Text>
         </Flex>
       </Flex>
