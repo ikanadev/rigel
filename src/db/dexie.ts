@@ -22,7 +22,7 @@ import type {
 import Dexie from 'dexie';
 import { DB_NAME, DB_VERSION } from '@app/utils/constants';
 
-class RigelStore extends Dexie {
+class AulecaStore extends Dexie {
   teachers!: Dexie.Table<Teacher, string>;
   subjects!: Dexie.Table<Subject, string>;
   grades!: Dexie.Table<Grade, string>;
@@ -67,4 +67,4 @@ class RigelStore extends Dexie {
   }
 }
 
-export const db = new RigelStore();
+export const db = new AulecaStore();

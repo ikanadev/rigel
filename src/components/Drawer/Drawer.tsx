@@ -34,7 +34,7 @@ import ContactModal from './ContactModal';
 import LogoutModal from './LogoutModal';
 import SettingsModal from './SettingsModal';
 
-import { APP_VERSION } from '@app/utils/constants';
+import { APP_VERSION, APP_NAME } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
@@ -97,7 +97,7 @@ const Drawer: Component<Props> = (props) => {
           <DrawerCloseButton />
           <DrawerHeader>
             <Heading color="$primary9" size="xl" fontWeight="$bold">
-              RIGEL
+              {APP_NAME}
             </Heading>
             <Divider mt="$2" />
           </DrawerHeader>

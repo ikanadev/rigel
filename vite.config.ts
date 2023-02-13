@@ -5,8 +5,8 @@ import eslint from 'vite-plugin-eslint';
 import path from 'path';
 
 const manifest: Partial<ManifestOptions> = {
-  name: 'Rigel',
-  short_name: 'Rigel',
+  name: 'Auleca',
+  short_name: 'Auleca',
   description: 'La WebApp de los profesores de Bolivia.',
   lang: 'es',
   start_url: '/',
