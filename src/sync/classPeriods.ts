@@ -1,6 +1,7 @@
 import { db } from '@app/db/dexie';
 import { log } from '@app/utils/functions';
 import { saveClassPeriods, getClassPeriods } from './ky';
+import { getToUpdateItems, getToDeleteIds } from './helpers';
 import useStore from './store';
 
 export const syncClassPeriods = async () => {
@@ -19,5 +20,15 @@ export const syncClassPeriods = async () => {
 export const downloadAndSyncClassPeriods = async () => {
   const { store } = useStore;
   const serverClassPeriods = await getClassPeriods(store.yearId);
-  await db.classPeriods.bulkPut(serverClassPeriods);
+  const localClassPeriods = await db.classPeriods.toArray();
+
+  const toDelete = getToDeleteIds(localClassPeriods, serverClassPeriods);
+  if (toDelete.length > 0) {
+    await db.classPeriods.bulkDelete(toDelete);
+  }
+
+  const toUpdate = getToUpdateItems(localClassPeriods, serverClassPeriods);
+  if (toUpdate.length > 0) {
+    await db.classPeriods.bulkPut(toUpdate);
+  }
 };

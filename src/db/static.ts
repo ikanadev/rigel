@@ -3,8 +3,8 @@ import { db } from '@app/db/dexie';
 
 export const syncStaticData = async (): Promise<void> => {
   const serverYears = await getYears();
-  const gradesAndSubjects = await getGradesAndSubjects();
 
+  // check year data
   const localYears = await db.years.toArray();
   const yearsToSave = serverYears.filter((year) => {
     const found = localYears.find(y => y.id === year.id && y.value === year.value);
@@ -30,8 +30,30 @@ export const syncStaticData = async (): Promise<void> => {
     return false;
   });
 
-  void db.years.bulkPut(yearsToSave);
-  // TODO: probably we're gonna change the subjects to be related to year
-  void db.grades.bulkPut(gradesAndSubjects.grades);
-  void db.subjects.bulkPut(gradesAndSubjects.subjects);
+  // check grades and subjects
+  const gradesAndSubjects = await getGradesAndSubjects();
+  const localGrades = await db.grades.toArray();
+  const localSubjects = await db.subjects.toArray();
+  const gradesToSave = gradesAndSubjects.grades.filter((serverGrade) => {
+    const found = localGrades.find((grade) => grade.id === serverGrade.id);
+    if (found === undefined) return true;
+    if (found.name !== serverGrade.name) return true;
+    return false;
+  });
+  const subjectsToSave = gradesAndSubjects.subjects.filter((serverSubject) => {
+    const found = localSubjects.find((subject) => subject.id === serverSubject.id);
+    if (found === undefined) return true;
+    if (found.name !== serverSubject.name) return true;
+    return false;
+  });
+
+  if (yearsToSave.length > 1) {
+    void db.years.bulkPut(yearsToSave);
+  }
+  if (gradesToSave.length > 1) {
+    void db.grades.bulkPut(gradesToSave);
+  }
+  if (subjectsToSave.length > 1) {
+    void db.subjects.bulkPut(subjectsToSave);
+  }
 };

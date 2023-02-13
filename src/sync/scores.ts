@@ -1,6 +1,7 @@
 import { db } from '@app/db/dexie';
 import { log } from '@app/utils/functions';
 import { saveScores, getScores } from './ky';
+import { getToUpdateItems, getToDeleteIds } from './helpers';
 import useStore from './store';
 
 export const syncScores = async () => {
@@ -19,5 +20,15 @@ export const syncScores = async () => {
 export const downloadAndSyncScores = async () => {
   const { store } = useStore;
   const serverScores = await getScores(store.yearId);
-  await db.scores.bulkPut(serverScores);
+  const localScores = await db.scores.toArray();
+
+  const toDelete = getToDeleteIds(localScores, serverScores);
+  if (toDelete.length > 0) {
+    await db.scores.bulkDelete(toDelete);
+  }
+
+  const toUpdate = getToUpdateItems(localScores, serverScores);
+  if (toUpdate.length > 0) {
+    await db.scores.bulkPut(toUpdate);
+  }
 };

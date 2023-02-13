@@ -45,3 +45,18 @@ export const addStudents = (students: Student[]) => {
     await db.studentTransactions.bulkAdd(txs);
   });
 };
+
+export const deleteStudent = (id: string) => {
+  return db.transaction('rw', [db.students, db.studentTransactions, db.attendances, db.scores], async () => {
+    const tx: StudentTransaction = {
+      id: nanoid(),
+      type: DbOperation.Delete,
+      data: { id },
+      date_time: Date.now(),
+    };
+    await db.attendances.where({ student_id: id }).delete();
+    await db.scores.where({ student_id: id }).delete();
+    await db.students.delete(id);
+    await db.studentTransactions.add(tx);
+  });
+};
