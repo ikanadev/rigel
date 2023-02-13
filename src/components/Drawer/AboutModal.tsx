@@ -12,7 +12,7 @@ import {
   Heading,
 } from '@hope-ui/solid';
 import { Logo } from '@app/icons';
-import { APP_VERSION } from '@app/utils/constants';
+import { APP_VERSION, APP_NAME } from '@app/utils/constants';
 
 interface Props {
   isOpen: boolean
@@ -31,11 +31,11 @@ const AboutModal: Component<Props> = (props) => {
             <Box maxW="$28"><Logo w="100%" h="auto" /></Box>
           </Flex>
           <Flex justifyContent="center" alignItems="end" my="$4">
-            <Heading color="$primary10" size="xl" fontWeight="$semibold">Rigel</Heading>
+            <Heading color="$primary10" size="xl" fontWeight="$semibold">{APP_NAME}</Heading>
             <Text ml="$1">{APP_VERSION}</Text>
           </Flex>
           <Text my="$2" size="sm">
-            Rigel es una Aplicación Web Progresiva pensada para facilitar las labores académicas cotidianas de los profesores.
+            {APP_NAME} es una Aplicación Web Progresiva pensada para facilitar las labores académicas cotidianas de los profesores.
           </Text>
         </ModalBody>
       </ModalContent>

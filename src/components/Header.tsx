@@ -10,6 +10,8 @@ import {
 import { ClassSelector } from '@app/components';
 import { Bars3 } from '@app/icons';
 
+import { APP_NAME } from '@app/utils/constants';
+
 const Home: Component<{ openDrawer: () => void }> = (props) => {
   return (
     <Box shadow="$md">
@@ -24,7 +26,7 @@ const Home: Component<{ openDrawer: () => void }> = (props) => {
             onClick={() => props.openDrawer()}
           />
           <Heading color="$primary9" size="lg" ml="$2" display={{ '@initial': 'none', '@md': 'block' }}>
-            Rigel
+            {APP_NAME}
           </Heading>
           <Flex flex="1" justifyContent="end">
             <Box>

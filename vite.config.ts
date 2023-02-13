@@ -5,8 +5,8 @@ import eslint from 'vite-plugin-eslint';
 import path from 'path';
 
 const manifest: Partial<ManifestOptions> = {
-  name: 'Rigel',
-  short_name: 'Rigel',
+  name: 'Auleca',
+  short_name: 'Auleca',
   description: 'La WebApp de los profesores de Bolivia.',
   lang: 'es',
   start_url: '/',
@@ -154,46 +154,6 @@ const manifest: Partial<ManifestOptions> = {
       sizes: '2480x1200',
     },
     {
-      src: 'windows11/Square44x44Logo.targetsize-16.png',
-      sizes: '16x16',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-20.png',
-      sizes: '20x20',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-24.png',
-      sizes: '24x24',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-30.png',
-      sizes: '30x30',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-32.png',
-      sizes: '32x32',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-36.png',
-      sizes: '36x36',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-40.png',
-      sizes: '40x40',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-44.png',
-      sizes: '44x44',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-48.png',
-      sizes: '48x48',
-    },
-    {
-      src: 'windows11/Square44x44Logo.targetsize-60.png',
-      sizes: '60x60',
-    },
-    {
       src: 'windows11/Square44x44Logo.targetsize-64.png',
       sizes: '64x64',
     },
@@ -212,38 +172,6 @@ const manifest: Partial<ManifestOptions> = {
     {
       src: 'windows11/Square44x44Logo.targetsize-256.png',
       sizes: '256x256',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-16.png',
-      sizes: '16x16',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-20.png',
-      sizes: '20x20',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-24.png',
-      sizes: '24x24',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-30.png',
-      sizes: '30x30',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-32.png',
-      sizes: '32x32',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-36.png',
-      sizes: '36x36',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-40.png',
-      sizes: '40x40',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-unplated_targetsize-44.png',
-      sizes: '44x44',
     },
     {
       src: 'windows11/Square44x44Logo.altform-unplated_targetsize-48.png',
@@ -272,46 +200,6 @@ const manifest: Partial<ManifestOptions> = {
     {
       src: 'windows11/Square44x44Logo.altform-unplated_targetsize-256.png',
       sizes: '256x256',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-16.png',
-      sizes: '16x16',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-20.png',
-      sizes: '20x20',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-24.png',
-      sizes: '24x24',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-30.png',
-      sizes: '30x30',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-32.png',
-      sizes: '32x32',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-36.png',
-      sizes: '36x36',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-40.png',
-      sizes: '40x40',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-44.png',
-      sizes: '44x44',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-48.png',
-      sizes: '48x48',
-    },
-    {
-      src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-60.png',
-      sizes: '60x60',
     },
     {
       src: 'windows11/Square44x44Logo.altform-lightunplated_targetsize-64.png',
@@ -358,42 +246,6 @@ const manifest: Partial<ManifestOptions> = {
       sizes: '48x48',
     },
     {
-      src: 'ios/16.png',
-      sizes: '16x16',
-    },
-    {
-      src: 'ios/20.png',
-      sizes: '20x20',
-    },
-    {
-      src: 'ios/29.png',
-      sizes: '29x29',
-    },
-    {
-      src: 'ios/32.png',
-      sizes: '32x32',
-    },
-    {
-      src: 'ios/40.png',
-      sizes: '40x40',
-    },
-    {
-      src: 'ios/50.png',
-      sizes: '50x50',
-    },
-    {
-      src: 'ios/57.png',
-      sizes: '57x57',
-    },
-    {
-      src: 'ios/58.png',
-      sizes: '58x58',
-    },
-    {
-      src: 'ios/60.png',
-      sizes: '60x60',
-    },
-    {
       src: 'ios/64.png',
       sizes: '64x64',
     },
@@ -402,28 +254,8 @@ const manifest: Partial<ManifestOptions> = {
       sizes: '72x72',
     },
     {
-      src: 'ios/76.png',
-      sizes: '76x76',
-    },
-    {
       src: 'ios/80.png',
       sizes: '80x80',
-    },
-    {
-      src: 'ios/87.png',
-      sizes: '87x87',
-    },
-    {
-      src: 'ios/100.png',
-      sizes: '100x100',
-    },
-    {
-      src: 'ios/114.png',
-      sizes: '114x114',
-    },
-    {
-      src: 'ios/120.png',
-      sizes: '120x120',
     },
     {
       src: 'ios/128.png',
@@ -432,22 +264,6 @@ const manifest: Partial<ManifestOptions> = {
     {
       src: 'ios/144.png',
       sizes: '144x144',
-    },
-    {
-      src: 'ios/152.png',
-      sizes: '152x152',
-    },
-    {
-      src: 'ios/167.png',
-      sizes: '167x167',
-    },
-    {
-      src: 'ios/180.png',
-      sizes: '180x180',
-    },
-    {
-      src: 'ios/192.png',
-      sizes: '192x192',
     },
     {
       src: 'ios/256.png',

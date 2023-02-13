@@ -47,13 +47,13 @@ export const syncStaticData = async (): Promise<void> => {
     return false;
   });
 
-  if (yearsToSave.length > 1) {
+  if (yearsToSave.length > 0) {
     void db.years.bulkPut(yearsToSave);
   }
-  if (gradesToSave.length > 1) {
+  if (gradesToSave.length > 0) {
     void db.grades.bulkPut(gradesToSave);
   }
-  if (subjectsToSave.length > 1) {
+  if (subjectsToSave.length > 0) {
     void db.subjects.bulkPut(subjectsToSave);
   }
 };

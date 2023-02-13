@@ -49,6 +49,7 @@ const Students: Component = () => {
             href={`/class/${classStore.class!.id}/add_from_xls`}
             colorScheme="neutral"
             size="sm"
+            display={{ '@initial': 'none', '@md': 'flex' }}
             variant="outline"
             rightIcon={<XLS w="$6" h="$6" />}
             onClick={copyModal.enable}
