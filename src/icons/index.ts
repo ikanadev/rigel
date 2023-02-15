@@ -29,5 +29,6 @@ export { default as ClipboardDocumentListMini } from './ClipboardDocumentListMin
 export { default as ClipboardDocumentCheckMini } from './ClipboardDocumentCheckMini';
 
 export { default as Telegram } from './Telegram';
+export { default as Whatsapp } from './Whatsapp';
 export { default as Gmail } from './Gmail';
 export { default as XLS } from './XLS';
