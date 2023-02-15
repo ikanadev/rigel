@@ -8,6 +8,7 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
+  IconButton,
   Divider,
   Heading,
   Flex,
@@ -25,6 +26,8 @@ import {
   Cog6Mini,
   ClipboardDocumentCheckMini,
   ClipboardDocumentListMini,
+  Telegram,
+  Whatsapp,
 } from '@app/icons';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal } from '@app/components';
@@ -34,7 +37,7 @@ import ContactModal from './ContactModal';
 import LogoutModal from './LogoutModal';
 import SettingsModal from './SettingsModal';
 
-import { APP_VERSION, APP_NAME } from '@app/utils/constants';
+import { APP_VERSION, APP_NAME, LANDING_PAGE } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
@@ -95,7 +98,7 @@ const Drawer: Component<Props> = (props) => {
         <DrawerOverlay />
         <DrawerContent>
           <DrawerCloseButton />
-          <DrawerHeader>
+          <DrawerHeader pb={0}>
             <Heading color="$primary9" size="xl" fontWeight="$bold">
               {APP_NAME}
             </Heading>
@@ -111,6 +114,45 @@ const Drawer: Component<Props> = (props) => {
                 </Text>
               }
             >
+              <Flex justifyContent="end" alignItems="center" gap="$2" mb="$2">
+                <Text size="sm">Compartir por:</Text>
+                <IconButton
+                  as="a"
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `${LANDING_PAGE}/class/${classStore.class!.id}\n${classStore.class!.subject.name
+                    } - ${classStore.class!.grade.name
+                    }, Par. ${classStore.class!.parallel}`,
+                  )
+                    }`}
+                  target="_blank"
+                  rel="noreferrer"
+                  compact
+                  variant="outline"
+                  colorScheme="neutral"
+                  aria-label="Compartir por Whatsapp"
+                  icon={<Whatsapp color="#25d366" w="$5" h="$5" />}
+                />
+                <IconButton
+                  as="a"
+                  href={
+                    `https://t.me/share/url?url=${encodeURIComponent(`${LANDING_PAGE}/class/${classStore.class!.id}`)
+                    }&text=${encodeURIComponent(`${classStore.class!.subject.name} - ${classStore.class!.grade.name}, Par. ${classStore.class!.parallel}`)
+                    }`
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                  compact
+                  variant="outline"
+                  colorScheme="neutral"
+                  aria-label="Compartir por Telegram"
+                  icon={<Telegram w="$5" h="$5" />}
+                />
+                <Button compact variant="outline" colorScheme="neutral" fontSize="$xs" onClick={() => {
+                  void navigator.clipboard.writeText(`${LANDING_PAGE}/class/${classStore.class!.id}`);
+                }}>
+                  Copiar URL
+                </Button>
+              </Flex>
               <Text size="base" fontWeight="$semibold">{classStore.class!.subject.name}</Text>
               <Flex justifyContent="space-between" alignItems="start" flexWrap="wrap">
                 <Text size="sm">{classStore.class!.grade.name}</Text>
