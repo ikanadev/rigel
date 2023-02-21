@@ -28,17 +28,27 @@ const Profile = () => {
   const hasPremium = profile.subscriptions.some((sub) => sub.year.value === thisYear);
   return (
     <Box>
-      <Modal opened={infoModal.isActive()} onClose={infoModal.disable} size="xs">
+      <Modal opened={infoModal.isActive()} onClose={infoModal.disable} size="sm">
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />
           <ModalHeader>Adquirir Premium</ModalHeader>
-          <ModalBody>
-            <Heading textAlign="center" color="$primary10" size="xl" fontWeight="$semibold">
+          <ModalBody mb="$4">
+            <Heading textAlign="center" color="$primary10" size="2xl" fontWeight="$semibold">
               {APP_NAME}
             </Heading>
-            <Text ml="$1">Encuentra las instrucciones para obtener {APP_NAME} premium en el{' '}
-              <Anchor href={TELEGRAM_LINK} textDecoration="underline" fontWeight={500} color="$primary10">
+            <Flex justifyContent="center">
+              <Plan premium />
+            </Flex>
+            <Text mt="$4">Encuentra las instrucciones para obtener {APP_NAME} premium en el{' '}
+              <Anchor
+                href={TELEGRAM_LINK}
+                textDecoration="underline"
+                fontWeight={500}
+                color="$primary10"
+                target="_blank"
+                rel="noreferrer"
+              >
                 canal de Telegram
               </Anchor>
             </Text>
@@ -62,16 +72,16 @@ const Profile = () => {
         <Show
           when={!hasPremium}
           fallback={
-            <Text textAlign="center" fontWeight={300} mt="$8">
-              Gracias por comprar la versi&oacute;n Premium.
+            <Text textAlign="center" fontWeight={300} mt="$8" color="$neutral10">
+              Gracias por adquirir la versi&oacute;n Premium.
             </Text>
           }
         >
           <Text textAlign="center" fontWeight={300} mt="$8">
             ¿Necesitas más de {STANDARD_MAX_CLASSES} materias?. ¡Activa el plan premium!.
           </Text>
-          <Flex justifyContent="end">
-            <Button size="md" mt="$2" colorScheme="success" compact>
+          <Flex justifyContent="center">
+            <Button size="md" mt="$2" colorScheme="success" onClick={infoModal.enable}>
               Activar Premium
             </Button>
           </Flex>
