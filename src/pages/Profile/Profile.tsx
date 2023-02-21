@@ -16,16 +16,15 @@ import {
 import { User } from '@app/icons';
 import { Title, Plan } from '@app/components';
 
-import booleanSignal from '@app/hooks/booleanSignal';
+import { booleanSignal, isPremium } from '@app/hooks';
 import { useAppData } from '@app/context';
 import { STANDARD_MAX_CLASSES, APP_NAME, TELEGRAM_LINK } from '@app/utils/constants';
-import dayjs from 'dayjs';
 
 const Profile = () => {
+  const premium = isPremium();
   const infoModal = booleanSignal(false);
   const { profile } = useAppData();
-  const thisYear = dayjs().get('year');
-  const hasPremium = profile.subscriptions.some((sub) => sub.year.value === thisYear);
+
   return (
     <Box>
       <Modal opened={infoModal.isActive()} onClose={infoModal.disable} size="sm">
@@ -67,10 +66,10 @@ const Profile = () => {
           {profile.email}
         </Text>
         <Text textAlign="center" fontSize="$lg">
-          <Plan premium={hasPremium} />
+          <Plan premium={premium} />
         </Text>
         <Show
-          when={!hasPremium}
+          when={!premium}
           fallback={
             <Text textAlign="center" fontWeight={300} mt="$8" color="$neutral10">
               Gracias por adquirir la versi&oacute;n Premium.
