@@ -21,6 +21,7 @@ import { getDepartamentos, getProvincias, getMunicipios, getSchools, newClass } 
 import { syncClasses } from '@app/db/class';
 import { useAppData } from '@app/context';
 import { isOnline } from '@app/hooks';
+import { getErrorMsg } from '@app/utils/functions';
 import { db } from '@app/db/dexie';
 
 interface FormData {
@@ -37,6 +38,7 @@ const NewClass: Component = () => {
   const navigate = useNavigate();
   const { year } = useAppData();
   const [serverErr, setServerErr] = createSignal('');
+  const [limitErr, setLimitErr] = createSignal('');
   const [formData, setFormData] = createStore<FormData>({
     dpto: null,
     prov: null,
@@ -90,8 +92,11 @@ const NewClass: Component = () => {
     }).then((resp) => {
       void syncClasses(resp);
       navigate('/');
-    }).catch(() => {
-      setServerErr('Error guardando clase en el servidor, por favor cierre la WebApp e intente nuevamente.');
+    }).catch((err) => {
+      console.log(err);
+      getErrorMsg(err).then(setLimitErr).catch(() => {
+        setServerErr('Error guardando clase en el servidor, por favor cierre la WebApp e intente nuevamente.');
+      });
     });
   };
 
@@ -103,8 +108,9 @@ const NewClass: Component = () => {
           Luego de crear una materia podrá registrar estudiantes, controlar asistencia, actividades y notas.
         </Text>
         <Alert status="danger" title="Error inesperado!" text={serverErr()} setText={setServerErr} />
+        <Alert status="warning" title="Limite alcanzado" text={limitErr()} setText={setLimitErr} />
         <form onSubmit={handleSubmit}>
-          <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@lg': 3 }} rowGap="$4" columnGap="$4">
+          <SimpleGrid columns={{ '@initial': 1, '@md': 2, '@lg': 3 }} rowGap="$4" columnGap="$4" mt="$2">
 
             <Box>
               <Text size="sm" mb="$1">Departamento:</Text>
