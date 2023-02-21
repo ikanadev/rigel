@@ -2,6 +2,7 @@ export { default as Logo } from './Logo';
 export { default as Moon } from './Moon';
 export { default as Sun } from './Sun';
 export { default as Plus } from './Plus';
+export { default as User } from './User';
 export { default as Bars3 } from './Bars3';
 export { default as Pencil } from './Pencil';
 export { default as Trash } from './Trash';
