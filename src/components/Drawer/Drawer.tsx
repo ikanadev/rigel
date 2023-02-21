@@ -28,6 +28,7 @@ import {
   ClipboardDocumentListMini,
   Telegram,
   Whatsapp,
+  User,
 } from '@app/icons';
 import { Show } from 'solid-js';
 import { StartPeriodModal, FinishPeriodModal } from '@app/components';
@@ -263,6 +264,14 @@ const Drawer: Component<Props> = (props) => {
               >
                 Mis materias
               </Button>
+              <LinkButton
+                text="Mi perfil"
+                colorScheme="neutral"
+                // eslint-disable-next-line solid/reactivity
+                onClick={props.onClose}
+                icon={<User w={20} h={20} />}
+                href="/profile"
+              />
               <Button
                 onClick={openSettings}
                 compact

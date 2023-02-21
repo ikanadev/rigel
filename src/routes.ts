@@ -1,6 +1,7 @@
 import type { RouteDefinition } from '@solidjs/router';
 
 import Home from '@app/pages/Home';
+import Profile from '@app/pages/Profile';
 import SignIn from '@app/pages/SignIn';
 import SignUp from '@app/pages/SignUp';
 import Classes from '@app/pages/Classes';
@@ -22,6 +23,7 @@ const routes: RouteDefinition[] = [
     component: Home,
     children: [
       { path: '/', component: Classes },
+      { path: '/profile', component: Profile },
       { path: '/class/new', component: NewClass },
       {
         path: '/class/:classid',
