@@ -18,6 +18,7 @@ export { default as BarsArrowDown } from './BarsArrowDown';
 
 export { default as WarningOutline } from './WarningOutline';
 
+export { default as StarMini } from './StarMini';
 export { default as UsersMini } from './UsersMini';
 export { default as Cog6Mini } from './Cog6Mini';
 export { default as CheckCircleMini } from './CheckCircleMini';
