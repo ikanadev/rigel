@@ -31,7 +31,7 @@ import {
   User,
 } from '@app/icons';
 import { Show } from 'solid-js';
-import { StartPeriodModal, FinishPeriodModal } from '@app/components';
+import { StartPeriodModal, FinishPeriodModal, Plan } from '@app/components';
 import LinkButton from './LinkButton';
 import AboutModal from './AboutModal';
 import ContactModal from './ContactModal';
@@ -42,6 +42,7 @@ import { APP_VERSION, APP_NAME, LANDING_PAGE } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
 import { useAppData } from '@app/context';
 import { booleanSignal } from '@app/hooks';
+import dayjs from 'dayjs';
 
 interface Props {
   isOpen: boolean
@@ -56,7 +57,10 @@ const Drawer: Component<Props> = (props) => {
   const settingsModal = booleanSignal();
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
-  const { classStore, actions: { setSelectedClass } } = useAppData();
+  const { classStore, year, profile, actions: { setSelectedClass } } = useAppData();
+
+  const thisYear = dayjs().get('y');
+  const isPremium = profile.subscriptions.some((s) => s.year.value === thisYear);
 
   const openLogout = () => {
     props.onClose();
@@ -100,23 +104,29 @@ const Drawer: Component<Props> = (props) => {
         <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader pb={0}>
-            <Heading color="$primary9" size="xl" fontWeight="$bold">
-              {APP_NAME}
-            </Heading>
+            <Flex justifyContent="space-between" alignItems="start" pr="$10">
+              <Heading color="$primary9" size="xl" fontWeight="$bold">
+                {APP_NAME} - {year.value}
+              </Heading>
+              <Plan premium={isPremium} />
+            </Flex>
             <Divider mt="$2" />
           </DrawerHeader>
 
           <DrawerBody>
+            <Text fontWeight={500} fontSize="$lg" textAlign="right" mb="$5">
+              {profile.name} {profile.last_name}
+            </Text>
             <Show
               when={classStore.class !== null}
               fallback={
                 <Text fontStyle="italic" color="$neutral11" fontSize="$sm" my="$4">
-                  Ninguna materia seleccionada
+                  Seleccione una materia para administrar
                 </Text>
               }
             >
-              <Flex justifyContent="end" alignItems="center" gap="$2" mb="$2">
-                <Text size="sm">Compartir por:</Text>
+              <Flex justifyContent="end" alignItems="center" gap="$2">
+                <Text size="sm">Compartir planilla:</Text>
                 <IconButton
                   as="a"
                   href={`https://wa.me/?text=${encodeURIComponent(
@@ -172,7 +182,7 @@ const Drawer: Component<Props> = (props) => {
                   fallback={
                     <Button
                       compact
-                      size="sm"
+                      size="md"
                       colorScheme="neutral"
                       variant="subtle"
                       onClick={() => {
@@ -185,7 +195,7 @@ const Drawer: Component<Props> = (props) => {
                   }
                 >
                   <Button
-                    size="sm"
+                    size="md"
                     colorScheme="success"
                     variant="subtle"
                     compact
