@@ -41,8 +41,7 @@ import SettingsModal from './SettingsModal';
 import { APP_VERSION, APP_NAME, LANDING_PAGE } from '@app/utils/constants';
 import { useNavigate } from '@solidjs/router';
 import { useAppData } from '@app/context';
-import { booleanSignal } from '@app/hooks';
-import dayjs from 'dayjs';
+import { booleanSignal, isPremium } from '@app/hooks';
 
 interface Props {
   isOpen: boolean
@@ -50,6 +49,7 @@ interface Props {
 }
 
 const Drawer: Component<Props> = (props) => {
+  const premium = isPremium();
   const navigate = useNavigate();
   const aboutModal = booleanSignal();
   const logoutModal = booleanSignal();
@@ -58,9 +58,6 @@ const Drawer: Component<Props> = (props) => {
   const newPeriodModal = booleanSignal();
   const finishPeriodModal = booleanSignal();
   const { classStore, year, profile, actions: { setSelectedClass } } = useAppData();
-
-  const thisYear = dayjs().get('y');
-  const isPremium = profile.subscriptions.some((s) => s.year.value === thisYear);
 
   const openLogout = () => {
     props.onClose();
@@ -108,7 +105,7 @@ const Drawer: Component<Props> = (props) => {
               <Heading color="$primary9" size="xl" fontWeight="$bold">
                 {APP_NAME} - {year.value}
               </Heading>
-              <Plan premium={isPremium} />
+              <Plan premium={premium} />
             </Flex>
             <Divider mt="$2" />
           </DrawerHeader>
