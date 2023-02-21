@@ -4,7 +4,6 @@ import { API_URL } from '@app/utils/constants';
 import { getToken } from '@app/utils/functions';
 
 import type {
-  Teacher,
   YearData,
   Grade,
   Subject,
@@ -15,6 +14,7 @@ import type {
   School,
   AppError,
   XMLData,
+  TeacherProfile,
 } from '@app/types';
 
 interface SignUpReq {
@@ -32,11 +32,16 @@ interface SignInReq {
   password: string
 }
 interface SignInRes {
-  teacher: Teacher
+  teacher: TeacherProfile
   jwt: string
 }
 export const signIn = async (data: SignInReq): Promise<SignInRes> => {
   const resp = await api.post('signin', { json: data });
+  return await resp.json();
+};
+
+export const getProfile = async (): Promise<TeacherProfile> => {
+  const resp = await api.get('auth/profile');
   return await resp.json();
 };
 
