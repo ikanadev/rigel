@@ -14,7 +14,7 @@ import {
 } from '@app/utils/constants';
 import { fetchAndSyncClasses } from '@app/db/class';
 
-const getEmptyYearData = (): YearData => ({
+export const getEmptyYearData = (): YearData => ({
   id: '',
   value: 0,
   periods: [],
