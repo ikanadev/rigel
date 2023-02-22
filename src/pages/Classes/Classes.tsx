@@ -26,7 +26,7 @@ const Classes: Component = () => {
 
   createEffect(() => {
     if (classStore.class !== null) {
-      navigate(`/class/${classStore.class.id}/attendance`);
+      navigate(`/class/${classStore.class.id}/activities`);
     }
   });
 
