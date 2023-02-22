@@ -10,6 +10,7 @@ export const APP_NAME = 'Auleca';
 export const MAX_CLASSES_STANDARD = 4;
 export const MAX_CLASSES_PREMIUM = 20;
 export const TELEGRAM_LINK = 'https://t.me/auleca';
+export const APP_EMAIL = 'aulecabo@gmail.com';
 export const LANDING_PAGE = 'https://auleca.com';
 export const SET_DATA_MSG = 'SET_DATA_MSG';
 export const SYNC_DATA_MSG = 'SYNC_DATA_MSG';
