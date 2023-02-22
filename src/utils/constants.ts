@@ -5,7 +5,7 @@ export const DB_NAME = 'AULECA_LOCAL';
 export const DB_VERSION = 20;
 
 // App constants
-export const APP_VERSION = 'v0.9.6';
+export const APP_VERSION = 'v1.0.0';
 export const APP_NAME = 'Auleca';
 export const MAX_CLASSES_STANDARD = 4;
 export const MAX_CLASSES_PREMIUM = 20;
