@@ -107,7 +107,7 @@ const Attendance: Component = () => {
                         fallback={
                           <Show when={index() === 0}>
                             <Td rowSpan={students.length}>
-                              <Flex justifyContent="center" alignItems="center" flexDirection="column">
+                              <Flex justifyContent="start" alignItems="center" flexDirection="column">
                                 <Text color="$neutral10" fontStyle="italic" textAlign="center" mb="$2">
                                   Hoy no se ha tomado asistencia.
                                 </Text>

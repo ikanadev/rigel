@@ -12,6 +12,8 @@ import {
 } from '@hope-ui/solid';
 import { Gmail, Telegram } from '@app/icons';
 
+import { TELEGRAM_LINK, APP_EMAIL } from '@app/utils/constants';
+
 interface Props {
   isOpen: boolean
   onClose: () => void
@@ -27,14 +29,14 @@ const ContactModal: Component<Props> = (props) => {
         <ModalBody>
           <Text size="sm" fontFamily="$mono">
             👋{' '}
-            Hola, soy Kevin, el desarrollador de la WebApp, si tienes algún problema, duda o sugerencia, puedes contactarme por:
+            Hola, puedes contactarte con nosotros a través del canal de Telegram o por Gmail:
           </Text>
           <Flex flexDirection="column" alignItems="center" gap="$4" my="$4">
-            <Anchor target="_blank" href="https://t.me/vmkevv" display="flex" alignItems="end">
+            <Anchor target="_blank" href={TELEGRAM_LINK} display="flex" alignItems="end">
               <Telegram w="$6" h="$6" />
               <Text ml="$1_5" textDecoration="underline">Telegram</Text>
             </Anchor>
-            <Anchor target="_blank" href="mailto:vargaskevv@gmail.com" display="flex" alignItems="end">
+            <Anchor target="_blank" href={`mailto:${APP_EMAIL}`} display="flex" alignItems="end">
               <Gmail w="$6" h="$6" />
               <Text ml="$1_5" textDecoration="underline">Gmail</Text>
             </Anchor>
