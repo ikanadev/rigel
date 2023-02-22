@@ -7,7 +7,7 @@ import { syncScores, downloadAndSyncScores } from './scores';
 import useStore from './store';
 import { log } from '@app/utils/functions';
 
-const syncInterval = 1000 * 60; // 60 seconds
+const syncInterval = 1000 * 30; // 30 seconds
 
 export const setData = (jwt: string, yearId: string) => {
   const { setToken, setYear } = useStore;

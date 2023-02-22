@@ -80,7 +80,7 @@ const LogoutModal: Component<Props> = (props) => {
             <Show when={missingTxs() > 0}>
               <Alert
                 status="warning"
-                text={`Hay ${missingTxs()} operaciones no almacenadas, conéctate a Internet para guardarlas. (Los guardados se realizan cada minuto).`}
+                text={`Hay ${missingTxs()} operaciones no almacenadas, conéctate a Internet para guardarlas. (Los guardados se realizan cada 30 segundos).`}
               />
             </Show>
           </Flex>
