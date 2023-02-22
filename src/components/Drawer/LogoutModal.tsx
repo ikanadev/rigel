@@ -76,16 +76,8 @@ const LogoutModal: Component<Props> = (props) => {
         <ModalCloseButton />
         <ModalHeader>Confirmar cierre de sesión</ModalHeader>
         <ModalBody>
-          <Text my="$2">
-            Al momento de cerrar sesión, se perderán todas las operaciones no guardadas en la nube, y necesitará conexión a Internet para iniciar sessión de nuevo.
-          </Text>
           <Flex my="$4">
-            <Show
-              when={missingTxs() > 0}
-              fallback={
-                <Alert status="info" text="Todas las operaciones han sido almacenadas, es seguro cerrar sesión." />
-              }
-            >
+            <Show when={missingTxs() > 0}>
               <Alert
                 status="warning"
                 text={`Hay ${missingTxs()} operaciones no almacenadas, conéctate a Internet para guardarlas. (Los guardados se realizan cada minuto).`}
