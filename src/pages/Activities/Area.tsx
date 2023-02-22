@@ -23,9 +23,7 @@ const Area: Component<Props> = (props) => {
       <Show
         when={activities.length > 0}
         fallback={
-          <Text color="$neutral11" fontStyle="italic">
-            {`Sin actividades en ${props.area.name}`}
-          </Text>
+          <Text color="$neutral11" fontStyle="italic">Sin actividades</Text>
         }
       >
         <For each={activities}>{(activity) => (
