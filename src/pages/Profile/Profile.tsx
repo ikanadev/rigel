@@ -18,7 +18,7 @@ import { Title, Plan } from '@app/components';
 
 import { booleanSignal, isPremium } from '@app/hooks';
 import { useAppData } from '@app/context';
-import { STANDARD_MAX_CLASSES, APP_NAME, TELEGRAM_LINK } from '@app/utils/constants';
+import { MAX_CLASSES_STANDARD, APP_NAME, TELEGRAM_LINK } from '@app/utils/constants';
 
 const Profile = () => {
   const premium = isPremium();
@@ -77,7 +77,7 @@ const Profile = () => {
           }
         >
           <Text textAlign="center" fontWeight={300} mt="$8">
-            ¿Necesitas más de {STANDARD_MAX_CLASSES} materias?. ¡Activa el plan premium!.
+            ¿Necesitas más de {MAX_CLASSES_STANDARD} materias?. ¡Activa el plan premium!.
           </Text>
           <Flex justifyContent="center">
             <Button size="md" mt="$2" colorScheme="success" onClick={infoModal.enable}>

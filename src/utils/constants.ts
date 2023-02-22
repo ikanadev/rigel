@@ -7,8 +7,8 @@ export const DB_VERSION = 20;
 // App constants
 export const APP_VERSION = 'v0.9.6';
 export const APP_NAME = 'Auleca';
-export const STANDARD_MAX_CLASSES = 4;
-export const PREMIUM_MAX_CLASSES = 20;
+export const MAX_CLASSES_STANDARD = 4;
+export const MAX_CLASSES_PREMIUM = 20;
 export const TELEGRAM_LINK = 'https://t.me/auleca';
 export const LANDING_PAGE = 'https://auleca.com';
 export const SET_DATA_MSG = 'SET_DATA_MSG';
