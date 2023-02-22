@@ -73,7 +73,7 @@ const StartPeriodModal: Component<Props> = (props) => {
               </For>
             </SimpleSelect>
             <Text size="sm" mt="$2">
-              Un periodo (trimestre, bimestre, etc.) representa un lapso en el cual se realizan actividades, se toma asistencia y se obtiene una nota final.
+              Un periodo es un trimestre o bimestre dependiendo de la gesti&oacute;n.
             </Text>
           </Flex>
         </ModalBody>

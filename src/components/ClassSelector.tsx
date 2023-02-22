@@ -29,6 +29,7 @@ const ClassSelector: Component = () => {
   // these routes don't need a class selector
   const matchEditStudent = useMatch(() => '/class/:classid/student/:studentid/edit');
   const matchActivity = useMatch(() => '/class/:classid/activity/:activityid');
+  const matchProfile = useMatch(() => '/profile');
 
   const handleChange = (classId: string) => {
     if (classStore.class === null) return;
@@ -39,7 +40,14 @@ const ClassSelector: Component = () => {
   };
 
   return (
-    <Show when={classStore.class !== null && matchEditStudent() === null && matchActivity() === null}>
+    <Show
+      when={
+        classStore.class !== null &&
+        matchEditStudent() === null &&
+        matchActivity() === null &&
+        matchProfile() === null
+      }
+    >
       <Select onChange={handleChange} value={classStore.class!.id}>
         <SelectTrigger border="none" py="$0_5" px="$2">
           <Flex flexDirection="column" minW="$60">

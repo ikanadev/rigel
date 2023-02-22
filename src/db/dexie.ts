@@ -1,5 +1,5 @@
 import type {
-  Teacher,
+  TeacherProfile,
   YearData,
   Subject,
   Grade,
@@ -23,7 +23,7 @@ import Dexie from 'dexie';
 import { DB_NAME, DB_VERSION } from '@app/utils/constants';
 
 class AulecaStore extends Dexie {
-  teachers!: Dexie.Table<Teacher, string>;
+  teachers!: Dexie.Table<TeacherProfile, string>;
   subjects!: Dexie.Table<Subject, string>;
   grades!: Dexie.Table<Grade, string>;
   years!: Dexie.Table<YearData, string>;

@@ -1,12 +1,14 @@
-import type { YearData, ClassData } from '@app/types';
+import type { YearData, ClassData, TeacherProfile } from '@app/types';
 
-import { createContext, useContext, createEffect, ParentComponent } from 'solid-js';
+import { createContext, useContext, createEffect, Show, ParentComponent } from 'solid-js';
 import { log } from '@app/utils/functions';
 import useClassStore, { ClassStore } from './useSelectedClass';
-import useYearData from './useYearData';
+import useYearData, { getEmptyYearData } from './useYearData';
+import useProfile, { getEmptyProfile } from './useProfile';
 
 interface AppContextData {
   year: YearData
+  profile: TeacherProfile
   classStore: ClassStore
 }
 interface AppContextActions {
@@ -18,12 +20,8 @@ interface AppContextState extends AppContextData {
 }
 
 const AppContext = createContext<AppContextState>({
-  year: {
-    id: '',
-    value: 0,
-    periods: [],
-    areas: [],
-  },
+  year: getEmptyYearData(),
+  profile: getEmptyProfile(),
   classStore: {
     class: null,
     classPeriod: null,
@@ -36,6 +34,7 @@ const AppContext = createContext<AppContextState>({
 
 export const AppProvider: ParentComponent = (props) => {
   const { classStore, setSelectedClass, clearClassStore } = useClassStore();
+  const { profile, clearProfile } = useProfile();
   const { yearData, clearYearData } = useYearData();
 
   createEffect(() => {
@@ -46,24 +45,32 @@ export const AppProvider: ParentComponent = (props) => {
     log(JSON.parse(JSON.stringify({
       year: yearData,
       classStore,
+      profile,
     })));
   });
 
   const clearAll = () => {
     clearClassStore();
     clearYearData();
+    clearProfile();
   };
 
   return (
     <AppContext.Provider value={{
       year: yearData,
+      profile,
       classStore,
       actions: {
         setSelectedClass,
         clearAll,
       },
     }}>
-      {props.children}
+      <Show
+        when={yearData.value !== 0 && profile.id !== ''}
+        fallback={<p>Cargando...</p>}
+      >
+        {props.children}
+      </Show>
     </AppContext.Provider>
   );
 };

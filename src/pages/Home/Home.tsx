@@ -8,6 +8,7 @@ import { AppProvider } from '@app/context';
 import { useNavigate, Outlet } from '@solidjs/router';
 import { syncStaticData } from '@app/db/static';
 import { sendAppErrorsToServer } from '@app/db/appErrors';
+import { syncProfile } from '@app/db/teacher';
 import { JWT_KEY } from '@app/utils/constants';
 
 const Home: Component = () => {
@@ -22,6 +23,7 @@ const Home: Component = () => {
       navigate('/signin');
       return;
     }
+    void syncProfile();
     void syncStaticData();
     void sendAppErrorsToServer();
   });

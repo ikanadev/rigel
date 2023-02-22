@@ -1,6 +1,12 @@
 import type { JSX } from 'solid-js';
 
 // Simple entities
+export interface Subscription {
+  id: string
+  method: string
+  qtty: number
+  date: number
+}
 export interface Municipio {
   id: string
   name: string
@@ -52,6 +58,14 @@ export interface Class {
 }
 
 // composed entities
+export interface SubWithYear extends Subscription {
+  year: Year
+}
+
+export interface TeacherProfile extends Teacher {
+  subscriptions: SubWithYear[]
+}
+
 export interface YearData extends Year {
   periods: Period[]
   areas: Area[]
