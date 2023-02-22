@@ -93,7 +93,6 @@ const NewClass: Component = () => {
       void syncClasses(resp);
       navigate('/');
     }).catch((err) => {
-      console.log(err);
       getErrorMsg(err).then(setLimitErr).catch(() => {
         setServerErr('Error guardando clase en el servidor, por favor cierre la WebApp e intente nuevamente.');
       });
