@@ -1,7 +1,7 @@
 import type { Component, JSX } from 'solid-js';
 import type { InputState, FormSubmitHandler } from '@app/types';
 
-import { Show, createSignal } from 'solid-js';
+import { Show, createSignal, createEffect } from 'solid-js';
 import {
   Container,
   Flex,
@@ -17,7 +17,7 @@ import { ColorModeButton, Alert } from '@app/components';
 
 import { errorSignal, isOnline } from '@app/hooks';
 import { createStore } from 'solid-js/store';
-import { useNavigate, Link } from '@solidjs/router';
+import { useNavigate, useSearchParams, Link } from '@solidjs/router';
 import { nonEmptyValidator, emailValidator, minLenValidator, getErrorMsg } from '@app/utils/functions';
 import { JWT_KEY } from '@app/utils/constants';
 import { signIn } from '@app/api';
@@ -36,6 +36,8 @@ const emptyField: () => InputState = () => ({ value: '', errorMsg: '', isTouched
 const SignIn: Component = () => {
   const { reportError } = errorSignal;
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  const [signUpMsg, setSignUpMsg] = createSignal('');
   const [serverErr, setServerErr] = createSignal('');
   const [isLoading, setIsLoading] = createSignal(false);
   const [formData, setFormData] = createStore<FormData>({
@@ -94,6 +96,12 @@ const SignIn: Component = () => {
     });
   };
 
+  createEffect(() => {
+    if (params.signup !== undefined) {
+      setSignUpMsg('Cuenta creada, ahora puede iniciar sesión.');
+    }
+  });
+
   return (
     <Container p="$4" pos="relative">
       <Box pos="absolute" top="$3" right="$3">
@@ -118,7 +126,8 @@ const SignIn: Component = () => {
             <Heading level="3" size="xl" color="$primary9" mb="$4">
               Iniciar sesión:
             </Heading>
-            <Text color="$danger10" size="sm" textAlign="center">{serverErr()}</Text>
+            <Alert text={signUpMsg()} status="success" setText={setSignUpMsg} />
+            <Alert text={serverErr()} status="warning" setText={setServerErr} />
             <Input
               onInput={onChange}
               value={formData.email.value}
