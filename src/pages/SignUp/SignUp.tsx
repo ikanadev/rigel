@@ -82,7 +82,7 @@ const SignUp: Component = () => {
       email: formData.email.value,
       password: formData.password.value,
     }).then(() => {
-      navigate('/signin');
+      navigate('/signin?signup=success');
     }).catch((err) => {
       getErrorMsg(err).then((msg) => {
         setServerErr(msg);
