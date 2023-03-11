@@ -82,7 +82,7 @@ const NewActivityModal: Component<Props> = (props) => {
   };
 
   return (
-    <Modal centered opened={props.isOpen} onClose={() => props.onClose()} size="md">
+    <Modal opened={props.isOpen} onClose={() => props.onClose()} size="md">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />

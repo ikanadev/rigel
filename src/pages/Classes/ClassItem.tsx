@@ -10,7 +10,7 @@ const ClassItem: Component<{ item: ClassData }> = (props) => {
   const { actions: { setSelectedClass } } = useAppData();
   return (
     <Link
-      href={`/class/${props.item.id}/attendance`}
+      href={`/class/${props.item.id}/activities`}
       onClick={() => setSelectedClass(props.item)}
     >
       <Flex
