@@ -1,4 +1,4 @@
-import Worker from '@app/worker?worker';
+import Worker from "@app/worker?worker";
 
 const worker = new Worker();
 

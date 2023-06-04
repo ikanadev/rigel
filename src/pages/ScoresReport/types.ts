@@ -1,21 +1,21 @@
-import { Student, Score, ClassPeriod, Area, Activity } from '@app/types';
+import { Student, Score, ClassPeriod, Area, Activity } from "@app/types";
 
 interface AreaWithActs extends Area {
-  acts: Activity[]
+	acts: Activity[];
 }
 export interface ClassPeriodWithActs extends ClassPeriod {
-  areas: AreaWithActs[]
+	areas: AreaWithActs[];
 }
 
 export interface StudentWithScores extends Student {
-  areaScores: number[][]
-  periodScores: number[]
-  yearScore: number
-  scoresMap: { [key: string]: Score }
+	areaScores: number[][];
+	periodScores: number[];
+	yearScore: number;
+	scoresMap: { [key: string]: Score };
 }
 
 export enum ViewMode {
-  Activity = 'Detallado',
-  Area = 'Notas por Área',
-  Period = 'Notas por Periodo',
+	Activity = "Detallado",
+	Area = "Notas por Área",
+	Period = "Notas por Periodo",
 }

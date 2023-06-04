@@ -1,9 +1,10 @@
 /* @refresh reload */
-import { render } from 'solid-js/web';
+import { render } from "solid-js/web";
 
-import App from './App';
+import App from "./App";
 
-render(
-  () => <App />,
-  document.querySelector('#app')!, // eslint-disable-line
-);
+const root = document.querySelector("#app");
+
+if (root) {
+	render(() => <App />, root);
+}
