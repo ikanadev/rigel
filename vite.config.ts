@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite';
 import { ManifestOptions, VitePWA } from 'vite-plugin-pwa';
 import solidPlugin from 'vite-plugin-solid';
-import eslint from 'vite-plugin-eslint';
 import path from 'path';
 
 const manifest: Partial<ManifestOptions> = {
@@ -304,7 +303,7 @@ export default defineConfig({
       '@app': path.resolve(__dirname, './src'),
     },
   },
-  plugins: [solidPlugin(), eslint(), pwaConfig],
+  plugins: [solidPlugin(), pwaConfig],
   server: {
     port: 3030,
   },
