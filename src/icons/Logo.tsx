@@ -21,9 +21,7 @@ const Logo: Component<IconProps> = (props) => {
 						offset="1"
 					/>
 				</linearGradient>
-				{/* @ts-expect-error */}
 				<linearGradient
-					href="#a"
 					id="b"
 					x1="132.4"
 					y1="56"
