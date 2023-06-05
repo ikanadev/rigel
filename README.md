@@ -24,3 +24,5 @@ password: testtest
 A subject: "Matematica" for "1ro de Secundaria". 
 
 A initialized period.
+
+The backend and front-end should be runing.
