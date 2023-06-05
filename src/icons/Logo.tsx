@@ -22,6 +22,8 @@ const Logo: Component<IconProps> = (props) => {
 					/>
 				</linearGradient>
 				<linearGradient
+          // @ts-ignore
+					href="#a"
 					id="b"
 					x1="132.4"
 					y1="56"
