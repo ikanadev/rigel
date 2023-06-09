@@ -1,18 +1,18 @@
-import type { Component } from 'solid-js';
+import type { Component } from "solid-js";
 
-import { Show } from 'solid-js';
-import { Outlet } from '@solidjs/router';
+import { Show } from "solid-js";
+import { Outlet } from "@solidjs/router";
 
-import { useAppData } from '@app/context';
+import { useAppData } from "@app/context";
 
 const Class: Component = () => {
-  const { classStore } = useAppData();
-  return (
-    // we ensure selected class exists in Class subroutes
-    <Show when={classStore.class !== null}>
-      <Outlet />
-    </Show>
-  );
+	const { classStore } = useAppData();
+	return (
+		// we ensure selected class exists in Class subroutes
+		<Show when={classStore.class !== null}>
+			<Outlet />
+		</Show>
+	);
 };
 
 export default Class;
