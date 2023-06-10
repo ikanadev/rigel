@@ -117,7 +117,7 @@ const SignUp: Component = () => {
 
 			<Flex flexDirection="column" mt="$16">
 				<Flex flexDirection="column" alignItems="center">
-					<Box maxW="$36" mb="$1" mr="$3">
+					<Box maxW="$28" mb="$1" mr="$3">
 						<Logo w="100%" h="100%" />
 					</Box>
 					<Heading level="1" size="4xl" color="$primary9">
@@ -200,8 +200,7 @@ const SignUp: Component = () => {
 							invalid={
 								formData.password.isTouched && formData.password.errorMsg !== ""
 							}
-							mt="$4"
-							mb="$8"
+							my="$4"
 							type="password"
 						/>
 						<Show
@@ -213,6 +212,18 @@ const SignUp: Component = () => {
 								{formData.password.errorMsg}
 							</Text>
 						</Show>
+						<Text color="$neutral11" size="sm" mb="$2">
+							Al registraste en Auleca, est&aacute;s aceptando nuestros{" "}
+							<Anchor
+								as={Link}
+								href="https://auleca.com/term_and_conditions"
+								target="_blank"
+								fontWeight="$bold"
+								color="$primary11"
+							>
+								t&eacute;rminos y condiciones de uso.
+							</Anchor>
+						</Text>
 						<Show
 							when={isOnline()}
 							fallback={
